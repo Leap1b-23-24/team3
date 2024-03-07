@@ -1,3 +1,9 @@
+import { SingleCardOfHomePage } from "@/components";
+
 export default function Home() {
-  return <div>dsaasdfjflks</div>;
+  return (
+    <div>
+      <SingleCardOfHomePage />
+    </div>
+  );
 }
