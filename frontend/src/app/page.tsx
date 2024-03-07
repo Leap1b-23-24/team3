@@ -1,3 +1,5 @@
 export default function Home() {
-  return <div></div>;
+  return (<>
+  <h1>blacvla</h1>
+  </>);
 }
