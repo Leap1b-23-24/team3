@@ -1,7 +1,7 @@
 export const SingleCardOfHomePage = () => {
   return (
     <div className="max-w-[235px] max-h-[416px] w-full h-full rounded-xl border border-[#ECEDF0]">
-      <img src="/Image.png" className="rounded-t-xl" />
+      <img src="/Image.svg" className="rounded-t-xl" />
 
       <div className="p-6">
         <div className="h-[116px]">
