@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { PropsWithChildren } from "react";
-// import { AuthProviders } from "@/components/Authproviders";
+import { Header } from "@/components/header";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,13 +10,14 @@ export const metadata: Metadata = {
   title: "E-commerce web",
 };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>
-        {/* <AuthProviders> */}
+      <body className="w-screen">
+        <Header></Header>
         {children}
-        {/* </AuthProviders> */}
       </body>
     </html>
   );
