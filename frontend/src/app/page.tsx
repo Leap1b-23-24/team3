@@ -1,6 +1,4 @@
-import { Footer, SingleCardOfHomePage } from "@/components";
 import Carousel from "@/components/Carousel";
-import { Header } from "@/components/header";
 
 export default function Home() {
   return (
