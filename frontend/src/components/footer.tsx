@@ -1,3 +1,7 @@
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+
 export const Footer = () => {
   return (
     <div className="bg-[#12A795]">
@@ -13,6 +17,11 @@ export const Footer = () => {
           <p className="underline text-white">Үйлчилгээний нөхцөл</p>
           <p className="underline text-white">Хүргэлтийн бүс</p>
           <p className="underline text-white">Нууцлалын бодлого</p>
+        </div>
+        <div className="flex gap-[20px] py-[20px]">
+          <FacebookIcon sx={{ fontSize: "40px", color: "white" }} />
+          <InstagramIcon sx={{ fontSize: "40px", color: "white" }} />
+          <TwitterIcon sx={{ fontSize: "40px", color: "white" }} />
         </div>
         <div className="flex flex-col gap-[10px] items-center">
           <p className="text-white">2024 Pinecone Ecommerse LLC</p>
