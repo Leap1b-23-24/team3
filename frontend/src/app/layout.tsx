@@ -15,10 +15,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="w-screen">
-        <Header></Header>
-        {children}
-      </body>
+      <body className="w-screen">{children}</body>
     </html>
   );
 }

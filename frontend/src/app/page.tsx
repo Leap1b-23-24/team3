@@ -1,33 +1,27 @@
 import { Footer, Header, SingleCardOfHomePage } from "@/components";
-import Carousel from "@/components/Carousel1";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <div className="max-w-[1240px] m-auto py-[24px]">
-        <h2 className="font-bold text-[28px] py-[16px]">Санал болгож буй</h2>
+      <div className="max-w-[1240px] m-auto py-6">
+        <img
+          className="w-[1237px] h-[557px] rounded-[20px]"
+          src="/banner1.png"
+        />
+        <h2 className="font-bold text-[28px] py-4">Санал болгож буй</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-content-center place-items-center gap-5">
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
+          {new Array(5).fill(<SingleCardOfHomePage />)}
         </div>
+        <img
+          className="w-[1237px] h-[557px] rounded-[20px] mt-6"
+          src="/banner2.png"
+        />
       </div>
-      <Carousel />
-      <div className="max-w-[1240px] m-auto py-[24px]">
-        <h2 className="font-bold text-[28px] py-[16px]">Шинээр нэмэгдсэн</h2>
+      <div className="max-w-[1240px] m-auto py-6">
+        <h2 className="font-bold text-[28px] py-4">Шинээр нэмэгдсэн</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-content-center place-items-center gap-5">
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
-          <SingleCardOfHomePage />
+          {new Array(10).fill(<SingleCardOfHomePage />)}
         </div>
       </div>
       <Footer />
