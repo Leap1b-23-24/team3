@@ -1,15 +1,12 @@
-import type { Metadata } from "next";
+"use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/header";
 import React from "react";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "@/theme";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "E-commerce web",
-};
 
 export default function RootLayout({
   children,
@@ -17,7 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="w-screen">
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider theme={theme}>
+          <AuthProvider> {children} </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
