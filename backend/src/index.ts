@@ -1,11 +1,10 @@
-import express from "express";
-const app = express();
-const port = 3030;
+import app from "./app";
+import { connect } from "./database";
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+const port = 3001;
+
+connect();
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`wjalajl ${port}`);
 });
