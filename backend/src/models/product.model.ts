@@ -3,63 +3,77 @@ import { Schema, model } from "mongoose";
 const productSchema = new Schema({
   productName: {
     type: String,
-    require: true,
+    required: true,
   },
-  discription:{
+  description: {
     type: String,
-    require: true
+    required: true,
   },
   price: {
     type: Number,
-    require: true,
+    required: true,
   },
-  thumbnails:{
+  thumbnail: {
     type: String,
-    require: true
+    required: true,
   },
   discount: {
     type: Number,
     default: 0,
-    require: false,
+    required: false,
   },
-  qty:{
+  qty: {
     type: Number,
-    require: true
+    required: true,
   },
-  image: [{
-    type: String,
-    require: true,
-  }],
-  category:{
-    type: String,
-    require: true,
-  },
-  subCategory:{
-    type: String,
-    require: true
-  },
-  color:[{
-    colorName:{
-      type: String,
-      require: true
+  images: [
+    {
+      imageLink: {
+        type: String,
+        require: true,
+      },
     },
-    colorCode:{
-      type: String,
-      require: false
-    }
-  }],
-  size:[{
-    size: String,
-    required: true
-  }],
-  tag:[{
+  ],
+  category: {
     type: String,
-    required: true
-  }],
-  createdAt:{
+    required: true,
+  },
+  subCategory: {
+    type: String,
+    required: true,
+  },
+  color: [
+    {
+      colorName: {
+        type: String,
+        required: true,
+      },
+      colorCode: {
+        type: String,
+        required: false,
+      },
+    },
+  ],
+  size: [
+    {
+      sizeType: {
+        type: String,
+        require: true,
+      },
+    },
+  ],
+  tags: [
+    {
+      tagsName: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  createdAt: {
     type: Date,
-    default: Date.now()
-  }
+    default: Date.now(),
+  },
 });
 
 export const ProductModel = model("product", productSchema);
