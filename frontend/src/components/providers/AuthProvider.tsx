@@ -10,6 +10,36 @@ import {
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
+import { backend } from "@/common";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
+
+type AuthContextType = {
+  creatProduct: (type: creatProductType) => Promise<void>;
+};
+
+type creatProductType = {
+  productName: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  discount: number;
+  qty: number;
+  images: {
+    imageLink: string;
+  }[];
+  category: string;
+  subCategory: string;
+  color: {
+    colorName: string;
+    colorCode: string;
+  }[];
+  size: {
+    sizeType: string;
+  }[];
+  tags: {
+    tagsName: string;
+  }[];
+};
 
 type checkUserParams = {
   email: string;
@@ -106,6 +136,16 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         signUp,
       }}
     >
+  const [product, setProduct] = useState();
+  const creatProduct = async (type: creatProductType) => {
+    try {
+      const { data } = await backend.post("/create", type);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <AuthContext.Provider value={{ creatProduct }}>
       {children}
     </AuthContext.Provider>
   );
