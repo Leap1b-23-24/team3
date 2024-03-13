@@ -10,7 +10,6 @@ export const getAllProduct: RequestHandler = async (req, res) => {
 
   res.json(product);
 };
-
 export const createProduct: RequestHandler = async (req, res) => {
   const {
     productName,

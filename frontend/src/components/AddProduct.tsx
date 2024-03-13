@@ -4,8 +4,13 @@ import { CustomInput } from "./CustomInput";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useState } from "react";
+import { useFormik, validateYupSchema } from "formik";
 export default function AddProduct() {
   //   const [isButton, setIsButton] = useState(true);
+  const formik = useFormik({
+    initialValues: {},
+    validationSchema: validateYupSchema,
+  });
   return (
     <Stack className="bg-[#F7F7F8] h-screen gap-10">
       <Stack direction="row" className="h-[56px] items-center gap-5 bg-white">
