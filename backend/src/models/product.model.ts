@@ -74,6 +74,11 @@ const productSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  sales: {
+    type: Number,
+    require: false,
+    default: 0,
+  },
 });
 
 export const ProductModel = model("product", productSchema);

@@ -44,3 +44,57 @@ export const createProduct: RequestHandler = async (req, res) => {
 
   res.json(product);
 };
+
+export const deleteProduct: RequestHandler = async (req, res) => {
+  const { id } = req.body;
+  const isProductExist = await ProductModel.findOne({ id });
+  if (!isProductExist) {
+    return res.json("Wrong product ID");
+  }
+  const deleteProduct = await ProductModel.findOneAndDelete({ id });
+  res.json("Product deleted");
+};
+
+export const editProduct: RequestHandler = async (req, res) => {
+  const {
+    id,
+    productName,
+    description,
+    price,
+    thumbnail,
+    discount,
+    qty,
+    images,
+    category,
+    subCategory,
+    color,
+    size,
+    tags,
+  } = req.body;
+
+  const isProductExist = await ProductModel.findOne({ id });
+  if (!isProductExist) {
+    return res.json("Wrong product ID");
+  }
+
+  const editProduct = await ProductModel.findOneAndUpdate(
+    { id: id },
+    {
+      $set: {
+        productName,
+        description,
+        price,
+        thumbnail,
+        discount,
+        qty,
+        images,
+        category,
+        subCategory,
+        color,
+        size,
+        tags,
+      },
+    }
+  );
+  res.json("Product edited");
+};
