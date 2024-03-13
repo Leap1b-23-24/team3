@@ -46,9 +46,10 @@ export default function SignUp(props: any) {
           borderTop: "1px solid #ECEDF0",
         }}
       >
-        {data.map((item) => {
+        {data.map((item, index) => {
           return (
             <Stack
+              key={index}
               direction="row"
               justifyContent="center"
               alignItems="center"
