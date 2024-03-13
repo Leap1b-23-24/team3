@@ -58,7 +58,7 @@ const productSchema = new Schema({
     {
       sizeType: {
         type: String,
-        require: true,
+        require: false,
       },
     },
   ],
