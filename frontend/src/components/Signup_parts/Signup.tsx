@@ -13,6 +13,7 @@ export default function SignUp(props: any) {
     { name: "Microsoft-оор нэвтрэх", icon: <MicrosoftIcon /> },
     { name: "Apple-аар нэвтрэх", icon: <AppleIcon /> },
   ];
+
   return (
     <Stack
       className="max-w-[440px] w-full h-[756px] p-10 rounded-2xl m-auto"
