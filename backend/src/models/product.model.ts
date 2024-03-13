@@ -58,7 +58,7 @@ const productSchema = new Schema({
     {
       sizeType: {
         type: String,
-        require: true,
+        require: false,
       },
     },
   ],
@@ -73,6 +73,11 @@ const productSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+  },
+  sales: {
+    type: Number,
+    require: false,
+    default: 0,
   },
 });
 
