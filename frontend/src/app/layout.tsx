@@ -15,11 +15,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="w-screen">
         <ThemeProvider theme={theme}>
-<<<<<<< HEAD
           <AuthProvider> {children} </AuthProvider>
-=======
-          <AuthProvider>{children}</AuthProvider>
->>>>>>> a50ef6a (fck)
         </ThemeProvider>
       </body>
     </html>

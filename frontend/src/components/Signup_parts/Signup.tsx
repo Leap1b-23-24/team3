@@ -1,3 +1,4 @@
+"use client";
 import { Button, Stack, Typography } from "@mui/material";
 import { CustomInput } from "../CustomInput";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -5,14 +6,26 @@ import AppleIcon from "@mui/icons-material/Apple";
 import MicrosoftIcon from "@mui/icons-material/Microsoft";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+const data = [
+  { name: "Google-ээр нэвтрэх", icon: <GoogleIcon /> },
+  { name: "Microsoft-оор нэвтрэх", icon: <MicrosoftIcon /> },
+  { name: "Apple-аар нэвтрэх", icon: <AppleIcon /> },
+];
+
+const validationSchema = yup.object({
+  name: yup.string().required("Нэрээ оруулна уу"),
+  email: yup
+    .string()
+    .email("И-мэйл буруу байна")
+    .required("И-мэйлээ оруулна уу"),
+  password: yup.string().required("Нууц үгээ оруулна уу"),
+});
 
 export default function SignUp(props: any) {
   const { Next, setIndex } = props;
-  const data = [
-    { name: "Google-ээр нэвтрэх", icon: <GoogleIcon /> },
-    { name: "Microsoft-оор нэвтрэх", icon: <MicrosoftIcon /> },
-    { name: "Apple-аар нэвтрэх", icon: <AppleIcon /> },
-  ];
 
   return (
     <Stack
