@@ -6,10 +6,10 @@ export const isEmailUnique: RequestHandler = async (req, res) => {
   const user = await UserModel.findOne({ email });
   if (user) {
     return res.status(401).json({
-      message: "Email already in use",
+      message: "Хэрэглэгч давхцаж байна",
     });
   }
-  return res.json({ message: "Email is unique" });
+  return res.json({ message: "Амжилттай" });
 };
 export const isShopUnique: RequestHandler = async (req, res) => {
   const { shopName } = req.body;
