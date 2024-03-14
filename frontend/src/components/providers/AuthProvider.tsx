@@ -11,10 +11,23 @@ import {
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
 import { backend } from "@/common";
-import { PropsWithChildren, createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
 type AuthContextType = {
   creatProduct: (type: creatProductType) => Promise<void>;
+  allSize: boolean;
+  setAllsSize: Dispatch<SetStateAction<boolean>>;
+  imageUrl: null;
+  setImageUrl: Dispatch<SetStateAction<null>>;
+  selectedFile: File | null;
+  setSelectedFile: Dispatch<SetStateAction<File | null>>;
 };
 
 type creatProductType = {
@@ -137,6 +150,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       }}
     >
   const [product, setProduct] = useState();
+  const [allSize, setAllsSize] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const creatProduct = async (type: creatProductType) => {
     try {
       const { data } = await backend.post("/create", type);
@@ -145,7 +161,17 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
   return (
-    <AuthContext.Provider value={{ creatProduct }}>
+    <AuthContext.Provider
+      value={{
+        creatProduct,
+        allSize,
+        setAllsSize,
+        imageUrl,
+        setImageUrl,
+        selectedFile,
+        setSelectedFile,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

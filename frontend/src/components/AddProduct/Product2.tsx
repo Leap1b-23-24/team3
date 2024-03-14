@@ -1,10 +1,7 @@
-import { Button, Stack, Typography } from "@mui/material";
+"use client";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { CustomInput } from "../CustomInput";
 import AddIcon from "@mui/icons-material/Add";
-import { Auth } from "../providers/AuthProvider";
-import { useState } from "react";
-import { useFormik, validateYupSchema } from "formik";
-
 export default function Product2() {
   return (
     <Stack className="w-[563px] gap-6">
@@ -22,20 +19,24 @@ export default function Product2() {
         <Typography>Төрөл</Typography>
         <Stack direction="row" gap="16px">
           <Typography>Өнгө</Typography>
-          <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[24px] h-[24px]" />
+          <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px] " />
         </Stack>
         <Stack direction="row" gap="16px">
           <Typography>Хэмжээ</Typography>
-          <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[24px] h-[24px] s" />
+          <Typography></Typography>
+          <AddIcon
+            className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px] "
+            onClick={() => {}}
+          />
         </Stack>
         <Button
           variant="outlined"
-          className="text-[14px] h-[53px] w-[160px] font-semibold "
+          className="text-[14px] h-[53px] w-[160px] font-semibold"
         >
           Төрөл нэмэх
         </Button>
       </Stack>
-      <Stack className="bg-white p-[24px] gap-6 rounded-[13px]">
+      <Stack className="bg-white p-[24px] gap-4 rounded-[13px]">
         <Typography>Таг</Typography>
         <CustomInput className="text-lg" />
         <Typography>Санал болгох: Гутал , Цүнх , Эмэгтэй </Typography>
