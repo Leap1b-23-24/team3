@@ -4,7 +4,6 @@ import { Auth } from "../providers/AuthProvider";
 import PhotoSizeSelectActualOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActualOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import { ChangeEvent, ChangeEventHandler } from "react";
-import { Description } from "@mui/icons-material";
 type Product1Props = {
   productName: string;
   description: string;

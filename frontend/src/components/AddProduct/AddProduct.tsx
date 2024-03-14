@@ -42,7 +42,6 @@ export default function AddProduct() {
       });
     },
   });
-  const a = formik.handleChange;
   return (
     <Stack className="bg-[#F7F7F8] h-screen gap-10">
       <Stack direction="row" className="h-[56px] items-center gap-5 bg-white">
@@ -65,7 +64,15 @@ export default function AddProduct() {
             qty={formik.values.qty}
             handleChange={formik.handleChange}
           />
-          <Product2 />
+          <Product2
+            images={formik.values.images}
+            category={formik.values.category}
+            subCategory={formik.values.subCategory}
+            color={formik.values.color}
+            size={formik.values.size}
+            tags={formik.values.tags}
+            handleChange={formik.handleChange}
+          />
         </Stack>
         <Stack direction="row" className="justify-end gap-8 mr-[560px]">
           <Button
@@ -78,7 +85,7 @@ export default function AddProduct() {
             variant="contained"
             className="w-[116px] h-[56px] text-[18px] font-semibold bg-black"
             onClick={() => {
-              // alert(formik.values.productName);
+              formik.handleChange;
             }}
           >
             Нийтлэх
