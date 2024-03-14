@@ -7,11 +7,10 @@ import Step2 from "@/components/Signup_parts/Step2";
 import Step3 from "@/components/Signup_parts/Step3";
 import { Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
+import { Auth } from "@/components/providers/AuthProvider";
 
 export default function () {
-  const [index, setIndex] = useState(0);
-
+  const { index, setIndex } = Auth();
   function Next() {
     if (index === 0) {
       return <SignUp />;
@@ -102,7 +101,7 @@ export default function () {
         </Stack>
       )}
 
-      {index === 0 && <SignUp Next={Next} setIndex={setIndex} />}
+      {index === 0 && <SignUp Next={Next} />}
       {index === 1 && <Step1 />}
       {index === 2 && <Step2 />}
       {index === 3 && <Step3 />}

@@ -1,8 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { CustomInput } from "../CustomInput";
 
-export default function Step1(props: any) {
-  const { Next, setIndex } = props;
+export default function Step1() {
   return (
     <Stack className="max-w-[452px] w-full p-6 m-auto">
       <Typography className="text-[32px] font-bold  mb-5">
