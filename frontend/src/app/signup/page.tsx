@@ -6,35 +6,51 @@ import Step1 from "@/components/Signup_parts/Step1";
 import Step2 from "@/components/Signup_parts/Step2";
 import Step3 from "@/components/Signup_parts/Step3";
 import { Button, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import { useState } from "react";
+import { Auth } from "@/components/providers/AuthProvider";
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+const validationSchema = yup.object({
+  name: yup.string().required("Нэрээ оруулна уу"),
+  email: yup
+    .string()
+    .email("И-мэйл буруу байна")
+    .required("И-мэйлээ оруулна уу"),
+  password: yup.string().required("Нууц үгээ оруулна уу"),
+  repassword: yup
+    .string()
+    .oneOf([yup.ref("password"), ""], "Нууц үг таарахгүй байна")
+    .required("Нууц үгээ давтаж оруулна уу!"),
+  city: yup.string().required("Хаягаа оруулна уу."),
+  district: yup.string().required("Аймаг/Дүүрэг оруулна уу."),
+  committee: yup.string().required("Хороо оруулна уу."),
+});
 
 export default function () {
-  const [index, setIndex] = useState(0);
+  const { index, setIndex, checkUser } = Auth();
 
-  function Next() {
-    if (index === 0) {
-      return <SignUp />;
-    } else if (index === 1) {
-      return <Step1 />;
-    } else if (index === 2) {
-      return <Step2 />;
-    } else if (index === 3) {
-      return <Step3 />;
-    }
-  }
-
-  function nextBtn() {
-    if (index === 3) {
-      setIndex(3);
-    } else {
-      setIndex((prev) => prev + 1);
-    }
-  }
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      repassword: "",
+      shopName: "",
+      cityName: "",
+      district: "",
+      committee: "",
+      question1: "",
+      question2: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      await checkUser({ email: values.email });
+    },
+  });
 
   return (
     <Stack className="p-11">
-      <Image
+      <img
         src="/PineconeLogo.svg"
         alt="pinecone"
         width={193}
@@ -48,7 +64,7 @@ export default function () {
             className="max-w-[656px] w-full m-auto relative justify-between"
           >
             <Stack className="z-10 w-9 h-9 bg-black rounded-full items-center justify-center text-white ">
-              1
+              {index >= 2 ? <span>&#10003;</span> : 1}
             </Stack>
             <Stack
               className="z-10 w-9 h-9 rounded-full items-center justify-center"
@@ -57,7 +73,7 @@ export default function () {
                 color: index >= 2 ? "white" : "black",
               }}
             >
-              2
+              {index >= 3 ? <span>&#10003;</span> : 2}
             </Stack>
             <Stack
               className="z-10 w-9 h-9 rounded-full items-center justify-center"
@@ -102,9 +118,15 @@ export default function () {
         </Stack>
       )}
 
-      {index === 0 && <SignUp Next={Next} setIndex={setIndex} />}
-      {index === 1 && <Step1 />}
-      {index === 2 && <Step2 />}
+      {index === 0 && <SignUp />}
+      {index === 1 && <Step1 shopName={formik.values.shopName} />}
+      {index === 2 && (
+        <Step2
+          cityName={formik.values.cityName}
+          district={formik.values.district}
+          committee={formik.values.committee}
+        />
+      )}
       {index === 3 && <Step3 />}
 
       {index !== 0 && (
@@ -122,7 +144,6 @@ export default function () {
           </Stack>
 
           <Button
-            onClick={() => nextBtn()}
             variant="contained"
             className="h-12 max-w-[127px] rounded-lg bg-black normal-case"
           >

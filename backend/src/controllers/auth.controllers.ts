@@ -16,30 +16,48 @@ export const login: RequestHandler = async (req, res) => {
 
   const id = user._id;
 
-  const token = jwt.sign({ id,}, "secret-key");
+  const token = jwt.sign({ id }, "secret-key");
 
   return res.json({ token });
 };
 
 export const signUp: RequestHandler = async (req, res) => {
-  const { name, email, password, shopName, city, district, sect, experience, productType } = req.body;
+  const {
+    name,
+    email,
+    password,
+    shopName,
+    city,
+    district,
+    sect,
+    experience,
+    productType,
+  } = req.body;
 
   const user = await UserModel.findOne({
     email,
   });
 
   const shop = await UserModel.findOne({
-    shopName
-  })
+    shopName,
+  });
 
   if (user || shop) {
     return res.json({
-      message: "email or shop name already in use",
+      message: "И-мэйл эсвэл Дэлгүүрийн нэр давхцаж байна",
     });
   }
 
-  const newUser = UserModel.create({
-    name, email, password, shopName, city, district, sect, experience, productType
+  UserModel.create({
+    name,
+    email,
+    password,
+    shopName,
+    city,
+    district,
+    sect,
+    experience,
+    productType,
   });
-  return res.json("Hereglegch amjilttai burtgegdlee");
+  return res.json("Хэрэглэгч амжилттай бүртгэгдлээ");
 };
