@@ -11,6 +11,9 @@ type Product1Props = {
   thumbnail: string;
   discount: number;
   qty: number;
+  images: {
+    imageLink: string;
+  }[];
 
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
@@ -22,6 +25,7 @@ export default function Product1(props: Product1Props) {
     thumbnail,
     discount,
     qty,
+    images,
     handleChange,
   } = props;
 

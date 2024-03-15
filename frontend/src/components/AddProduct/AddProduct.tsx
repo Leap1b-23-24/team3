@@ -1,13 +1,16 @@
 "use client";
 import { Button, Stack, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { useFormik, validateYupSchema } from "formik";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { Auth } from "../providers/AuthProvider";
 import Product1 from "./Product1";
 import Product2 from "./Product2";
+const validationSchema = yup.object({
+  productName: yup.string(),
+});
 export default function AddProduct() {
-  const { creatProduct } = Auth();
-
+  const { creatProduct, imageUrl } = Auth();
   const formik = useFormik({
     initialValues: {
       productName: "",
@@ -23,7 +26,7 @@ export default function AddProduct() {
       size: [],
       tags: [],
     },
-    validationSchema: validateYupSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       creatProduct({
         productName: values.productName,
@@ -63,9 +66,9 @@ export default function AddProduct() {
             discount={formik.values.discount}
             qty={formik.values.qty}
             handleChange={formik.handleChange}
+            images={formik.values.images}
           />
           <Product2
-            images={formik.values.images}
             category={formik.values.category}
             subCategory={formik.values.subCategory}
             color={formik.values.color}
@@ -74,7 +77,7 @@ export default function AddProduct() {
             handleChange={formik.handleChange}
           />
         </Stack>
-        <Stack direction="row" className="justify-end gap-8 mr-[560px]">
+        <Stack direction="row" className="justify-end gap-8 mr-[560px] mt-6">
           <Button
             className="w-[116px] h-[56px] text-[18px] font-semibold"
             variant="outlined"

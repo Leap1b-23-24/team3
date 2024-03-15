@@ -1,9 +1,11 @@
 import { Footer, Header, SingleCardOfHomePage } from "@/components";
 import AddProduct from "@/components/AddProduct/AddProduct";
+import Product from "@/components/AddProduct/Product";
 
 export default function Home() {
   return (
     <>
+      {/* <Product /> */}
       <AddProduct />
       {/* <Header />
       <div className="max-w-[1240px] m-auto py-6">

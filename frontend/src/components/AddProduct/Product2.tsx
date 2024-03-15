@@ -4,9 +4,6 @@ import { CustomInput } from "../CustomInput";
 import AddIcon from "@mui/icons-material/Add";
 import { ChangeEventHandler } from "react";
 type Product2Props = {
-  images: {
-    imageLink: string;
-  }[];
   category: string;
   subCategory: string;
   color: {
@@ -22,8 +19,7 @@ type Product2Props = {
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 export default function Product2(props: Product2Props) {
-  const { images, category, subCategory, color, size, tags, handleChange } =
-    props;
+  const { category, subCategory, color, size, tags, handleChange } = props;
   return (
     <Stack className="w-[563px] gap-6">
       <Stack className="bg-white rounded-[13px] p-[24px] gap-[16px] ">
@@ -42,7 +38,7 @@ export default function Product2(props: Product2Props) {
         <Stack>
           <Typography>Дэд ангилал</Typography>
           <CustomInput
-            name=""
+            name="subCategory"
             placeholder="Сонгох"
             defaultValue={subCategory}
             onChange={(event) => {
@@ -56,6 +52,7 @@ export default function Product2(props: Product2Props) {
         <Typography>Төрөл</Typography>
         <Stack direction="row" gap="16px">
           <Typography>Өнгө</Typography>
+          {}
           <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px] " />
         </Stack>
         <Stack direction="row" gap="16px">
