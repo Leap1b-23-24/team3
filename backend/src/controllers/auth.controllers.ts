@@ -16,30 +16,47 @@ export const login: RequestHandler = async (req, res) => {
 
   const id = user._id;
 
-  const token = jwt.sign({ id,}, "secret-key");
+  const token = jwt.sign({ id }, "secret-key");
 
   return res.json({ token });
 };
 
 export const signUp: RequestHandler = async (req, res) => {
-  const { name, email, password, shopName, city, district, sect, experience, productType } = req.body;
-
-  const user = await UserModel.findOne({
+  const {
+    name,
     email,
-  });
+    password,
+    shopName,
+    city,
+    district,
+    sect,
+    experience,
+    productType,
+  } = req.body;
+  try {
+    const user = await UserModel.findOne({ email: email });
 
-  const shop = await UserModel.findOne({
-    shopName
-  })
+    const shop = await UserModel.findOne({ shopName: shopName });
 
-  if (user || shop) {
-    return res.json({
-      message: "email or shop name already in use",
+    if (user || shop) {
+      return res.status(401).json({
+        message: "И-мэйл эсвэл Дэлгүүрийн нэр давхцаж байна",
+      });
+    }
+
+    UserModel.create({
+      name,
+      email,
+      password,
+      shopName,
+      city,
+      district,
+      sect,
+      experience,
+      productType,
     });
+    return res.json({ message: "Хэрэглэгч амжилттай бүртгэгдлээ" });
+  } catch (error) {
+    res.json(error);
   }
-
-  const newUser = UserModel.create({
-    name, email, password, shopName, city, district, sect, experience, productType
-  });
-  return res.json("Hereglegch amjilttai burtgegdlee");
 };

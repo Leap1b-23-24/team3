@@ -3,5 +3,5 @@ import { isEmailUnique, isShopUnique } from "../controllers";
 
 const signupRouter = Router();
 
-signupRouter.get("/email", isEmailUnique).get("/shop", isShopUnique);
+signupRouter.post("/email", isEmailUnique).post("/shop", isShopUnique);
 export default signupRouter;
