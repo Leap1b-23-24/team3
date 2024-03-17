@@ -25,6 +25,7 @@ export const CustomInput = (props: TextFieldProps) => {
         type={type === "password" && showPassword ? "text" : type}
         InputProps={{
           sx: { bgcolor: "#F7F7F8", border: "#D6D8DB" },
+
           endAdornment: type === "password" && (
             <InputAdornment position="end">
               <IconButton onClick={handleShowPassword}>

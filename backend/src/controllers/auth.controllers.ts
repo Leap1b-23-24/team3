@@ -33,31 +33,30 @@ export const signUp: RequestHandler = async (req, res) => {
     experience,
     productType,
   } = req.body;
+  try {
+    const user = await UserModel.findOne({ email: email });
 
-  const user = await UserModel.findOne({
-    email,
-  });
+    const shop = await UserModel.findOne({ shopName: shopName });
 
-  const shop = await UserModel.findOne({
-    shopName,
-  });
+    if (user || shop) {
+      return res.status(401).json({
+        message: "И-мэйл эсвэл Дэлгүүрийн нэр давхцаж байна",
+      });
+    }
 
-  if (user || shop) {
-    return res.json({
-      message: "И-мэйл эсвэл Дэлгүүрийн нэр давхцаж байна",
+    UserModel.create({
+      name,
+      email,
+      password,
+      shopName,
+      city,
+      district,
+      sect,
+      experience,
+      productType,
     });
+    return res.json({ message: "Хэрэглэгч амжилттай бүртгэгдлээ" });
+  } catch (error) {
+    res.json(error);
   }
-
-  UserModel.create({
-    name,
-    email,
-    password,
-    shopName,
-    city,
-    district,
-    sect,
-    experience,
-    productType,
-  });
-  return res.json("Хэрэглэгч амжилттай бүртгэгдлээ");
 };

@@ -6,7 +6,7 @@ import AppleIcon from "@mui/icons-material/Apple";
 import MicrosoftIcon from "@mui/icons-material/Microsoft";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
-import { ChangeEventHandler, FormEvent, useEffect } from "react";
+import { useEffect } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Auth } from "../providers/AuthProvider";
@@ -31,7 +31,7 @@ const validationSchema = yup.object({
 });
 
 export default function SignUp() {
-  const { checkUser } = Auth();
+  const { checkUser, setEmail, setName, setPassword } = Auth();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -42,9 +42,11 @@ export default function SignUp() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       await checkUser({ email: values.email });
+      setEmail(values.email);
+      setName(values.name);
+      setPassword(values.password);
     },
   });
-
   useEffect(() => {
     document.addEventListener("keydown", detectKeyDown);
 
@@ -76,7 +78,7 @@ export default function SignUp() {
           value={formik.values.email}
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
           onBlur={formik.handleBlur}
           type="text"
         />
@@ -90,7 +92,7 @@ export default function SignUp() {
           value={formik.values.name}
           onChange={formik.handleChange}
           error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
           onBlur={formik.handleBlur}
           type="text"
         />
@@ -104,9 +106,7 @@ export default function SignUp() {
           value={formik.values.password}
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={
-            formik.touched.password && Boolean(formik.errors.password)
-          }
+          helperText={formik.touched.password && formik.errors.password}
           onBlur={formik.handleBlur}
           type="password"
         />
@@ -120,9 +120,7 @@ export default function SignUp() {
           value={formik.values.repassword}
           onChange={formik.handleChange}
           error={formik.touched.repassword && Boolean(formik.errors.repassword)}
-          helperText={
-            formik.touched.repassword && Boolean(formik.errors.repassword)
-          }
+          helperText={formik.touched.repassword && formik.errors.repassword}
           onBlur={formik.handleBlur}
           type="password"
         />
@@ -137,7 +135,7 @@ export default function SignUp() {
         <span></span>
         Дараах
         <span className="text-right">
-          <ArrowForwardIcon />
+          <ArrowForwardIcon sx={{ fontSize: "20px" }} />
         </span>
       </Button>
       <Stack
