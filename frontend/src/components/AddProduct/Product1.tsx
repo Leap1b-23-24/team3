@@ -54,7 +54,6 @@ export default function Product1(props: Product1Props) {
       }
     }
   };
-  console.log(productName);
   return (
     <Stack className="max-w-[563px] gap-6 ">
       <Stack className="bg-white p-[24px] rounded-[12px] gap-[16px]">

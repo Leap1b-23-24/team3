@@ -155,7 +155,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [imageUrl, setImageUrl] = useState(null);
   const creatProduct = async (type: creatProductType) => {
     try {
-      const { data } = await backend.post("/create", type);
+      const { data } = await backend.post("/product/create", type);
     } catch (error) {
       console.log(error);
     }

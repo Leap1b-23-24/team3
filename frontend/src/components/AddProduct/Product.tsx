@@ -4,17 +4,20 @@ import { CustomInput } from "../CustomInput";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import Link from "next/link";
 export default function Product() {
   return (
     <Stack>
       <Stack>
-        <Button
-          variant="contained"
-          className="flex w-[280px] h-[48px] bg-black"
-        >
-          <AddIcon />
-          <Typography>Бүтээгдэхүүн нэмэх</Typography>
-        </Button>
+        <Link href={"/AddProductCard"}>
+          <Button
+            variant="contained"
+            className="flex w-[280px] h-[48px] bg-black"
+          >
+            <AddIcon />
+            <Typography>Бүтээгдэхүүн нэмэх</Typography>
+          </Button>
+        </Link>
         <Stack direction="row">
           <Stack direction="row" className="gap-[13px]">
             <Button variant="outlined" className="w-[145px] h-[40px]">
