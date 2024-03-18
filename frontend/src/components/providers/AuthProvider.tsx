@@ -8,6 +8,7 @@ import {
   useContext,
   useState,
   ChangeEvent,
+  useEffect,
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ import { AxiosError } from "axios";
 
 type AuthContextType = {
   creatProduct: (type: creatProductType) => Promise<void>;
+
   allSize: boolean;
   setAllsSize: Dispatch<SetStateAction<boolean>>;
   imageUrl: string;
@@ -161,7 +163,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toastError(error);
     }
   };
-
   return (
     <AuthContext.Provider
       value={{
