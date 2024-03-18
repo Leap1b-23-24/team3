@@ -45,7 +45,7 @@ export default function AddProduct() {
         productName: values.productName,
         description: values.description,
         price: values.price,
-        thumbnail: values.thumbnail,
+        thumbnail: imageUrl,
         discount: values.discount,
         qty: values.qty,
         // images: values.images,
@@ -93,9 +93,9 @@ export default function AddProduct() {
             handleChange={formik.handleChange}
           />
         </Stack>
-        <Stack direction="row" className="gap-8 justify-end mt-6">
+        <Stack direction="row" className="gap-8 justify-end pt-6 bg-[#F7F7F8]">
           <Button
-            className="w-[116px] h-[56px] text-[18px] font-semibold"
+            className="w-[116px] h-[56px] text-[18px] font-semibold bg-white"
             variant="outlined"
           >
             Ноорог

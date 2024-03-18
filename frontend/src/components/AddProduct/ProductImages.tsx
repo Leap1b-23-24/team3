@@ -1,11 +1,7 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Auth } from "../providers/AuthProvider";
-import { ChangeEvent } from "react";
-
 export default function ProductImages() {
-  const { handleImageChange, handleImageInput, imageUrl, setProductModal } =
-    Auth();
-
+  const { handleImageChange, handleImageInput, setProductModal } = Auth();
   return (
     <Stack padding="30px" gap="20px">
       <TextField type="file" onChange={handleImageChange} />

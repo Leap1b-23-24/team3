@@ -39,7 +39,6 @@ export default function Product() {
             <SearchIcon />
             <CustomInput
               inputProps={{}}
-              className="h-[40px]"
               type="search"
               placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
             />

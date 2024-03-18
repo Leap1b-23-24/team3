@@ -8,12 +8,7 @@ export default function ProductMap() {
     <Stack>
       {cardMap.map((item, index) => {
         return (
-          <Stack
-            key={index}
-            direction="row"
-            border={1}
-            className="justify-between"
-          >
+          <Stack key={index} direction="row" className="justify-between">
             <TextField className="w-[100px]" margin="none" type="checkbox" />
             <Stack direction="row" className="w-[100%] justify-between">
               <Stack direction="row" className="w-[15%]">
@@ -44,7 +39,7 @@ export default function ProductMap() {
                 <Typography>2024-01-10</Typography>
               </Stack>
             </Stack>
-            <Stack direction="row" className="w-[104px]" border={1}>
+            <Stack direction="row" className="w-[104px]">
               <DeleteOutlinedIcon />
               <ModeEditOutlinedIcon />
             </Stack>

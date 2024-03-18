@@ -30,13 +30,7 @@ export default function Product1(props: Product1Props) {
     handleChange,
   } = props;
 
-  const {
-    handleImageChange,
-    imageUrl,
-    setImageUrl,
-    productModal,
-    setProductModal,
-  } = Auth();
+  const { handleImageChange, imageUrl, productModal, setProductModal } = Auth();
 
   return (
     <Stack className="max-w-[563px] gap-6 ">
