@@ -4,10 +4,13 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const getAllOrder: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
+
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
+
+  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
+
   const { id } = payload;
   const order = await OrderSchema.find({ userId: id });
 
@@ -32,12 +35,15 @@ export const createOrder: RequestHandler = async (req, res) => {
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
+  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
   const { id } = payload;
 
   const customerCity = await UserModel.findOne({ _id: id });
+  if (!customerCity) {
+    return res.status(400).json({ message: "customer city not found" });
+  }
 
-  const newOrder = OrderSchema.create({
+  const newOrder = await OrderSchema.create({
     userId: id,
     customerEmail,
     customerPhone,
@@ -45,17 +51,18 @@ export const createOrder: RequestHandler = async (req, res) => {
     orderDetails,
     deliveryFee,
     orderTotalPrice,
-    customerCity,
+    customerCity: customerCity.city,
   });
 
   res.json(newOrder);
 };
+
 export const orderStatusPreparing: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
+  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
   const { id } = payload;
   const idValid = await OrderSchema.findOne({ userId: id });
   if (!idValid) {
@@ -67,12 +74,13 @@ export const orderStatusPreparing: RequestHandler = async (req, res) => {
   );
   res.json("Order status updated");
 };
+
 export const orderStatusOnDelivery: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
+  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
   const { id } = payload;
   const idValid = await OrderSchema.findOne({ userId: id });
   if (!idValid) {
@@ -84,12 +92,13 @@ export const orderStatusOnDelivery: RequestHandler = async (req, res) => {
   );
   res.json("Order status updated");
 };
+
 export const orderStatusDelivered: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
+  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
   const { id } = payload;
   const idValid = await OrderSchema.findOne({ userId: id });
   if (!idValid) {
@@ -106,7 +115,7 @@ export const orderStatusCanceled: RequestHandler = async (req, res) => {
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
+  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
   const { id } = payload;
   const idValid = await OrderSchema.findOne({ userId: id });
   if (!idValid) {
