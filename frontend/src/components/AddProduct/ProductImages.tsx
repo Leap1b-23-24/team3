@@ -3,7 +3,7 @@ import { Auth } from "../providers/AuthProvider";
 import { ChangeEvent } from "react";
 
 export default function ProductImages() {
-  const { handleImageChange, handleImageInput, imageUrl, setProductModel } =
+  const { handleImageChange, handleImageInput, imageUrl, setProductModal } =
     Auth();
 
   return (
@@ -14,7 +14,7 @@ export default function ProductImages() {
         variant="contained"
         onClick={async () => {
           await handleImageInput();
-          setProductModel(false);
+          setProductModal(false);
         }}
       >
         Upload

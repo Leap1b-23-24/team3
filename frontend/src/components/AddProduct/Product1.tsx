@@ -34,10 +34,8 @@ export default function Product1(props: Product1Props) {
     handleImageChange,
     imageUrl,
     setImageUrl,
-    selectedFile,
-    setSelectedFile,
-    productModel,
-    setProductModel,
+    productModal,
+    setProductModal,
   } = Auth();
 
   return (
@@ -104,10 +102,10 @@ export default function Product1(props: Product1Props) {
           <Stack
             className="w-[125px] h-[125px] justify-center items-center relative"
             onClick={() => {
-              setProductModel(true);
+              setProductModal(true);
             }}
           >
-            <Modal open={productModel}>
+            <Modal open={productModal}>
               <Box
                 sx={{
                   position: "absolute" as "absolute",
@@ -119,7 +117,7 @@ export default function Product1(props: Product1Props) {
                   borderRadius: "20px",
                 }}
               >
-                {productModel && <ProductImages />}
+                {productModal && <ProductImages />}
               </Box>
             </Modal>
             <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px]" />

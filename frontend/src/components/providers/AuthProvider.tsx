@@ -1,5 +1,5 @@
 "use client";
-import { api } from "@/common";
+
 import {
   Dispatch,
   PropsWithChildren,
@@ -13,23 +13,12 @@ import {
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
-
+import { api } from "@/common";
 type AuthContextType = {
   creatProduct: (type: creatProductType) => Promise<void>;
-
-  allSize: boolean;
-  setAllsSize: Dispatch<SetStateAction<boolean>>;
-  imageUrl: string;
-  selectedFile: File | null;
-  setImageUrl: Dispatch<SetStateAction<string>>;
-  setSelectedFile: Dispatch<SetStateAction<File | null>>;
-  productModel: boolean;
-  setProductModel: Dispatch<SetStateAction<boolean>>;
-  handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleImageInput: () => Promise<void>;
   index: string;
   setIndex: Dispatch<SetStateAction<string>>;
-  checkUser: (params: checkUserParams) => Promise<void>;
+  checkUser: (email: string) => Promise<void>;
   checkShopName: (shopName: any) => Promise<void>;
   setEmail: Dispatch<SetStateAction<string>>;
   setName: Dispatch<SetStateAction<string>>;
@@ -41,6 +30,14 @@ type AuthContextType = {
   setQuestion1: Dispatch<SetStateAction<string>>;
   setQuestion2: Dispatch<SetStateAction<string>>;
   signUp: () => Promise<void>;
+  handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleImageInput: () => Promise<void>;
+  imageUrl: string;
+  setImageUrl: Dispatch<SetStateAction<string>>;
+  selectedFile: File | null;
+  setSelectedFile: Dispatch<SetStateAction<File | null>>;
+  productModal: boolean;
+  setProductModal: Dispatch<SetStateAction<boolean>>;
 };
 type creatProductType = {
   productName: string;
@@ -66,10 +63,6 @@ type creatProductType = {
   // }[];
 };
 
-type checkUserParams = {
-  email: string;
-};
-
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
@@ -87,6 +80,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [productType, setQuestion2] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
+  const [productModal, setProductModal] = useState(false);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);
@@ -122,11 +116,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
   useEffect(() => {
     handleImageInput();
-  });
+  }, []);
 
-  const checkUser = async (params: checkUserParams) => {
+  const checkUser = async (email: string) => {
     try {
-      const { data } = await api.post("/account/email", params);
+      const { data } = await api.post("/account/email", email);
       toastSuccess(data);
       setIndex("step1");
     } catch (error) {
@@ -187,6 +181,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setImageUrl,
         selectedFile,
         setSelectedFile,
+        productModal,
+        setProductModal,
       }}
     >
       {children}
