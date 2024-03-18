@@ -31,12 +31,28 @@ export const createSales: RequestHandler = async (req, res) => {
 
   const { productId, productName, productPrice, productQty, productThumbnail } =
     orderDetails;
-  const productNumber = await ProductModel.findOne({ _id: productId });
-  const num = productNumber?.qty;
-  const leftProductQty = num - productQty;
+
+  //productStock-oor haihad tuuntei taarah id baihgui baij boloh uchir zaaval if condition bichne
+  const productStock = await ProductModel.findOne({ _id: productId });
+  if (!productStock) {
+    return res.status(400).json({ message: "not found" });
+  }
+
+  //If condition shalgasanii daraa l productStockiin qty-g avj bolno
+  const productStockQty = productStock.qty;
+
+  if (productStockQty < productQty) {
+    return res.json({ message: "order exceeded stock" });
+  }
+
   const updateLeftProductQty = await ProductModel.findOneAndUpdate(
     { _id: productId },
-    { $set: {} }
+    { $dec: { qty: productQty } }
+  );
+
+  const updateSalesProductQty = await ProductModel.findOneAndUpdate(
+    { _id: productId },
+    { $inc: { sales: productQty } }
   );
 
   const sales = await SalesSchema.create({
