@@ -20,20 +20,20 @@ const productSchema = new Schema({
   discount: {
     type: Number,
     default: 0,
-    required: false,
+    required: true,
   },
   qty: {
     type: Number,
     required: true,
   },
-  images: [
-    {
-      imageLink: {
-        type: String,
-        require: true,
-      },
-    },
-  ],
+  // images: [
+  //   {
+  //     imageLink: {
+  //       type: String,
+  //       require: true,
+  //     },
+  //   },
+  // ],
   category: {
     type: String,
     required: true,
@@ -42,34 +42,34 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  color: [
-    {
-      colorName: {
-        type: String,
-        required: true,
-      },
-      colorCode: {
-        type: String,
-        required: false,
-      },
-    },
-  ],
-  size: [
-    {
-      sizeType: {
-        type: String,
-        require: false,
-      },
-    },
-  ],
-  tags: [
-    {
-      tagsName: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  // color: [
+  //   {
+  //     colorName: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //     colorCode: {
+  //       type: String,
+  //       required: false,
+  //     },
+  //   },
+  // ],
+  // size: [
+  //   {
+  //     sizeType: {
+  //       type: String,
+  //       require: false,
+  //     },
+  //   },
+  // ],
+  // tags: [
+  //   {
+  //     tagsName: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //   },
+  // ],
   createdAt: {
     type: Date,
     default: Date.now(),

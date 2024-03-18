@@ -1,10 +1,11 @@
 import { Footer, Header, SingleCardOfHomePage } from "@/components";
-import Product from "@/components/AddProduct/Product";
+import Product from "./Product/page";
+
 export default function Home() {
   return (
     <>
-      {/* <Product /> */}
-      <Header />
+      <Product />
+      {/* <Header />
       <div className="max-w-[1240px] m-auto py-6">
         <img
           className="w-[1237px] h-[557px] rounded-[20px]"
@@ -25,7 +26,7 @@ export default function Home() {
           {new Array(10).fill(<SingleCardOfHomePage />)}
         </div>
       </div>
-      <Footer />
+      <Footer /> */}
     </>
   );
 }

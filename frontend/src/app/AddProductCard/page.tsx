@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { Auth } from "@/components/providers/AuthProvider";
 import Product1 from "@/components/AddProduct/Product1";
 import Product2 from "@/components/AddProduct/Product2";
+import Link from "next/link";
 const validationSchema = yup.object({
   productName: yup.string(),
   description: yup.string(),
@@ -13,13 +14,14 @@ const validationSchema = yup.object({
   thumbnail: yup.string(),
   discount: yup.string(),
   qty: yup.string(),
-  images: yup.string(),
+  // images: yup.object(),
   category: yup.string(),
   subCategory: yup.string(),
-  color: yup.string(),
-  size: yup.string(),
-  tags: yup.string(),
+  // color: yup.object(),
+  // size: yup.object(),
+  // tags: yup.object(),
 });
+
 export default function AddProduct() {
   const { creatProduct, imageUrl } = Auth();
   const formik = useFormik({
@@ -30,15 +32,15 @@ export default function AddProduct() {
       thumbnail: "",
       discount: 0,
       qty: 0,
-      images: [],
+      // images: [],
       category: "",
       subCategory: "",
-      color: [],
-      size: [],
-      tags: [],
+      // color: [],
+      // size: [],
+      // tags: [],
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       creatProduct({
         productName: values.productName,
         description: values.description,
@@ -46,25 +48,28 @@ export default function AddProduct() {
         thumbnail: values.thumbnail,
         discount: values.discount,
         qty: values.qty,
-
-        images: values.images,
+        // images: values.images,
         category: values.category,
         subCategory: values.subCategory,
-        color: values.color,
-        size: values.size,
-        tags: values.tags,
+        // color: values.color,
+        // size: values.size,
+        // tags: values.tags,
       });
     },
   });
+
+  // console.log(formik.errors);
   return (
     <Stack className="bg-[#F7F7F8] h-screen gap-10">
-      <Stack direction="row" className="h-[56px] items-center gap-5 bg-white">
-        <ArrowBackIosNewIcon />
-        <Typography>Бүтээгдэхүүн нэмэх</Typography>
-      </Stack>
-      <Stack>
+      <Link href={"/Product"}>
+        <Button className="h-[56px] w-full justify-start items-center gap-5 bg-white">
+          <ArrowBackIosNewIcon />
+          <Typography>Бүтээгдэхүүн нэмэх</Typography>
+        </Button>
+      </Link>
+      <Stack m="auto">
         <Stack
-          className="bg-[#F7F7F8] justify-center mr-8"
+          className="bg-[#F7F7F8] mr-8"
           direction="row"
           gap="30px"
           fontSize="14px"
@@ -74,21 +79,21 @@ export default function AddProduct() {
             description={formik.values.description}
             price={formik.values.price}
             thumbnail={formik.values.thumbnail}
+            // images={formik.values.images}
             discount={formik.values.discount}
             qty={formik.values.qty}
             handleChange={formik.handleChange}
-            images={formik.values.images}
           />
           <Product2
             category={formik.values.category}
             subCategory={formik.values.subCategory}
-            color={formik.values.color}
-            size={formik.values.size}
-            tags={formik.values.tags}
+            // color={formik.values.color}
+            // size={formik.values.size}
+            // tags={formik.values.tags}
             handleChange={formik.handleChange}
           />
         </Stack>
-        <Stack direction="row" className="justify-end gap-8 mt-6">
+        <Stack direction="row" className="gap-8 justify-end mt-6">
           <Button
             className="w-[116px] h-[56px] text-[18px] font-semibold"
             variant="outlined"
@@ -97,22 +102,22 @@ export default function AddProduct() {
           </Button>
           <Button
             variant="contained"
-            className="w-[116px] h-[56px] text-[18px] font-semibold bg-black"
-            disabled={
-              !formik.values.productName ||
-              !formik.values.description ||
-              !formik.values.price ||
-              //   !formik.values.thumbnail ||
-              !formik.values.discount ||
-              !formik.values.qty ||
-              //   !formik.values.images ||
-              !formik.values.category ||
-              !formik.values.subCategory ||
-              //   !formik.values.color ||
-              !formik.values.tags
-            }
+            className="w-[116px] h-[56px] text-[18px] mr-8 font-semibold bg-black"
+            // disabled={
+            //   !formik.values.productName ||
+            //   !formik.values.description ||
+            //   // !formik.values.price ||
+            //   //   !formik.values.thumbnail ||
+            //   // !formik.values.discount ||
+            //   // !formik.values.qty ||
+            //   //   !formik.values.images ||
+            //   // !formik.values.category ||
+            //   // !formik.values.subCategory ||
+            //   //   !formik.values.color ||
+            //   // !formik.values.tags
+            // }
             onClick={() => {
-              formik.handleSubmit;
+              formik.handleSubmit();
             }}
           >
             Нийтлэх

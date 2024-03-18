@@ -6,20 +6,20 @@ import { ChangeEventHandler } from "react";
 type Product2Props = {
   category: string;
   subCategory: string;
-  color: {
-    colorName: string;
-    colorCode: string;
-  }[];
-  size: {
-    sizeType: string;
-  }[];
-  tags: {
-    tagsName: string;
-  }[];
+  // color: {
+  //   colorName: string;
+  //   colorCode: string;
+  // }[];
+  // size: {
+  //   sizeType: string;
+  // }[];
+  // tags: {
+  //   tagsName: string;
+  // }[];
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 export default function Product2(props: Product2Props) {
-  const { category, subCategory, color, size, tags, handleChange } = props;
+  const { category, subCategory, handleChange } = props;
   return (
     <Stack className="w-[563px] gap-6">
       <Stack className="bg-white rounded-[13px] p-[24px] gap-[16px] ">
@@ -73,11 +73,11 @@ export default function Product2(props: Product2Props) {
       <Stack className="bg-white p-[24px] gap-4 rounded-[13px]">
         <Typography>Таг</Typography>
         <CustomInput
-          name="tags"
-          defaultValue={tags}
-          onChange={(event) => {
-            handleChange(event);
-          }}
+          // name="tags"
+          // defaultValue={tags}
+          // onChange={(event) => {
+          //   handleChange(event);
+          // }}
           className="text-lg"
         />
         <Typography>Санал болгох: Гутал , Цүнх , Эмэгтэй </Typography>

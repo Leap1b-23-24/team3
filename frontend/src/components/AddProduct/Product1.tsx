@@ -1,9 +1,10 @@
-import { Stack, TextField, Typography } from "@mui/material";
+import { Box, Modal, Stack, TextField, Typography } from "@mui/material";
 import { CustomInput } from "../CustomInput";
 import { Auth } from "../providers/AuthProvider";
 import PhotoSizeSelectActualOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActualOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import { ChangeEvent, ChangeEventHandler } from "react";
+import ProductImages from "./ProductImages";
 type Product1Props = {
   productName: string;
   description: string;
@@ -11,9 +12,9 @@ type Product1Props = {
   thumbnail: string;
   discount: number;
   qty: number;
-  images: {
-    imageLink: string;
-  }[];
+  // images: {
+  //   imageLink: string;
+  // }[];
 
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
@@ -22,38 +23,23 @@ export default function Product1(props: Product1Props) {
     productName,
     description,
     price,
-    thumbnail,
+    // thumbnail,
     discount,
     qty,
-    images,
+    // images,
     handleChange,
   } = props;
 
-  const { imageUrl, setImageUrl, selectedFile, setSelectedFile } = Auth();
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    setSelectedFile(event.target.files[0]);
-  };
-  const handleImageInput = async () => {
-    if (selectedFile) {
-      try {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await response.json();
-        console.log(data);
-        setImageUrl(data.secure_url);
-      } catch (error) {
-        console.error("Image upload error:", error);
-      }
-    }
-  };
+  const {
+    handleImageChange,
+    imageUrl,
+    setImageUrl,
+    selectedFile,
+    setSelectedFile,
+    productModel,
+    setProductModel,
+  } = Auth();
+
   return (
     <Stack className="max-w-[563px] gap-6 ">
       <Stack className="bg-white p-[24px] rounded-[12px] gap-[16px]">
@@ -84,6 +70,7 @@ export default function Product1(props: Product1Props) {
         <Stack>
           <Typography>Барааны код</Typography>
           <CustomInput
+            type="number"
             name="price"
             defaultValue={price}
             onChange={(event) => {
@@ -114,15 +101,27 @@ export default function Product1(props: Product1Props) {
           <Stack className="w-[125px] h-[125px] border-dashed border-[2px]  justify-center items-center rounded-[16px]">
             <PhotoSizeSelectActualOutlinedIcon />
           </Stack>
-          <Stack className="w-[125px] h-[125px] justify-center items-center relative ">
-            <TextField
-              className="w-[125px] justify-center items-center absolute opacity-0"
-              type="file"
-              onChange={() => {
-                handleImageChange;
-              }}
-              variant="outlined"
-            />
+          <Stack
+            className="w-[125px] h-[125px] justify-center items-center relative"
+            onClick={() => {
+              setProductModel(true);
+            }}
+          >
+            <Modal open={productModel}>
+              <Box
+                sx={{
+                  position: "absolute" as "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  borderRadius: "20px",
+                }}
+              >
+                {productModel && <ProductImages />}
+              </Box>
+            </Modal>
             <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px]" />
           </Stack>
         </Stack>
@@ -135,6 +134,7 @@ export default function Product1(props: Product1Props) {
         <Stack>
           <Typography>Үндсэн үнэ</Typography>
           <CustomInput
+            type="number"
             name="discount"
             placeholder="Үндсэн үнэ"
             defaultValue={discount}
@@ -147,6 +147,7 @@ export default function Product1(props: Product1Props) {
         <Stack>
           <Typography>Үлдэгдэл тоо ширхэг</Typography>
           <CustomInput
+            type="number"
             name="qty"
             placeholder="Үлдэгдэл тоо ширхэг"
             defaultValue={qty}

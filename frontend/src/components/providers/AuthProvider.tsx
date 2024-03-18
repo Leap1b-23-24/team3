@@ -7,57 +7,24 @@ import {
   createContext,
   useContext,
   useState,
+  ChangeEvent,
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
-import { backend } from "@/common";
-import {
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import { AxiosError } from "axios";
 
 type AuthContextType = {
   creatProduct: (type: creatProductType) => Promise<void>;
   allSize: boolean;
   setAllsSize: Dispatch<SetStateAction<boolean>>;
-  imageUrl: null;
-  setImageUrl: Dispatch<SetStateAction<null>>;
+  imageUrl: string;
   selectedFile: File | null;
+  setImageUrl: Dispatch<SetStateAction<string>>;
   setSelectedFile: Dispatch<SetStateAction<File | null>>;
-};
-
-type creatProductType = {
-  productName: string;
-  description: string;
-  price: number;
-  thumbnail: string;
-  discount: number;
-  qty: number;
-  images: {
-    imageLink: string;
-  }[];
-  category: string;
-  subCategory: string;
-  color: {
-    colorName: string;
-    colorCode: string;
-  }[];
-  size: {
-    sizeType: string;
-  }[];
-  tags: {
-    tagsName: string;
-  }[];
-};
-
-type checkUserParams = {
-  email: string;
-};
-type AuthContextType = {
+  productModel: boolean;
+  setProductModel: Dispatch<SetStateAction<boolean>>;
+  handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleImageInput: () => Promise<void>;
   index: string;
   setIndex: Dispatch<SetStateAction<string>>;
   checkUser: (params: checkUserParams) => Promise<void>;
@@ -73,10 +40,37 @@ type AuthContextType = {
   setQuestion2: Dispatch<SetStateAction<string>>;
   signUp: () => Promise<void>;
 };
+type creatProductType = {
+  productName: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  discount: number;
+  qty: number;
+  // images: {
+  //   imageLink: string;
+  // }[];
+  category: string;
+  subCategory: string;
+  // color: {
+  //   colorName: string;
+  //   colorCode: string;
+  // }[];
+  // size: {
+  //   sizeType: string;
+  // }[];
+  // tags: {
+  //   tagsName: string;
+  // }[];
+};
+
+type checkUserParams = {
+  email: string;
+};
+
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
-
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [index, setIndex] = useState("signup");
@@ -89,6 +83,44 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [sect, setKhoroo] = useState("");
   const [experience, setQuestion1] = useState("");
   const [productType, setQuestion2] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleImageInput = async () => {
+    if (selectedFile) {
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setImageUrl(data.secure_url);
+      } catch (error) {
+        console.error("Image upload error:", error);
+      }
+    }
+  };
+  const creatProduct = async (type: creatProductType) => {
+    try {
+      const { data } = await api.post("/product/create", type);
+      console.log(data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+      }
+    }
+  };
+  useEffect(() => {
+    handleImageInput();
+  });
 
   const checkUser = async (params: checkUserParams) => {
     try {
@@ -147,25 +179,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setQuestion1,
         setQuestion2,
         signUp,
-      }}
-    >
-  const [product, setProduct] = useState();
-  const [allSize, setAllsSize] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(null);
-  const creatProduct = async (type: creatProductType) => {
-    try {
-      const { data } = await backend.post("/product/create", type);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  return (
-    <AuthContext.Provider
-      value={{
+        handleImageChange,
+        handleImageInput,
         creatProduct,
-        allSize,
-        setAllsSize,
         imageUrl,
         setImageUrl,
         selectedFile,
