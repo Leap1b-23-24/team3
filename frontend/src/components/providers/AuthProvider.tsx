@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { data } = await api.post("/account/shop", shopName);
       toastSuccess(data);
       setIndex("step2");
-    } catch (error: any) {
+    } catch (error) {
       toastError(error);
     }
   };

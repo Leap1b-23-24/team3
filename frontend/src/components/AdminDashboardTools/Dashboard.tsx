@@ -1,6 +1,9 @@
 "use client";
 import { Stack } from "@mui/material";
+import DashboardTable from "./DashBoardTable";
 
 export default function Dashboard() {
-  return <Stack></Stack>;
+  return <Stack>
+       <DashboardTable/>
+  </Stack>;
 }
