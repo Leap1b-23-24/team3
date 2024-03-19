@@ -87,7 +87,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [imageUrl, setImageUrl] = useState("");
   const [productModal, setProductModal] = useState(false);
   const [isAddProduct, setIsAddProduct] = useState(false);
-
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);

@@ -1,12 +1,21 @@
-import { Button, Card, Stack, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  FormControl,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ClearIcon from "@mui/icons-material/Clear";
 import Card1 from "./Card1";
 import Card2 from "./Card2";
 export default function OrderDetial() {
   return (
     <Stack className="bg-[#F7F7F8] h-screen">
-      <Button className="bg-white h-[56px] items-center justify-start">
+      <Button className="bg-white h-[56px] items-center justify-start gap-7 ">
         <ArrowBackIosNewIcon />
         <Typography>Захиалгын дэлгэрэнгүй</Typography>
       </Button>
@@ -20,10 +29,43 @@ export default function OrderDetial() {
                   2072705735829
                 </Typography>
               </Stack>
-              <Button className="bg-[#F7F7F8] rounded-[30px] flex gap-2">
+              <FormControl sx={{ minWidth: 120, backgroundColor: "white" }}>
+                <Select
+                  displayEmpty
+                  sx={{ height: "36px", borderRadius: "16px" }}
+                >
+                  <MenuItem>
+                    <Stack direction="row">
+                      <Typography>Шинэ захиалга</Typography>
+                      <ClearIcon />
+                    </Stack>
+                  </MenuItem>
+                  <MenuItem value={2}>
+                    <Typography className="flex rounded-xl p-1 text-[#0A4E22]">
+                      Хүргэгдсэн
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value={3}>
+                    <Typography className="flex rounded-xl p-1 text-[#1890FF]">
+                      Хүргэлтэнд гарсан
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value={4}>
+                    <Typography className="flex p-1 rounded-xl">
+                      Бэлтгэгдэж байна
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value={5}>
+                    <Typography className="flex p-1 rounded-xl">
+                      Цуцлагдсан
+                    </Typography>
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              {/* <Button className="bg-[#F7F7F8] rounded-[30px] flex gap-2">
                 <Typography>Бэлтгэгдэж байна</Typography>
                 <ExpandMoreIcon />
-              </Button>
+              </Button> */}
             </Stack>
           </Stack>
           <Stack className="mb-5">
