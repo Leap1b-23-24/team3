@@ -1,5 +1,5 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { Auth } from "../providers/AuthProvider";
+import { Auth } from "../../providers/AuthProvider";
 export default function ProductImages() {
   const { handleImageChange, handleImageInput, setProductModal } = Auth();
   return (

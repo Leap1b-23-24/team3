@@ -1,6 +1,6 @@
 "use client";
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { CustomInput } from "../CustomInput";
+import { CustomInput } from "../../CustomInput";
 import AddIcon from "@mui/icons-material/Add";
 import { ChangeEventHandler } from "react";
 type Product2Props = {
@@ -18,7 +18,7 @@ type Product2Props = {
   // }[];
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
-export default function Product2(props: Product2Props) {
+export default function ProductFields2(props: Product2Props) {
   const { category, subCategory, handleChange } = props;
   return (
     <Stack className="w-[563px] gap-6">

@@ -1,13 +1,14 @@
 "use client";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { CustomInput } from "../../components/CustomInput";
+import { CustomInput } from "../../CustomInput";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
-import ProductMap from "../../components/AddProduct/ProductMap";
+
 import { useState } from "react";
+
 export default function Product() {
   const [isBorder, setIsBorder] = useState(true);
   return (
@@ -71,22 +72,6 @@ export default function Product() {
               placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
             />
           </Stack>
-        </Stack>
-        <Stack className="rounded-[20px] bg-white">
-          <Stack
-            direction="row"
-            paddingLeft="100px"
-            paddingRight="104px"
-            className="h-[44px] items-center "
-          >
-            <Typography className="w-[15%]">Бүтээгдэхүүн</Typography>
-            <Typography className="w-[20%]">Ангилал</Typography>
-            <Typography className="w-[15%]">Үнэ</Typography>
-            <Typography className="w-[15%]">Үлдэгдэл</Typography>
-            <Typography className="w-[15%]">Зарагдсан</Typography>
-            <Typography className="w-[20%]"> Нэмсэн огноо</Typography>
-          </Stack>
-          <ProductMap />
         </Stack>
       </Stack>
     </Stack>
