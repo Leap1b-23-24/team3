@@ -10,7 +10,6 @@ export const getAllProduct: RequestHandler = async (req, res) => {
 
   res.json(product);
 };
-
 export const createProduct: RequestHandler = async (req, res) => {
   const {
     productName,
@@ -19,13 +18,14 @@ export const createProduct: RequestHandler = async (req, res) => {
     thumbnail,
     discount,
     qty,
-    images,
+    // images,
     category,
     subCategory,
-    color,
-    size,
-    tags,
+    // color,
+    // size,
+    // tags,
   } = req.body;
+  console.log(productName);
 
   const product = await ProductModel.create({
     productName,
@@ -34,12 +34,12 @@ export const createProduct: RequestHandler = async (req, res) => {
     thumbnail,
     discount,
     qty,
-    images,
+    // images,
     category,
     subCategory,
-    color,
-    size,
-    tags,
+    // color,
+    // size,
+    // tags,
   });
 
   res.json(product);

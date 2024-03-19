@@ -1,5 +1,5 @@
 "use client";
-import { api } from "@/common";
+
 import {
   Dispatch,
   PropsWithChildren,
@@ -7,17 +7,18 @@ import {
   createContext,
   useContext,
   useState,
+  ChangeEvent,
+  useEffect,
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
-
-type checkUserParams = {
-  email: string;
-};
+import { AxiosError } from "axios";
+import { api } from "@/common";
 type AuthContextType = {
+  creatProduct: (type: creatProductType) => Promise<void>;
   index: string;
   setIndex: Dispatch<SetStateAction<string>>;
-  checkUser: (params: checkUserParams) => Promise<void>;
+  checkUser: (email: string) => Promise<void>;
   checkShopName: (shopName: any) => Promise<void>;
   setEmail: Dispatch<SetStateAction<string>>;
   setName: Dispatch<SetStateAction<string>>;
@@ -29,11 +30,42 @@ type AuthContextType = {
   setQuestion1: Dispatch<SetStateAction<string>>;
   setQuestion2: Dispatch<SetStateAction<string>>;
   signUp: () => Promise<void>;
+  handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleImageInput: () => Promise<void>;
+  imageUrl: string;
+  setImageUrl: Dispatch<SetStateAction<string>>;
+  selectedFile: File | null;
+  setSelectedFile: Dispatch<SetStateAction<File | null>>;
+  productModal: boolean;
+  setProductModal: Dispatch<SetStateAction<boolean>>;
 };
+type creatProductType = {
+  productName: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  discount: number;
+  qty: number;
+  // images: {
+  //   imageLink: string;
+  // }[];
+  category: string;
+  subCategory: string;
+  // color: {
+  //   colorName: string;
+  //   colorCode: string;
+  // }[];
+  // size: {
+  //   sizeType: string;
+  // }[];
+  // tags: {
+  //   tagsName: string;
+  // }[];
+};
+
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
-
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [index, setIndex] = useState("signup");
@@ -46,10 +78,49 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [sect, setKhoroo] = useState("");
   const [experience, setQuestion1] = useState("");
   const [productType, setQuestion2] = useState("");
-
-  const checkUser = async (params: checkUserParams) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const [productModal, setProductModal] = useState(false);
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleImageInput = async () => {
+    if (selectedFile) {
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setImageUrl(data.secure_url);
+      } catch (error) {
+        console.error("Image upload error:", error);
+      }
+    }
+  };
+  const creatProduct = async (type: creatProductType) => {
     try {
-      const { data } = await api.post("/account/email", params);
+      const { data } = await api.post("/product/create", type);
+      console.log(data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+      }
+    }
+  };
+  useEffect(() => {
+    handleImageInput();
+  }, []);
+
+  const checkUser = async (email: string) => {
+    try {
+      const { data } = await api.post("/account/email", email);
       toastSuccess(data);
       setIndex("step1");
     } catch (error) {
@@ -86,7 +157,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toastError(error);
     }
   };
-
   return (
     <AuthContext.Provider
       value={{
@@ -104,6 +174,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setQuestion1,
         setQuestion2,
         signUp,
+        handleImageChange,
+        handleImageInput,
+        creatProduct,
+        imageUrl,
+        setImageUrl,
+        selectedFile,
+        setSelectedFile,
+        productModal,
+        setProductModal,
       }}
     >
       {children}
