@@ -1,10 +1,10 @@
 import { Box, Modal, Stack, TextField, Typography } from "@mui/material";
-import { CustomInput } from "../CustomInput";
-import { Auth } from "../providers/AuthProvider";
+import { CustomInput } from "../../CustomInput";
+import { Auth } from "../../providers/AuthProvider";
 import PhotoSizeSelectActualOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActualOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import { ChangeEvent, ChangeEventHandler } from "react";
-import ProductImages from "./ProductImages";
+import ProductImages from "./ImageUploadModal";
 type Product1Props = {
   productName: string;
   description: string;
@@ -18,7 +18,7 @@ type Product1Props = {
 
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
-export default function Product1(props: Product1Props) {
+export default function ProductFields1(props: Product1Props) {
   const {
     productName,
     description,

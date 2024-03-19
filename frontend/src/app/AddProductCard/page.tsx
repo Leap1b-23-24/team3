@@ -4,8 +4,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Auth } from "@/components/providers/AuthProvider";
-import Product1 from "@/components/AddProduct/Product1";
-import Product2 from "@/components/AddProduct/Product2";
+import ProductFields1 from "@/components/AdminTools/product/ProductFields1";
+import ProductFields2 from "@/components/AdminTools/product/ProductFields2";
 import Link from "next/link";
 const validationSchema = yup.object({
   productName: yup.string(),
@@ -58,7 +58,6 @@ export default function AddProduct() {
     },
   });
 
-  // console.log(formik.errors);
   return (
     <Stack className="bg-[#F7F7F8] h-screen gap-10">
       <Link href={"/Product"}>
@@ -74,7 +73,7 @@ export default function AddProduct() {
           gap="30px"
           fontSize="14px"
         >
-          <Product1
+          <ProductFields1
             productName={formik.values.productName}
             description={formik.values.description}
             price={formik.values.price}
@@ -84,7 +83,7 @@ export default function AddProduct() {
             qty={formik.values.qty}
             handleChange={formik.handleChange}
           />
-          <Product2
+          <ProductFields2
             category={formik.values.category}
             subCategory={formik.values.subCategory}
             // color={formik.values.color}

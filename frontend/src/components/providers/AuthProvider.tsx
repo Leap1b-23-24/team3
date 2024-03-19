@@ -15,10 +15,10 @@ import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import { api } from "@/common";
 type AuthContextType = {
-  creatProduct: (type: creatProductType) => Promise<void>;
+  creatProduct: (type: creatProductParams) => Promise<void>;
   index: string;
   setIndex: Dispatch<SetStateAction<string>>;
-  checkUser: (email: string) => Promise<void>;
+  checkUser: (params: CheckUserParams) => Promise<void>;
   checkShopName: (shopName: any) => Promise<void>;
   setEmail: Dispatch<SetStateAction<string>>;
   setName: Dispatch<SetStateAction<string>>;
@@ -39,7 +39,10 @@ type AuthContextType = {
   productModal: boolean;
   setProductModal: Dispatch<SetStateAction<boolean>>;
 };
-type creatProductType = {
+type CheckUserParams = {
+  email: string;
+};
+type creatProductParams = {
   productName: string;
   description: string;
   price: number;
@@ -104,13 +107,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       }
     }
   };
-  const creatProduct = async (type: creatProductType) => {
+  const creatProduct = async (type: creatProductParams) => {
     try {
       const { data } = await api.post("/product/create", type);
-      console.log(data);
+      toastSuccess(data);
     } catch (error) {
-      if (error instanceof AxiosError) {
-        console.log(error);
+      if (error) {
+        toastError(error);
       }
     }
   };
@@ -118,9 +121,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     handleImageInput();
   }, []);
 
-  const checkUser = async (email: string) => {
+  const checkUser = async () => {
     try {
-      const { data } = await api.post("/account/email", email);
+      const { data } = await api.post("/account/email");
       toastSuccess(data);
       setIndex("step1");
     } catch (error) {

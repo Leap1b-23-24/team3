@@ -1,5 +1,5 @@
 "use client";
-import AdminHeader from "@/components/AdminDashboardTools/AdminHeader";
+import AdminHeader from "@/components/AdminTools/AdminHeader";
 import AdminProvider from "@/components/providers/AdminProvider";
 import { Stack } from "@mui/material";
 import { PropsWithChildren } from "react";

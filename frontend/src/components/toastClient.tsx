@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 export function toastSuccess(data: any) {
-  toast.success(data.message, {
+  toast.success(data.message === null ? data : data.message, {
     position: "top-center",
     autoClose: 3000,
     hideProgressBar: true,

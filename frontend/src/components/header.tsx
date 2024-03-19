@@ -1,6 +1,13 @@
+"use client";
+import { Stack } from "@mui/material";
+import Link from "next/link";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
+
 export const Header = () => {
+  const [drop, setDrop] = useState(false);
   return (
-    <div className="bg-[#12A795]">
+    <div className="bg-[#12A795] px-6">
       <div className="max-w-[1240px] m-auto flex items-center justify-between py-[10px]">
         <div className="flex gap-3 items-center">
           <img src="./headerImages/Pinecone Logo.png" className="w-7 h-7" />
@@ -18,9 +25,32 @@ export const Header = () => {
           />
         </div>
         <div className="w-[12%] flex items-center justify-between gap-2">
-          <img src="./headerImages/heart.png" className="w-[23px] h-[23px]" />
-          <img src="./headerImages/sags.png" className="w-[23px] h-[23px]" />
-          <img src="./headerImages/Avatar.png" className="w-[41px] h-[41px]" />
+          <img src="./headerImages/heart.png" className="w-6 h-6" />
+          <img src="./headerImages/sags.png" className="w-6 h-6" />{" "}
+          {drop && (
+            <Stack sx={{ color: "white" }}>
+              <Stack>
+                <Link href="/signup">Бүртгүүлэх</Link>
+              </Stack>
+              <Stack>
+                <Link href="#">Нэвтрэх</Link>
+              </Stack>
+            </Stack>
+          )}
+          <Stack
+            onClick={() => {
+              setDrop(!drop);
+            }}
+          >
+            <MenuIcon
+              sx={{
+                width: "24px",
+                height: "24px",
+                color: "white",
+                cursor: "pointer",
+              }}
+            />
+          </Stack>
         </div>
       </div>
     </div>

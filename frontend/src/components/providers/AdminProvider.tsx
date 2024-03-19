@@ -6,7 +6,7 @@ import {
   createContext,
   useState,
 } from "react";
-import DashboardNavbar from "../AdminDashboardTools/DashboardNavbar";
+import DashboardNavbar from "../AdminTools/AdminNavbar";
 
 type AdminContextType = {
   selectNavbar: string;
