@@ -3,15 +3,15 @@ import { Schema, model } from "mongoose";
 const productSchema = new Schema({
   productName: {
     type: String,
-    required: true,
+    required: false,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   price: {
     type: Number,
-    required: true,
+    required: false,
   },
   thumbnail: {
     type: String,
@@ -20,33 +20,33 @@ const productSchema = new Schema({
   discount: {
     type: Number,
     default: 0,
-    required: true,
+    required: false,
   },
   qty: {
     type: Number,
-    required: true,
+    required: false,
   },
   // images: [
   //   {
   //     imageLink: {
   //       type: String,
-  //       require: true,
+  //       require: false,
   //     },
   //   },
   // ],
   category: {
     type: String,
-    required: true,
+    required: false,
   },
   subCategory: {
     type: String,
-    required: true,
+    required: false,
   },
   // color: [
   //   {
   //     colorName: {
   //       type: String,
-  //       required: true,
+  //       required: false,
   //     },
   //     colorCode: {
   //       type: String,
@@ -66,7 +66,7 @@ const productSchema = new Schema({
   //   {
   //     tagsName: {
   //       type: String,
-  //       required: true,
+  //       required: false,
   //     },
   //   },
   // ],

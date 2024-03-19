@@ -38,6 +38,8 @@ type AuthContextType = {
   setSelectedFile: Dispatch<SetStateAction<File | null>>;
   productModal: boolean;
   setProductModal: Dispatch<SetStateAction<boolean>>;
+  isAddProduct: boolean;
+  setIsAddProduct: Dispatch<SetStateAction<boolean>>;
 };
 type CheckUserParams = {
   email: string;
@@ -84,6 +86,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
   const [productModal, setProductModal] = useState(false);
+  const [isAddProduct, setIsAddProduct] = useState(false);
+
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);
@@ -187,6 +191,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setSelectedFile,
         productModal,
         setProductModal,
+        isAddProduct,
+        setIsAddProduct,
       }}
     >
       {children}
