@@ -1,10 +1,11 @@
 import { Footer, Header, SingleCardOfHomePage } from "@/components";
+import { DashboardHead } from "@/components/DashboardHead";
 import { Stack } from "@mui/material";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      {/* <Header />
       <Stack px="24px">
         <div className="max-w-[1240px] m-auto py-6">
           <img
@@ -27,7 +28,7 @@ export default function Home() {
           </div>
         </div>
       </Stack>
-      <Footer />
+      <Footer /> */}
     </>
   );
 }
