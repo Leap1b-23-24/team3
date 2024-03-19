@@ -9,7 +9,7 @@ const orderSchema = new Schema({
     type: String,
     default: "Шинэ захиалга",
   },
-  cutomerEmail: {
+  customerEmail: {
     type: String,
     require: true,
   },

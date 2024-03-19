@@ -8,7 +8,7 @@ export const getAllSales: RequestHandler = async (req, res) => {
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
+  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
   const { id } = payload;
   const sales = await SalesSchema.find({ userId: id });
 
@@ -20,47 +20,47 @@ export const getAllSales: RequestHandler = async (req, res) => {
   res.json(sales);
 };
 
-export const createSales: RequestHandler = async (req, res) => {
-  const { orderDetails } = req.body;
-  const { authorization } = req.headers;
-  if (!authorization) {
-    return res.json({ message: "not authorized" });
-  }
-  const payload = jwt.verify(authorization, "secretkey") as JwtPayload;
-  const { id } = payload;
+// export const createSales: RequestHandler = async (req, res) => {
+//   const { orderDetails } = req.body;
+//   const { authorization } = req.headers;
+//   if (!authorization) {
+//     return res.json({ message: "not authorized" });
+//   }
+//   const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
+//   const { id } = payload;
 
-  const { productId, productName, productPrice, productQty, productThumbnail } =
-    orderDetails;
+//   const { productId, productName, productPrice, productQty, productThumbnail } =
+//     orderDetails;
 
-  //productStock-oor haihad tuuntei taarah id baihgui baij boloh uchir zaaval if condition bichne
-  const productStock = await ProductModel.findOne({ _id: productId });
-  if (!productStock) {
-    return res.status(400).json({ message: "not found" });
-  }
+//   //productStock-oor haihad tuuntei taarah id baihgui baij boloh uchir zaaval if condition bichne
+//   const productStock = await ProductModel.findOne({ _id: productId });
+//   if (!productStock) {
+//     return res.status(400).json({ message: "product id not found" });
+//   }
 
-  //If condition shalgasanii daraa l productStockiin qty-g avj bolno
-  const productStockQty = productStock.qty;
+//   //If condition shalgasanii daraa l productStockiin qty-g avj bolno
+//   const productStockQty = productStock.qty;
 
-  if (productStockQty < productQty) {
-    return res.json({ message: "order exceeded stock" });
-  }
+//   if (productStockQty < productQty && productQty < 0) {
+//     return res.json({ message: "order exceeded stock" });
+//   }
 
-  const updateLeftProductQty = await ProductModel.findOneAndUpdate(
-    { _id: productId },
-    { $dec: { qty: productQty } }
-  );
+//   const updateLeftProductQty = await ProductModel.findOneAndUpdate(
+//     { _id: productId },
+//     { $dec: { qty: productQty } }
+//   );
 
-  const updateSalesProductQty = await ProductModel.findOneAndUpdate(
-    { _id: productId },
-    { $inc: { sales: productQty } }
-  );
+//   const updateSalesProductQty = await ProductModel.findOneAndUpdate(
+//     { _id: productId },
+//     { $inc: { sales: productQty } }
+//   );
 
-  const sales = await SalesSchema.create({
-    userId: id,
-    productId,
-    productName,
-    productPrice,
-    productQtySold: productQty,
-    productThumbnail,
-  });
-};
+//   const sales = await SalesSchema.create({
+//     userId: id,
+//     productId,
+//     productName,
+//     productPrice,
+//     productQtySold: productQty,
+//     productThumbnail,
+//   });
+// };
