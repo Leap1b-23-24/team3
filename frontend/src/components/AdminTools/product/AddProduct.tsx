@@ -1,12 +1,11 @@
 "use client";
-import { Button, Stack, Typography } from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { Button, Stack } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Auth } from "@/components/providers/AuthProvider";
 import ProductFields1 from "@/components/AdminTools/product/ProductFields1";
 import ProductFields2 from "@/components/AdminTools/product/ProductFields2";
-import Link from "next/link";
+
 const validationSchema = yup.object({
   productName: yup.string(),
   description: yup.string(),
@@ -60,13 +59,7 @@ export default function AddProduct() {
 
   return (
     <Stack className="bg-[#F7F7F8] h-screen gap-10">
-      <Link href={"/Product"}>
-        <Button className="h-[56px] w-full justify-start items-center gap-5 bg-white">
-          <ArrowBackIosNewIcon />
-          <Typography>Бүтээгдэхүүн нэмэх</Typography>
-        </Button>
-      </Link>
-      <Stack m="auto">
+      <Stack>
         <Stack
           className="bg-[#F7F7F8] mr-8"
           direction="row"

@@ -5,7 +5,7 @@ import IncomeHeader from "./IncomeHead";
 
 export default function Income() {
   return (
-    <Stack>
+    <Stack className="max-w-[1220px]">
       <IncomeHeader />
       <IncomeTable />
     </Stack>

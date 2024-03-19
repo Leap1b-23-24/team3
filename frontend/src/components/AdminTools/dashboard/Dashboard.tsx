@@ -4,7 +4,7 @@ import DashboardTable from "./DashBoardTable";
 
 export default function Dashboard() {
   return (
-    <Stack>
+    <Stack className="max-w-[1220px]">
       <DashboardTable />
     </Stack>
   );
