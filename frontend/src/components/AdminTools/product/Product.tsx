@@ -40,7 +40,7 @@ export default function Product() {
         </Typography>
       </Stack>
       <Stack gap="40px" className="p-8">
-        <Link href={"/AddProductCard"}>
+        <Link href="/admin/addproduct">
           <Button
             variant="contained"
             className="flex w-[280px] h-[48px] bg-black"

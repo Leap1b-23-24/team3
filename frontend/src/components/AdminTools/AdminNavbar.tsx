@@ -16,6 +16,11 @@ const data = [
 ];
 export default function DashboardNavbar() {
   const { selectNavbar, setSelectNavbar } = useContext(AdminContext);
+
+  function addLs(value: any) {
+    localStorage.setItem("NavbarIndex", value);
+    setSelectNavbar(value);
+  }
   return (
     <Stack maxWidth="222px" width="100%" height="100vh" mt="24px">
       <Stack gap={1}>
@@ -25,9 +30,9 @@ export default function DashboardNavbar() {
               key={index}
               direction="row"
               onClick={() => {
-                setSelectNavbar(item.label);
+                addLs(item.label);
               }}
-              className="pl-3 gap-3 cursor-pointer h-10 items-center font-semibold"
+              className="pl-3 gap-3 cursor-pointer h-10 items-center font-semibold min-w-[200px] "
               sx={{ bgcolor: selectNavbar === item.label ? "#ECEDF0" : "none" }}
             >
               {item.icon} {item.label}

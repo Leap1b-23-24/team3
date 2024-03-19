@@ -12,13 +12,13 @@ import {
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
+
 import { api } from "@/common";
 type AuthContextType = {
   creatProduct: (type: creatProductParams) => Promise<void>;
   index: string;
-  setIndex: Dispatch<SetStateAction<string>>;
   checkUser: (params: CheckUserParams) => Promise<void>;
+  setIndex: Dispatch<SetStateAction<string>>;
   checkShopName: (shopName: any) => Promise<void>;
   setEmail: Dispatch<SetStateAction<string>>;
   setName: Dispatch<SetStateAction<string>>;
@@ -88,6 +88,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);
   };
+
   const handleImageInput = async () => {
     if (selectedFile) {
       try {
@@ -121,9 +122,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     handleImageInput();
   }, []);
 
-  const checkUser = async () => {
+  const checkUser = async (params: CheckUserParams) => {
     try {
-      const { data } = await api.post("/account/email");
+      const { data } = await api.post("/account/email", params);
       toastSuccess(data);
       setIndex("step1");
     } catch (error) {
@@ -155,7 +156,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         productType,
       });
       toastSuccess(data);
-      router.push("/dashboard");
+      router.push("/admin");
     } catch (error) {
       toastError(error);
     }

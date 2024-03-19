@@ -1,7 +1,7 @@
 "use client";
 import { Stack } from "@mui/material";
 import IncomeTable from "./IncomeTable";
-import IncomeHeader from "@/components/IncomeHead";
+import IncomeHeader from "./IncomeHead";
 
 export default function Income() {
   return (

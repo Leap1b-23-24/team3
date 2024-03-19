@@ -47,6 +47,7 @@ export default function SignUp() {
       setPassword(values.password);
     },
   });
+
   useEffect(() => {
     document.addEventListener("keydown", detectKeyDown);
 
