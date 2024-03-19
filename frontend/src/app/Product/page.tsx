@@ -1,3 +1,4 @@
+"use client";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { CustomInput } from "../../components/CustomInput";
@@ -6,11 +7,38 @@ import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
 import ProductMap from "../../components/AddProduct/ProductMap";
+import { useState } from "react";
 export default function Product() {
-  const cardMap = [{}];
+  const [isBorder, setIsBorder] = useState(true);
   return (
-    <Stack className="bg-[#F7F7F8]">
-      <Stack gap="40px">
+    <Stack className="bg-[#F7F7F8] ">
+      <Stack direction="row" className="h-[56px] border-[1px]">
+        <Typography
+          style={{
+            fontWeight: isBorder ? "600" : "400",
+            borderBottom: isBorder ? "2px solid black" : "",
+          }}
+          className="w-[124px] flex justify-center items-center"
+          onClick={() => {
+            setIsBorder(true);
+          }}
+        >
+          Бүтээгдэхүүн
+        </Typography>
+        <Typography
+          style={{
+            fontWeight: isBorder ? "400" : "600",
+            borderBottom: isBorder ? "" : "2px solid black",
+          }}
+          className="w-[88px] flex justify-center items-center"
+          onClick={() => {
+            setIsBorder(false);
+          }}
+        >
+          Ангилал
+        </Typography>
+      </Stack>
+      <Stack gap="40px" className="p-8">
         <Link href={"/AddProductCard"}>
           <Button
             variant="contained"
@@ -20,7 +48,7 @@ export default function Product() {
             <Typography>Бүтээгдэхүүн нэмэх</Typography>
           </Button>
         </Link>
-        <Stack direction="row">
+        <Stack direction="row" className="justify-between">
           <Stack direction="row" className="gap-[13px]">
             <Button variant="outlined" className="w-[145px] h-[40px] bg-white">
               <EventOutlinedIcon />

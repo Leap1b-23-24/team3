@@ -1,11 +1,10 @@
 import { Footer, Header, SingleCardOfHomePage } from "@/components";
 import Product from "./Product/page";
-import OrderDetial from "@/components/Order/OrderDetial";
 
 export default function Home() {
   return (
     <>
-      <OrderDetial />
+      <Product />
       {/* <Header />
       <div className="max-w-[1240px] m-auto py-6">
         <img
