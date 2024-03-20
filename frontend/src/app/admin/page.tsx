@@ -28,7 +28,7 @@ export default function DashboardHomePage() {
         </Stack>
       )}
 
-      <Stack className="bg-[#F7F7F8] h-screen w-screen py-8 px-6">
+      <Stack className="bg-[#F7F7F8] h-screen w-[1240px]  py-8 px-6">
         {selectNavbar === "Хяналтын самбар" && <Dashboard />}
         {selectNavbar === "Захиалга" && <Order />}
         {selectNavbar === "Орлого" && <Income />}

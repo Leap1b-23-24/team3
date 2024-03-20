@@ -27,7 +27,7 @@ export default function IncomeHeader() {
   return (
     <>
       <Stack
-        width="1000px"
+        maxWidth="1000px"
         m="auto"
         px="24px"
         bgcolor="white"

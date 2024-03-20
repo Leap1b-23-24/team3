@@ -51,7 +51,7 @@ export default function ProductHead() {
           <Typography>Бүтээгдэхүүн нэмэх</Typography>
         </Button>
 
-        <Stack direction="row" className="justify-between ">
+        <Stack direction="row" className="justify-between items-center ">
           <Stack direction="row" className="gap-[13px]">
             <Button variant="outlined" className="w-[145px] h-10 bg-white">
               <EventOutlinedIcon />
@@ -67,7 +67,7 @@ export default function ProductHead() {
             </Button>
           </Stack>
 
-          <Stack>
+          <Stack className="-mt-2">
             <CustomInput
               placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
               type="search"

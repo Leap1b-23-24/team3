@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,12 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Stack } from "@mui/material";
-
-const rows = [
-  { id: "0983294058", subscriber: "name", price: "12000", date: "12:12" },
-];
+import { AdminContext } from "@/components/providers/AdminProvider";
+import { useContext } from "react";
 
 export default function IncomeTable() {
+  const { AllProduct } = useContext(AdminContext);
+
   return (
     <Stack>
       <Stack className="text-lg font-semibold mb-7">Захиалга</Stack>
@@ -28,12 +28,14 @@ export default function IncomeTable() {
               </TableRow>
             </TableHead>
             <TableBody className="bg-white">
-              {rows.map((row, index) => (
+              {AllProduct.map((item: any, index: number) => (
                 <TableRow key={index}>
-                  <TableCell className="font-semibold">{row.id}</TableCell>
-                  <TableCell align="center">{row.subscriber}</TableCell>
-                  <TableCell align="center">{row.price}</TableCell>
-                  <TableCell align="center">{row.date}</TableCell>
+                  <TableCell className="font-semibold">{item._id}</TableCell>
+                  <TableCell align="center">{item.subcriber}</TableCell>
+                  <TableCell align="center">{item.price}</TableCell>
+                  <TableCell align="center">
+                    {item.createdAt.slice(0, 10)}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
