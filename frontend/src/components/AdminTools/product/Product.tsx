@@ -4,6 +4,7 @@ import { Stack } from "@mui/material";
 import { useContext } from "react";
 import ProductHead from "./ProductHead";
 import AddProduct from "./AddProduct";
+// import ProductTable from "./ProductTable";
 
 export default function Product() {
   const { isAddProduct } = useContext(AdminContext);
@@ -11,6 +12,7 @@ export default function Product() {
     <Stack className="max-w-[1220px]">
       {!isAddProduct && <ProductHead />}
       {isAddProduct && <AddProduct />}
+      {/* <ProductTable /> */}
     </Stack>
   );
 }

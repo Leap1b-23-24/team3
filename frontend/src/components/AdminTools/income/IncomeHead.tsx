@@ -27,12 +27,17 @@ export default function IncomeHeader() {
   return (
     <>
       <Stack
-        maxWidth="1000px"
         m="auto"
         px="24px"
         bgcolor="white"
         borderRadius="12px"
-        sx={{ border: 1, borderColor: "#e6e3e3" }}
+        sx={{
+          border: 1,
+          borderColor: "#e6e3e3",
+          width: "100%",
+          maxWidth: "724px",
+          mb: "8px",
+        }}
       >
         <Stack
           direction="row"

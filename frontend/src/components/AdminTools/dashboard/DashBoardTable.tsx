@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import { Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AdminContext } from "@/components/providers/AdminProvider";
+import { numberFormatter } from "@/components/numberFormatter";
 
 const rows = [
   { product: "gg", sold: "33", price: "12,800₮" },
@@ -29,7 +30,7 @@ export default function DashboardTable() {
         <Table sx={{ maxWidth: "533px" }} aria-label="customized table">
           <TableHead>
             <TableRow className="bg-[#ECEDF0]">
-              <TableCell className="font-semibold">№</TableCell>
+              <TableCell className="font-semibold w-8">№</TableCell>
               <TableCell className="font-semibold" align="center">
                 Бүтээгдэхүүн
               </TableCell>
@@ -44,25 +45,32 @@ export default function DashboardTable() {
           <TableBody className="bg-white">
             {AllProduct.map((item: any, index: number) => (
               <TableRow key={index}>
-                <TableCell>{index + 1}</TableCell>
+                <TableCell width="30px">{index + 1}</TableCell>
                 <TableCell align="center">
                   <Stack
                     direction="row"
                     alignItems="center"
-                    className="max-w-[157px] bg-cyan-50"
+                    className="max-w-[250px] justify-between"
                   >
                     <img
                       src={item.thumbnail}
                       className="w-10 h-10 rounded-full"
                     />
-                    <Stack>
-                      <Typography>{item.productName}</Typography>
+                    <Stack alignItems="flex-start">
+                      <Typography
+                        sx={{ fontWeight: 600 }}
+                        className="text-sm font-semibold uppercase"
+                      >
+                        {item.productName}
+                      </Typography>
                       <Typography>{item._id}</Typography>
                     </Stack>
                   </Stack>
                 </TableCell>
-                <TableCell align="center">{item.sold}</TableCell>
-                <TableCell align="center">{item.price}</TableCell>
+                <TableCell align="center">0</TableCell>
+                <TableCell align="center">
+                  {numberFormatter.format(item.price)}₮
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
