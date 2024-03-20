@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import { OrderSchema, ProductModel, UserModel } from "../models";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { SalesSchema } from "../models/sales.model";
 
 export const getAllOrder: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
@@ -49,32 +48,61 @@ export const createOrder: RequestHandler = async (req, res) => {
     return res.status(400).json({ message: "customer city not found" });
   }
 
-  const newOrderArr = orderDetails.map(async (item: any, index: number) => {
-    const num = item.productQty;
+  //Map ashiglaaguin order-n ali neg buteegdehuun aguulahad baigaa buteegdehuunii toog davhad return hiih yostoi
+  //map-n dotorh return ni map-n-iihaa uildeliig zogsooson CreateOrder functioniihaa uildeliig zogsooj chadahgui bolohoor For ashiglav
+  for (let i = 0; i < orderDetails.length; i++) {
+    const num = orderDetails[i].productQty;
 
-    // const productStock = await ProductModel.findOne({
-    //   _id: orderDetails.productId,
-    // });
-    // if (!productStock) {
-    //   return res.status(400).json({ message: "product id not found" });
-    // }
-    // const productStockQty = productStock.qty;
+    const productStock = await ProductModel.findOne({
+      _id: orderDetails[i].productId,
+    });
 
-    // // Orj irsen zahialgiin too 0-s baga utga baij bolohq bas orj irsen zahialga noots butegdehuunii davj bolohgui
-    // if (productStockQty < num && num < 0) {
-    //   return res.json({ message: "order exceeded stock" });
-    // }
+    if (!productStock) {
+      return res.status(400).json({ message: "product id not found" });
+    }
+
+    const productStockQty = productStock.qty;
+
+    if (productStockQty < num || num < 0) {
+      return res.json({ message: "order exceeded stock" });
+    }
 
     const updateLeftProductQty = await ProductModel.findOneAndUpdate(
-      { _id: item.productId },
+      { _id: orderDetails[i].productId },
       { $inc: { qty: -num } }
     );
 
     const updateSalesProductQty = await ProductModel.findOneAndUpdate(
-      { _id: item.productId },
+      { _id: orderDetails[i].productId },
       { $inc: { sales: num } }
     );
-  });
+  }
+  // const newOrderArr = orderDetails.map(async (item: any, index: number) => {
+  //   const num = item.productQty;
+
+  //   const productStock = await ProductModel.findOne({
+  //     _id: orderDetails.productId,
+  //   });
+  //   if (!productStock) {
+  //     return res.status(400).json({ message: "product id not found" });
+  //   }
+  //   const productStockQty = productStock.qty;
+
+  //   // Orj irsen zahialgiin too 0-s baga utga baij bolohq bas orj irsen zahialga noots butegdehuunii davj bolohgui
+  //   if (productStockQty < num && num < 0) {
+  //     return res.json({ message: "order exceeded stock" });
+  //   }
+
+  //   const updateLeftProductQty = await ProductModel.findOneAndUpdate(
+  //     { _id: item.productId },
+  //     { $inc: { qty: -num } }
+  //   );
+
+  //   const updateSalesProductQty = await ProductModel.findOneAndUpdate(
+  //     { _id: item.productId },
+  //     { $inc: { sales: num } }
+  //   );
+  // });
 
   //Creating order section
   const newOrder = await OrderSchema.create({

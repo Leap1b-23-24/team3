@@ -15,8 +15,9 @@ export const login: RequestHandler = async (req, res) => {
   }
 
   const id = user._id;
+  const roles = user.roles;
 
-  const token = jwt.sign({ id }, "secret-key");
+  const token = jwt.sign({ id, roles }, "secret-key");
 
   return res.json({ token });
 };
