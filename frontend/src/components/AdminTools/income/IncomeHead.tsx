@@ -1,14 +1,17 @@
 "use client";
-import { Divider, Stack, Typography } from "@mui/material";
-import DownloadIcon from "@mui/icons-material/Download";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import InsertInvitationOutlinedIcon from "@mui/icons-material/InsertInvitationOutlined";
-import MenuItem from "@mui/material/MenuItem";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const tabs = [
   {
-    label: "өнөөдөр",
+    label: "Өнөөдөр",
   },
   {
     label: "7 хоног",
@@ -16,7 +19,7 @@ const tabs = [
 ];
 
 export default function IncomeHeader() {
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [activeTab, setActiveTab] = useState("Өнөөдөр");
 
   const [age, setAge] = useState("");
 
@@ -26,96 +29,86 @@ export default function IncomeHeader() {
 
   return (
     <>
-      <Stack
-        m="auto"
-        px="24px"
-        bgcolor="white"
-        borderRadius="12px"
-        sx={{
-          border: 1,
-          borderColor: "#e6e3e3",
-          width: "100%",
-          maxWidth: "724px",
-          mb: "8px",
-        }}
-      >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          py="24px"
+      <Stack gap={2} width={1}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          border={1}
+          borderColor="#ECEDF0"
+          borderRadius={1.5}
+          bgcolor="common.white"
         >
-          <Typography fontWeight="600" fontSize="20px">
-            Орлого
-          </Typography>
           <Stack
-            direction="row"
-            bgcolor="#1C20240A"
-            borderRadius="8px"
-            p="8px"
-            gap="4px"
+            borderBottom={1}
+            borderColor="#ECEDF0"
+            py={2.5}
+            px={3}
+            flexDirection="row"
+            justifyContent="space-between"
           >
-            <DownloadIcon />
-            <Typography fontWeight="520" fontSize="14px">
-              Хуулга татах
+            <Typography fontSize={20} fontWeight={700}>
+              Орлого
             </Typography>
+            <Button
+              variant="text"
+              sx={{ bgcolor: "#1C20240A", px: "12px" }}
+              startIcon={<FileDownloadOutlinedIcon />}
+            >
+              <Typography fontSize={16} fontWeight={600}>
+                Хуулга татах
+              </Typography>
+            </Button>
           </Stack>
-        </Stack>
+          <Stack
+            flexDirection="row"
+            p={3}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography fontSize={28} fontWeight={700}>
+              235,000₮
+            </Typography>
+            <Stack flexDirection="row" gap={1} alignItems="center">
+              {tabs.map((item: any, index) => {
+                return (
+                  <Stack
+                    onClick={() => {
+                      setActiveTab(item.label);
+                    }}
+                    sx={{
+                      bgcolor: activeTab === item.label ? "#18BA51" : "white",
+                      color: activeTab === item.label ? "white" : "black",
+                      borderColor: "#ECEDF0",
+                      p: "10px 16px",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.label}
+                  </Stack>
+                );
+              })}
 
-        <Divider />
-
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          py="24px"
-        >
-          <Typography fontWeight="600" fontSize="20px">
-            235,000$
-          </Typography>
-
-          <Stack direction="row" spacing="8px">
-            {tabs.map((item, index) => (
-              <Stack
-                key={index}
-                borderRadius="8px"
-                py="8px"
-                px="20px"
-                onClick={() => {
-                  setActiveTab(item);
-                }}
-                sx={{
-                  border: 1,
-                  borderColor: "#e6e3e3",
-                  bgcolor: item.label === activeTab.label ? "#18BA51" : "white",
-                  color: item.label === activeTab.label ? "white" : "black",
-                }}
-              >
-                <Typography>{item.label}</Typography>
-              </Stack>
-            ))}
-
-            <Stack height="5px">
-              <Select
-                sx={{ height: "40px" }}
-                value={age}
-                onChange={handleChange}
-                displayEmpty
-                inputProps={{ "aria-label": "Without label" }}
-              >
-                <MenuItem value="">
-                  <em className="flex gap-2">
-                    <InsertInvitationOutlinedIcon />
-                    <Typography>Сараар</Typography>
-                  </em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer sx={{ p: 0 }} components={["DatePicker"]}>
+                  <DatePicker
+                    disableFuture
+                    monthsPerRow={3}
+                    views={["month", "year"]}
+                    slotProps={{
+                      inputAdornment: {
+                        position: "start",
+                      },
+                      openPickerButton: {
+                        size: "small",
+                      },
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
             </Stack>
           </Stack>
-        </Stack>
+        </Box>
       </Stack>
     </>
   );

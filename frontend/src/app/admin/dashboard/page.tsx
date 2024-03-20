@@ -1,6 +1,6 @@
 "use client";
+import DashboardTable from "@/components/AdminTools/dashboard/DashBoardTable";
 import { Stack } from "@mui/material";
-import DashboardTable from "./DashBoardTable";
 
 export default function Dashboard() {
   return (

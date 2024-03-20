@@ -1,10 +1,10 @@
 "use client";
+import AddProduct from "@/components/AdminTools/product/AddProduct";
+import ProductHead from "@/components/AdminTools/product/ProductHead";
+import ProductTable from "@/components/AdminTools/product/ProductTable";
 import { AdminContext } from "@/components/providers/AdminProvider";
 import { Stack } from "@mui/material";
 import { useContext } from "react";
-import ProductHead from "./ProductHead";
-import AddProduct from "./AddProduct";
-// import ProductTable from "./ProductTable";
 
 export default function Product() {
   const { isAddProduct } = useContext(AdminContext);
@@ -12,7 +12,7 @@ export default function Product() {
     <Stack className="max-w-[1220px]">
       {!isAddProduct && <ProductHead />}
       {isAddProduct && <AddProduct />}
-      {/* <ProductTable /> */}
+      <ProductTable />
     </Stack>
   );
 }

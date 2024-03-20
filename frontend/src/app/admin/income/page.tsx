@@ -1,7 +1,7 @@
 "use client";
+import IncomeHeader from "@/components/AdminTools/income/IncomeHead";
+import IncomeTable from "@/components/AdminTools/income/IncomeTable";
 import { Stack } from "@mui/material";
-import IncomeTable from "./IncomeTable";
-import IncomeHeader from "./IncomeHead";
 
 export default function Income() {
   return (

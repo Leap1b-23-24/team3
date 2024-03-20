@@ -7,21 +7,27 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useContext } from "react";
 import { AdminContext } from "../providers/AdminProvider";
+import { usePathname, useRouter } from "next/navigation";
 const data = [
-  { label: "Хяналтын самбар", icon: <WindowSharpIcon /> },
-  { label: "Захиалга", icon: <ContentPasteOutlinedIcon /> },
-  { label: "Орлого", icon: <LocalOfferIcon /> },
-  { label: "Бүтээгдэхүүн", icon: <ListAltIcon /> },
+  {
+    label: "Хяналтын самбар",
+    icon: <WindowSharpIcon />,
+    href: "/admin/dashboard",
+  },
+  {
+    label: "Захиалга",
+    icon: <ContentPasteOutlinedIcon />,
+    href: "/admin/order",
+  },
+  { label: "Орлого", icon: <LocalOfferIcon />, href: "/admin/income" },
+  { label: "Бүтээгдэхүүн", icon: <ListAltIcon />, href: "/admin/product" },
   { label: "Тохиргоо", icon: <SettingsIcon /> },
 ];
 export default function DashboardNavbar() {
-  const { selectNavbar, setSelectNavbar, setIsAddProduct } =
-    useContext(AdminContext);
+  const { selectNavbar } = useContext(AdminContext);
+  const router = useRouter();
+  const pathname = usePathname();
 
-  function addLs(value: any) {
-    localStorage.setItem("NavbarIndex", value);
-    setSelectNavbar(value);
-  }
   return (
     <Stack maxWidth="222px" width="100%" height="100vh" mt="24px">
       <Stack gap={1}>
@@ -31,11 +37,12 @@ export default function DashboardNavbar() {
               key={index}
               direction="row"
               onClick={() => {
-                addLs(item.label);
-                setIsAddProduct(false);
+                router.push(`${item.href}`);
               }}
               className="pl-3 gap-3 cursor-pointer h-10 items-center font-semibold min-w-[200px] "
-              sx={{ bgcolor: selectNavbar === item.label ? "#ECEDF0" : "none" }}
+              sx={{
+                bgcolor: pathname.includes(`${item.href}`) ? "#ECEDF0" : "none",
+              }}
             >
               {item.icon} {item.label}
             </Stack>

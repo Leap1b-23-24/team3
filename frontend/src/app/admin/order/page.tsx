@@ -1,6 +1,6 @@
 "use client";
+import OrderTable from "@/components/AdminTools/order/OrderTable";
 import { Stack } from "@mui/material";
-import OrderTable from "./OrderTable";
 
 export default function Order() {
   return (

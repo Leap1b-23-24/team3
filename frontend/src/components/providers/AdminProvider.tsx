@@ -41,8 +41,6 @@ export default function AdminProvider({ children }: PropsWithChildren) {
     }
   };
 
-  console.log("gg", AllProduct);
-
   return (
     <AdminContext.Provider
       value={{
