@@ -58,63 +58,56 @@ export default function AddProduct() {
   });
 
   return (
-    <Stack className="bg-[#F7F7F8] h-screen gap-10">
-      <Stack>
-        <Stack
-          className="bg-[#F7F7F8] mr-8"
-          direction="row"
-          gap="30px"
-          fontSize="14px"
+    <Stack>
+      <Stack direction="row" gap="30px" fontSize="14px">
+        <ProductFields1
+          productName={formik.values.productName}
+          description={formik.values.description}
+          price={formik.values.price}
+          thumbnail={formik.values.thumbnail}
+          // images={formik.values.images}
+          discount={formik.values.discount}
+          qty={formik.values.qty}
+          handleChange={formik.handleChange}
+        />
+        <ProductFields2
+          category={formik.values.category}
+          subCategory={formik.values.subCategory}
+          // color={formik.values.color}
+          // size={formik.values.size}
+          // tags={formik.values.tags}
+          handleChange={formik.handleChange}
+        />
+      </Stack>
+      <Stack direction="row" className="gap-8 justify-end pt-6 bg-[#F7F7F8]">
+        <Button
+          className="w-[116px] h-[56px] text-[18px] font-semibold bg-white"
+          variant="outlined"
         >
-          <ProductFields1
-            productName={formik.values.productName}
-            description={formik.values.description}
-            price={formik.values.price}
-            thumbnail={formik.values.thumbnail}
-            // images={formik.values.images}
-            discount={formik.values.discount}
-            qty={formik.values.qty}
-            handleChange={formik.handleChange}
-          />
-          <ProductFields2
-            category={formik.values.category}
-            subCategory={formik.values.subCategory}
-            // color={formik.values.color}
-            // size={formik.values.size}
-            // tags={formik.values.tags}
-            handleChange={formik.handleChange}
-          />
-        </Stack>
-        <Stack direction="row" className="gap-8 justify-end pt-6 bg-[#F7F7F8]">
-          <Button
-            className="w-[116px] h-[56px] text-[18px] font-semibold bg-white"
-            variant="outlined"
-          >
-            Ноорог
-          </Button>
-          <Button
-            variant="contained"
-            className="w-[116px] h-[56px] text-[18px] mr-8 font-semibold bg-black"
-            // disabled={
-            //   !formik.values.productName ||
-            //   !formik.values.description ||
-            //   // !formik.values.price ||
-            //   //   !formik.values.thumbnail ||
-            //   // !formik.values.discount ||
-            //   // !formik.values.qty ||
-            //   //   !formik.values.images ||
-            //   // !formik.values.category ||
-            //   // !formik.values.subCategory ||
-            //   //   !formik.values.color ||
-            //   // !formik.values.tags
-            // }
-            onClick={() => {
-              formik.handleSubmit();
-            }}
-          >
-            Нийтлэх
-          </Button>
-        </Stack>
+          Ноорог
+        </Button>
+        <Button
+          variant="contained"
+          className="w-[116px] h-[56px] text-[18px] mr-8 font-semibold bg-black"
+          // disabled={
+          //   !formik.values.productName ||
+          //   !formik.values.description ||
+          //   // !formik.values.price ||
+          //   //   !formik.values.thumbnail ||
+          //   // !formik.values.discount ||
+          //   // !formik.values.qty ||
+          //   //   !formik.values.images ||
+          //   // !formik.values.category ||
+          //   // !formik.values.subCategory ||
+          //   //   !formik.values.color ||
+          //   // !formik.values.tags
+          // }
+          onClick={() => {
+            formik.handleSubmit();
+          }}
+        >
+          Нийтлэх
+        </Button>
       </Stack>
     </Stack>
   );
