@@ -130,6 +130,11 @@ export const orderStatusPreparing: RequestHandler = async (req, res) => {
   if (!idValid) {
     return res.json({ message: " Invalid order ID" });
   }
+  const isOrderCanceled = idValid.status;
+
+  if (isOrderCanceled === "Цуцлагдсан") {
+    return res.json({ message: "Canceled order can't be updated" });
+  }
   const orderStatus = await OrderSchema.findOneAndUpdate(
     { _id: orderId },
     { $set: { status: "Бэлтгэгдэж байгаа" } }
@@ -148,6 +153,13 @@ export const orderStatusOnDelivery: RequestHandler = async (req, res) => {
   if (!idValid) {
     return res.json({ message: " Invalid order ID" });
   }
+
+  const isOrderCanceled = idValid.status;
+
+  if (isOrderCanceled === "Цуцлагдсан") {
+    return res.json({ message: "Canceled order can't be updated" });
+  }
+
   const orderStatus = await OrderSchema.findOneAndUpdate(
     { _id: orderId },
     { $set: { status: "Хүргэлтэнд гарсан" } }
@@ -166,6 +178,13 @@ export const orderStatusDelivered: RequestHandler = async (req, res) => {
   if (!idValid) {
     return res.json({ message: " Invalid order ID" });
   }
+
+  const isOrderCanceled = idValid.status;
+
+  if (isOrderCanceled === "Цуцлагдсан") {
+    return res.json({ message: "Canceled order can't be updated" });
+  }
+
   const orderStatus = await OrderSchema.findOneAndUpdate(
     { _id: orderId },
     { $set: { status: "Хүргэгдсэн" } }
@@ -174,7 +193,7 @@ export const orderStatusDelivered: RequestHandler = async (req, res) => {
 };
 export const orderStatusCanceled: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
-  const { orderId } = req.body;
+  const { orderId, orderDetails } = req.body;
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
@@ -183,6 +202,29 @@ export const orderStatusCanceled: RequestHandler = async (req, res) => {
   if (!idValid) {
     return res.json({ message: " Invalid order ID" });
   }
+
+  for (let i = 0; i < orderDetails.length; i++) {
+    const num = orderDetails[i].productQty;
+
+    const productStock = await ProductModel.findOne({
+      _id: orderDetails[i].productId,
+    });
+
+    if (!productStock) {
+      return res.status(400).json({ message: "product id not found" });
+    }
+
+    const updateLeftProductQty = await ProductModel.findOneAndUpdate(
+      { _id: orderDetails[i].productId },
+      { $inc: { qty: num } }
+    );
+
+    const updateSalesProductQty = await ProductModel.findOneAndUpdate(
+      { _id: orderDetails[i].productId },
+      { $inc: { sales: -num } }
+    );
+  }
+
   const orderStatus = await OrderSchema.findOneAndUpdate(
     { _id: orderId },
     { $set: { status: "Цуцлагдсан" } }
