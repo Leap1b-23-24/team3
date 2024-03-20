@@ -3,7 +3,9 @@ import { Stack } from "@mui/material";
 import DashboardTable from "./DashBoardTable";
 
 export default function Dashboard() {
-  return <Stack>
-       <DashboardTable/>
-  </Stack>;
+  return (
+    <Stack>
+      <DashboardTable />
+    </Stack>
+  );
 }

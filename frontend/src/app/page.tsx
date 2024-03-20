@@ -1,10 +1,38 @@
 import { Footer, Header, SingleCardOfHomePage } from "@/components";
-import { Stack } from "@mui/material";
+import DehazeRoundedIcon from "@mui/icons-material/DehazeRounded";
+
+import { Stack, Typography } from "@mui/material";
 
 export default function Home() {
   return (
     <>
       <Header />
+      <Stack maxWidth="1240px" m="auto">
+        <Stack
+          width="35%"
+          gap="32px"
+          direction="row"
+          alignItems="center"
+          py="8px"
+          bgcolor="white"
+        >
+          <DehazeRoundedIcon />
+          <Stack direction="row" gap="16px" color="#121316">
+            <Typography fontWeight="600" fontSize="14px">
+              Хямдралтай
+            </Typography>
+            <Typography fontWeight="600" fontSize="14px">
+              Эрэгтэй
+            </Typography>
+            <Typography fontWeight="600" fontSize="14px">
+              Эмэгтэй
+            </Typography>
+            <Typography fontWeight="600" fontSize="14px">
+              Хүүхдийн
+            </Typography>
+          </Stack>
+        </Stack>
+      </Stack>
       <Stack px="24px">
         <div className="max-w-[1240px] m-auto py-6">
           <img
