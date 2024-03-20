@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   Card,
@@ -5,14 +6,15 @@ import {
   MenuItem,
   Select,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ClearIcon from "@mui/icons-material/Clear";
 import Card1 from "./Card1";
 import Card2 from "./Card2";
+import { useState } from "react";
 export default function OrderDetial() {
+  const [isInput, setIsInput] = useState(0);
   return (
     <Stack className="bg-[#F7F7F8] h-screen">
       <Button className="bg-white h-[56px] items-center justify-start gap-7 ">
@@ -33,30 +35,52 @@ export default function OrderDetial() {
                 <Select
                   displayEmpty
                   sx={{ height: "36px", borderRadius: "16px" }}
+                  style={{
+                    backgroundColor:
+                      isInput === 2
+                        ? "#c8e6c9"
+                        : "null"
+                        ? isInput === 3
+                          ? "#b3e5fc"
+                          : "null"
+                          ? isInput === 4
+                            ? "#eeeeee"
+                            : "null"
+                            ? isInput === 5
+                              ? "#ef9a9a"
+                              : "white"
+                            : ""
+                          : ""
+                        : "",
+                  }}
+                  onChange={(e: any) => {
+                    setIsInput(e.target.value);
+                    console.log(e.target.value);
+                  }}
                 >
                   <MenuItem>
-                    <Stack direction="row">
+                    <Stack direction="row" className="items-center gap-2">
                       <Typography>Шинэ захиалга</Typography>
-                      <ClearIcon />
+                      <ClearIcon sx={{ width: "15px", height: "15px" }} />
                     </Stack>
                   </MenuItem>
                   <MenuItem value={2}>
-                    <Typography className="flex rounded-xl p-1 text-[#0A4E22]">
+                    <Typography className="flex rounded-xl p-1 text-[#0A4E22] bg-[#c8e6c9] w-full">
                       Хүргэгдсэн
                     </Typography>
                   </MenuItem>
                   <MenuItem value={3}>
-                    <Typography className="flex rounded-xl p-1 text-[#1890FF]">
+                    <Typography className="flex rounded-xl p-1 text-[#1890FF] bg-[#b3e5fc]">
                       Хүргэлтэнд гарсан
                     </Typography>
                   </MenuItem>
                   <MenuItem value={4}>
-                    <Typography className="flex p-1 rounded-xl">
+                    <Typography className="flex p-1 rounded-xl bg-[#eeeeee]">
                       Бэлтгэгдэж байна
                     </Typography>
                   </MenuItem>
                   <MenuItem value={5}>
-                    <Typography className="flex p-1 rounded-xl">
+                    <Typography className="flex p-1 rounded-xl bg-[#ef9a9a]">
                       Цуцлагдсан
                     </Typography>
                   </MenuItem>
