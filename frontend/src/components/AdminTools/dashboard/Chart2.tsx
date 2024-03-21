@@ -28,6 +28,7 @@ export default function Chart2() {
           </Stack>
         </Stack>
       </Card>
+      3
     </Stack>
   );
 }
