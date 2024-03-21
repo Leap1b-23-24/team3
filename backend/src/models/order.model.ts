@@ -13,6 +13,10 @@ const orderSchema = new Schema({
     type: String,
     require: true,
   },
+  customerName: {
+    type: String,
+    require: true,
+  },
   customerPhone: {
     type: String,
     require: true,
