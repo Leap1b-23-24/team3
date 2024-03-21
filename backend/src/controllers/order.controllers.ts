@@ -43,9 +43,9 @@ export const createOrder: RequestHandler = async (req, res) => {
   const { id } = payload;
 
   //Customer City section will be used for Dashboard
-  const customerCity = await UserModel.findOne({ _id: id });
-  if (!customerCity) {
-    return res.status(400).json({ message: "customer city not found" });
+  const customerInfo = await UserModel.findOne({ _id: id });
+  if (!customerInfo) {
+    return res.status(400).json({ message: "customer info not found" });
   }
 
   //Map ashiglaaguin order-n ali neg buteegdehuun aguulahad baigaa buteegdehuunii toog davhad return hiih yostoi
@@ -113,7 +113,8 @@ export const createOrder: RequestHandler = async (req, res) => {
     orderDetails,
     deliveryFee,
     orderTotalPrice,
-    customerCity: customerCity.city,
+    customerCity: customerInfo.city,
+    customerName: customerInfo.name,
   });
 
   res.json(newOrder);
