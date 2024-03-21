@@ -15,7 +15,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 export default function ProductTable() {
-  const [isSelected, setIsSelected] = useState();
   const { AllProduct } = useContext(AdminContext);
 
   return (

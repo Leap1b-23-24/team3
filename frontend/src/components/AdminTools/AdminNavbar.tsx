@@ -21,7 +21,7 @@ const data = [
   },
   { label: "Орлого", icon: <LocalOfferIcon />, href: "/admin/income" },
   { label: "Бүтээгдэхүүн", icon: <ListAltIcon />, href: "/admin/product" },
-  { label: "Тохиргоо", icon: <SettingsIcon /> },
+  { label: "Тохиргоо", icon: <SettingsIcon />, href: "#" },
 ];
 export default function DashboardNavbar() {
   const { selectNavbar } = useContext(AdminContext);

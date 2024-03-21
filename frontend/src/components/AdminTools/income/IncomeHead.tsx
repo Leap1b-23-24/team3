@@ -3,10 +3,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { DatePicker } from "@mui/x-date-pickers";
 
 const tabs = [
@@ -21,15 +18,9 @@ const tabs = [
 export default function IncomeHeader() {
   const [activeTab, setActiveTab] = useState("Өнөөдөр");
 
-  const [age, setAge] = useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
-
   return (
     <>
-      <Stack gap={2} width={1}>
+      <Stack gap={2} width={1} maxWidth="724px" mx="auto" mb="8px">
         <Box
           display="flex"
           flexDirection="column"
@@ -51,7 +42,10 @@ export default function IncomeHeader() {
             </Typography>
             <Button
               variant="text"
-              sx={{ bgcolor: "#1C20240A", px: "12px" }}
+              sx={{
+                bgcolor: "#1C20240A",
+                px: "12px",
+              }}
               startIcon={<FileDownloadOutlinedIcon />}
             >
               <Typography fontSize={16} fontWeight={600}>
@@ -71,40 +65,42 @@ export default function IncomeHeader() {
             <Stack flexDirection="row" gap={1} alignItems="center">
               {tabs.map((item: any, index) => {
                 return (
-                  <Stack
+                  <Button
                     onClick={() => {
                       setActiveTab(item.label);
                     }}
                     sx={{
                       bgcolor: activeTab === item.label ? "#18BA51" : "white",
                       color: activeTab === item.label ? "white" : "black",
-                      borderColor: "#ECEDF0",
-                      p: "10px 16px",
-                      borderRadius: "8px",
-                      cursor: "pointer",
+                      border:
+                        activeTab === item.label ? "none" : "1px solid #ECEDF0",
+                      height: "40px",
+                      "&:hover": {
+                        bgcolor: activeTab === item.label ? "#18BA51" : "white",
+                      },
                     }}
                   >
                     {item.label}
-                  </Stack>
+                  </Button>
                 );
               })}
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer sx={{ p: 0 }} components={["DatePicker"]}>
-                  <DatePicker
-                    disableFuture
-                    monthsPerRow={3}
-                    views={["month", "year"]}
-                    slotProps={{
-                      inputAdornment: {
-                        position: "start",
-                      },
-                      openPickerButton: {
-                        size: "small",
-                      },
-                    }}
-                  />
-                </DemoContainer>
+                <DatePicker
+                  sx={{ maxWidth: "150px" }}
+                  disableFuture
+                  monthsPerRow={3}
+                  views={["month"]}
+                  slotProps={{
+                    textField: { size: "small", placeholder: "Сараар" },
+                    inputAdornment: {
+                      position: "start",
+                    },
+                    openPickerButton: {
+                      size: "small",
+                    },
+                  }}
+                />
               </LocalizationProvider>
             </Stack>
           </Stack>

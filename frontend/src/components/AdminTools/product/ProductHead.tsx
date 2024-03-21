@@ -1,12 +1,21 @@
 "use client";
-import { Button, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  InputAdornment,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { CustomInput } from "../../CustomInput";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 
 import { useContext, useState } from "react";
 import { AdminContext } from "@/components/providers/AdminProvider";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function ProductHead() {
   const [isBorder, setIsBorder] = useState(true);
@@ -58,19 +67,34 @@ export default function ProductHead() {
               <Typography>Ангилал</Typography>
             </Button>
             <Button variant="outlined" className="w-[145px] h-10 bg-white">
-              <AttachMoneyIcon />
-              <Typography>Үнэ</Typography>
-            </Button>
-            <Button variant="outlined" className="w-[145px] h-10 bg-white">
               <EventOutlinedIcon />
-              <Typography>Сараар</Typography>
+              <Typography>Ангилал</Typography>
             </Button>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                sx={{ maxWidth: "150px", bgcolor: "white" }}
+                disableFuture
+                monthsPerRow={3}
+                views={["month"]}
+                slotProps={{
+                  textField: { size: "small", placeholder: "Сараар" },
+                  inputAdornment: {
+                    position: "start",
+                  },
+                  openPickerButton: {
+                    size: "small",
+                  },
+                }}
+              />
+            </LocalizationProvider>
           </Stack>
 
-          <Stack className="-mt-2">
-            <CustomInput
+          <Stack>
+            <TextField
+              sx={{ width: "420px", height: "40px", bgcolor: "white" }}
               placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
               type="search"
+              InputProps={{ sx: { width: "420px", height: "40px" } }}
             />
           </Stack>
         </Stack>

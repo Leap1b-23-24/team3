@@ -30,7 +30,6 @@ export const CustomInput = (props: TextFieldProps) => {
           sx: {
             bgcolor: "#F7F7F8",
             border: "#D6D8DB",
-            height: type === "search" ? "40px" : "56px",
           },
 
           endAdornment: type === "password" && (

@@ -9,7 +9,7 @@ import { useContext } from "react";
 export default function Product() {
   const { isAddProduct } = useContext(AdminContext);
   return (
-    <Stack className="max-w-[1220px]">
+    <Stack className="bg-[#F7F7F8] h-screen w-[1215px] py-8 px-6">
       {!isAddProduct && <ProductHead />}
       {isAddProduct && <AddProduct />}
       <ProductTable />
