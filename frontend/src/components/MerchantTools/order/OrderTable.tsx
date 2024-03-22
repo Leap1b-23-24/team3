@@ -50,10 +50,9 @@ export default function OrderTable() {
               </TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody className="bg-white">
             {AllProduct.map((item: any, index: number) => (
-              <TableRow key={index}>
+              <TableRow key={index} onClick={() => {}}>
                 <TableCell className="w-[190px]">{item._id}</TableCell>
                 <TableCell align="center">{item.name}</TableCell>
                 <TableCell align="center">
