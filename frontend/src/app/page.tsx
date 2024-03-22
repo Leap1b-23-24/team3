@@ -44,7 +44,7 @@ export default function Home() {
             {new Array(5).fill(<SingleCardOfHomePage />)}
           </div>
           <img
-            className="w-[1237px] h-[557px] rounded-[20px] mt-6"
+            className="w-[1237px] h-[557px] rounded-[20px] mt-6 object-cover"
             src="/banner2.png"
           />
         </div>

@@ -1,6 +1,6 @@
 "use client";
-import AdminHeader from "@/components/AdminTools/AdminHeader";
-import AdminProvider from "@/components/providers/AdminProvider";
+import AdminHeader from "@/components/MerchantTools/MerchantHeader";
+import MerchantProvider from "@/components/providers/MerchantProvider";
 import { Stack } from "@mui/material";
 import { PropsWithChildren } from "react";
 
@@ -10,7 +10,7 @@ export default function DashboardRootLayout({ children }: PropsWithChildren) {
       <Stack height="100vh">
         <AdminHeader />
         <Stack direction="row" className="m-auto max-w-[1440px] w-full">
-          <AdminProvider>{children}</AdminProvider>
+          <MerchantProvider>{children}</MerchantProvider>
         </Stack>
       </Stack>
     </>

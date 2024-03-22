@@ -6,4 +6,13 @@ export const theme = createTheme({
       contrastText: "#fff",
     },
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+  },
 });

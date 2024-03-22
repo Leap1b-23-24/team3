@@ -13,7 +13,6 @@ export const getAllOrder: RequestHandler = async (req, res) => {
 
   const { id } = payload;
   const order = await OrderSchema.find({ userId: id });
-
   if (!order) {
     return res.status(401).json({
       message: "Invalid user id",
