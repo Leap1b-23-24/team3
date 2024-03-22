@@ -52,7 +52,7 @@ export const deleteProduct: RequestHandler = async (req, res) => {
     return res.json("Wrong product ID");
   }
   const deleteProduct = await ProductModel.findOneAndDelete({ id });
-  res.json("Product deleted");
+  res.json({ message: "Бүтээгдэхүүн устлаа" });
 };
 
 export const editProduct: RequestHandler = async (req, res) => {

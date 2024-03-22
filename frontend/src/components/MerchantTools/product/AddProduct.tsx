@@ -25,7 +25,7 @@ const validationSchema = yup.object({
 
 export default function AddProduct() {
   const { creatProduct, imageUrl } = Auth();
-  const { setIsAddProduct } = useContext(AdminContext);
+  const { refreshProducts } = useContext(AdminContext);
   const formik = useFormik({
     initialValues: {
       productName: "",
@@ -43,7 +43,7 @@ export default function AddProduct() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      creatProduct({
+      await creatProduct({
         productName: values.productName,
         description: values.description,
         price: values.price,
@@ -57,6 +57,7 @@ export default function AddProduct() {
         // size: values.size,
         // tags: values.tags,
       });
+      refreshProducts();
     },
   });
 
