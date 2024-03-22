@@ -1,3 +1,2 @@
-export * from "./SingleCardOfHomePage";
-export * from "./footer";
-export * from "./header";
+export * from "./ClientTools/footer";
+export * from "./ClientTools/header";

@@ -1,6 +1,6 @@
 "use client";
 import { Button, Stack, Typography } from "@mui/material";
-import { CustomInput } from "../CustomInput";
+import { CustomInput } from "../../CustomInput";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AppleIcon from "@mui/icons-material/Apple";
 import MicrosoftIcon from "@mui/icons-material/Microsoft";
@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Auth } from "../providers/AuthProvider";
+import { Auth } from "../../providers/AuthProvider";
 
 const data = [
   { name: "Google-ээр нэвтрэх", icon: <GoogleIcon /> },
