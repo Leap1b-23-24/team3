@@ -1,5 +1,5 @@
 "use client";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Modal, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Auth } from "@/components/providers/AuthProvider";
@@ -7,6 +7,8 @@ import ProductFields1 from "@/components/MerchantTools/product/ProductFields1";
 import ProductFields2 from "@/components/MerchantTools/product/ProductFields2";
 import { useContext } from "react";
 import { AdminContext } from "@/components/providers/MerchantProvider";
+import { Box } from "@mui/system";
+import AddModel from "./AddProductModal";
 
 const validationSchema = yup.object({
   productName: yup.string(),
@@ -15,16 +17,11 @@ const validationSchema = yup.object({
   thumbnail: yup.string(),
   discount: yup.string(),
   qty: yup.string(),
-  // images: yup.object(),
   category: yup.string(),
   subCategory: yup.string(),
-  // color: yup.object(),
-  // size: yup.object(),
-  // tags: yup.object(),
 });
-
 export default function AddProduct() {
-  const { creatProduct, imageUrl } = Auth();
+  const { creatProduct, imageUrl, isAddProduct, setIsAddProduct } = Auth();
   const { refreshProducts } = useContext(AdminContext);
   const formik = useFormik({
     initialValues: {
@@ -34,12 +31,8 @@ export default function AddProduct() {
       thumbnail: "",
       discount: 0,
       qty: 0,
-      // images: [],
       category: "",
       subCategory: "",
-      // color: [],
-      // size: [],
-      // tags: [],
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -50,17 +43,12 @@ export default function AddProduct() {
         thumbnail: imageUrl,
         discount: values.discount,
         qty: values.qty,
-        // images: values.images,
         category: values.category,
         subCategory: values.subCategory,
-        // color: values.color,
-        // size: values.size,
-        // tags: values.tags,
       });
       refreshProducts();
     },
   });
-
   return (
     <Stack>
       <Stack direction="row" gap="30px" fontSize="14px">
@@ -69,7 +57,6 @@ export default function AddProduct() {
           description={formik.values.description}
           price={formik.values.price}
           thumbnail={formik.values.thumbnail}
-          // images={formik.values.images}
           discount={formik.values.discount}
           qty={formik.values.qty}
           handleChange={formik.handleChange}
@@ -77,9 +64,6 @@ export default function AddProduct() {
         <ProductFields2
           category={formik.values.category}
           subCategory={formik.values.subCategory}
-          // color={formik.values.color}
-          // size={formik.values.size}
-          // tags={formik.values.tags}
           handleChange={formik.handleChange}
         />
       </Stack>
@@ -113,6 +97,31 @@ export default function AddProduct() {
           Нийтлэх
         </Button>
       </Stack>
+      <Modal open={isAddProduct}>
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            borderRadius: "20px",
+            p: "24px",
+          }}
+        >
+          <Typography
+            display="flex"
+            justifyContent="end"
+            onClick={() => {
+              setIsAddProduct(false);
+            }}
+          >
+            X
+          </Typography>
+          {isAddProduct && <AddModel />}
+        </Box>
+      </Modal>
     </Stack>
   );
 }

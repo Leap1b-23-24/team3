@@ -62,9 +62,9 @@ export const createOrder: RequestHandler = async (req, res) => {
 
     const productStockQty = productStock.qty;
 
-    if (productStockQty < num || num < 0) {
-      return res.json({ message: "order exceeded stock" });
-    }
+    // if (productStockQty < num || num < 0) {
+    //   return res.json({ message: "order exceeded stock" });
+    // }
 
     const updateLeftProductQty = await ProductModel.findOneAndUpdate(
       { _id: orderDetails[i].productId },

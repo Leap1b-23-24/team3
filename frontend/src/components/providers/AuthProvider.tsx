@@ -51,21 +51,8 @@ type creatProductParams = {
   thumbnail: string;
   discount: number;
   qty: number;
-  // images: {
-  //   imageLink: string;
-  // }[];
   category: string;
   subCategory: string;
-  // color: {
-  //   colorName: string;
-  //   colorCode: string;
-  // }[];
-  // size: {
-  //   sizeType: string;
-  // }[];
-  // tags: {
-  //   tagsName: string;
-  // }[];
 };
 
 export const AuthContext = createContext<AuthContextType>(
