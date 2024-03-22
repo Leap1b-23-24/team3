@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { useContext, useState } from "react";
-import { AdminContext } from "@/components/providers/AdminProvider";
+import { AdminContext } from "@/components/providers/MerchantProvider";
 import { IconButton, Stack, TableHead, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
 import DeleteIcon from "@mui/icons-material/Delete";

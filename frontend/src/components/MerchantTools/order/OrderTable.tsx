@@ -9,7 +9,7 @@ import { Stack } from "@mui/material";
 import { useContext } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import moment from "moment";
-import { AdminContext } from "@/components/providers/AdminProvider";
+import { AdminContext } from "@/components/providers/MerchantProvider";
 import { numberFormatter } from "@/components/numberFormatter";
 
 const rows = [{ id: "0983294058", name: "aksdd" }];

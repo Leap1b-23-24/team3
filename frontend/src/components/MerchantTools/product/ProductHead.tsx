@@ -1,19 +1,10 @@
 "use client";
-import {
-  Button,
-  InputAdornment,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 
 import { useContext, useState } from "react";
-import { AdminContext } from "@/components/providers/AdminProvider";
+import { AdminContext } from "@/components/providers/MerchantProvider";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
@@ -48,10 +39,10 @@ export default function ProductHead() {
           Ангилал
         </Typography>
       </Stack>
-      <Stack gap="40px" className="p-8">
+      <Stack gap="40px">
         <Button
           variant="contained"
-          className="flex w-[280px] h-[48px] bg-black"
+          className="flex w-[280px] h-[48px] bg-black mt-6"
           onClick={() => {
             setIsAddProduct(true);
           }}
@@ -61,7 +52,7 @@ export default function ProductHead() {
         </Button>
 
         <Stack direction="row" className="justify-between items-center ">
-          <Stack direction="row" className="gap-[13px]">
+          <Stack direction="row" className="gap-[13px] w-full" mb={2}>
             <Button variant="outlined" className="w-[145px] h-10 bg-white">
               <EventOutlinedIcon />
               <Typography>Ангилал</Typography>
@@ -92,6 +83,7 @@ export default function ProductHead() {
           <Stack>
             <TextField
               sx={{ width: "420px", height: "40px", bgcolor: "white" }}
+              className="-mt-3"
               placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
               type="search"
               InputProps={{ sx: { width: "420px", height: "40px" } }}

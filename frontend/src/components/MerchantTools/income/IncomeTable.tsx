@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Stack } from "@mui/material";
-import { AdminContext } from "@/components/providers/AdminProvider";
+import { AdminContext } from "@/components/providers/MerchantProvider";
 import { useContext } from "react";
 import { numberFormatter } from "@/components/numberFormatter";
 

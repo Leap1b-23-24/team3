@@ -7,9 +7,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import DashboardNavbar from "../AdminTools/AdminNavbar";
+import DashboardNavbar from "../MerchantTools/MerchantNavbar";
 import { api } from "@/common";
-import { toastError } from "../toastClient";
+import { toastError, toastSuccess } from "../toastClient";
 
 type AdminContextType = {
   isAddProduct: boolean;
@@ -20,7 +20,7 @@ export const AdminContext = createContext<AdminContextType>(
   {} as AdminContextType
 );
 
-export default function AdminProvider({ children }: PropsWithChildren) {
+export default function MerchantProvider({ children }: PropsWithChildren) {
   const [isAddProduct, setIsAddProduct] = useState(false);
   const [AllProduct, setAllProduct] = useState([]);
   useEffect(() => {
@@ -28,9 +28,10 @@ export default function AdminProvider({ children }: PropsWithChildren) {
   }, []);
   const getAllProduct = async () => {
     try {
-      const { data } = await api.get("/order/");
-      console.log(data);
-      // setAllProduct(data);
+      const { data } = await api.get("/product/");
+      setAllProduct(data);
+      setIsAddProduct(false);
+      toastSuccess(data);
     } catch (error) {
       toastError(error);
     }

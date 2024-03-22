@@ -1,10 +1,12 @@
 "use client";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Auth } from "@/components/providers/AuthProvider";
-import ProductFields1 from "@/components/AdminTools/product/ProductFields1";
-import ProductFields2 from "@/components/AdminTools/product/ProductFields2";
+import ProductFields1 from "@/components/MerchantTools/product/ProductFields1";
+import ProductFields2 from "@/components/MerchantTools/product/ProductFields2";
+import { useContext } from "react";
+import { AdminContext } from "@/components/providers/MerchantProvider";
 
 const validationSchema = yup.object({
   productName: yup.string(),
@@ -23,6 +25,7 @@ const validationSchema = yup.object({
 
 export default function AddProduct() {
   const { creatProduct, imageUrl } = Auth();
+  const { setIsAddProduct } = useContext(AdminContext);
   const formik = useFormik({
     initialValues: {
       productName: "",

@@ -42,7 +42,7 @@ export const createProduct: RequestHandler = async (req, res) => {
     // tags,
   });
 
-  res.json(product);
+  res.json({ product, message: "Бүтээгдэхүүн амжилттай нэмэгдлээ" });
 };
 
 export const deleteProduct: RequestHandler = async (req, res) => {

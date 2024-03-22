@@ -40,18 +40,29 @@ export default function IncomeHeader() {
             <Typography fontSize={20} fontWeight={700}>
               Орлого
             </Typography>
-            <Button
-              variant="text"
+            <Stack
               sx={{
+                width: "144px",
+                height: "36px",
                 bgcolor: "#1C20240A",
                 px: "12px",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                borderRadius: "8px",
+                "&:hover": { bgcolor: "#ECEDF0" },
+                "&:active": { bgcolor: "#D6D8DB" },
               }}
-              startIcon={<FileDownloadOutlinedIcon />}
             >
-              <Typography fontSize={16} fontWeight={600}>
-                Хуулга татах
-              </Typography>
-            </Button>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <FileDownloadOutlinedIcon />
+                <Typography fontSize={15}>Хуулга татах</Typography>
+              </Stack>
+            </Stack>
           </Stack>
           <Stack
             flexDirection="row"
@@ -62,10 +73,12 @@ export default function IncomeHeader() {
             <Typography fontSize={28} fontWeight={700}>
               235,000₮
             </Typography>
-            <Stack flexDirection="row" gap={1} alignItems="center">
+            <Stack direction="row" gap={1} alignItems="center">
               {tabs.map((item: any, index) => {
                 return (
-                  <Button
+                  <Stack
+                    flexDirection="row"
+                    key={index}
                     onClick={() => {
                       setActiveTab(item.label);
                     }}
@@ -73,15 +86,20 @@ export default function IncomeHeader() {
                       bgcolor: activeTab === item.label ? "#18BA51" : "white",
                       color: activeTab === item.label ? "white" : "black",
                       border:
-                        activeTab === item.label ? "none" : "1px solid #ECEDF0",
+                        activeTab === item.label ? "" : "1px solid #ECEDF0",
                       height: "40px",
+                      width: "95px",
                       "&:hover": {
                         bgcolor: activeTab === item.label ? "#18BA51" : "white",
                       },
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "8px",
+                      cursor: "pointer",
                     }}
                   >
                     {item.label}
-                  </Button>
+                  </Stack>
                 );
               })}
 

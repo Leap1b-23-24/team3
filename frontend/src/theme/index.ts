@@ -1,5 +1,11 @@
 import { createTheme } from "@mui/material";
 export const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000",
+      contrastText: "#fff",
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -7,12 +13,6 @@ export const theme = createTheme({
           textTransform: "none",
         },
       },
-    },
-  },
-  palette: {
-    primary: {
-      main: "#000",
-      contrastText: "#fff",
     },
   },
 });

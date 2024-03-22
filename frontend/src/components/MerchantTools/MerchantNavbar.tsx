@@ -5,26 +5,23 @@ import ContentPasteOutlinedIcon from "@mui/icons-material/ContentPasteOutlined";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useContext } from "react";
-import { AdminContext } from "../providers/AdminProvider";
 import { usePathname, useRouter } from "next/navigation";
 const data = [
   {
     label: "Хяналтын самбар",
     icon: <WindowSharpIcon />,
-    href: "/admin/dashboard",
+    href: "/merchant/dashboard",
   },
   {
     label: "Захиалга",
     icon: <ContentPasteOutlinedIcon />,
-    href: "/admin/order",
+    href: "/merchant/order",
   },
-  { label: "Орлого", icon: <LocalOfferIcon />, href: "/admin/income" },
-  { label: "Бүтээгдэхүүн", icon: <ListAltIcon />, href: "/admin/product" },
+  { label: "Орлого", icon: <LocalOfferIcon />, href: "/merchant/income" },
+  { label: "Бүтээгдэхүүн", icon: <ListAltIcon />, href: "/merchant/product" },
   { label: "Тохиргоо", icon: <SettingsIcon />, href: "#" },
 ];
 export default function DashboardNavbar() {
-  const { selectNavbar } = useContext(AdminContext);
   const router = useRouter();
   const pathname = usePathname();
 

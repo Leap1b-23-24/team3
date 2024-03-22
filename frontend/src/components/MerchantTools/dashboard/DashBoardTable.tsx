@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Stack, Typography } from "@mui/material";
 import { useContext } from "react";
-import { AdminContext } from "@/components/providers/AdminProvider";
+import { AdminContext } from "@/components/providers/MerchantProvider";
 import { numberFormatter } from "@/components/numberFormatter";
 
 const rows = [
