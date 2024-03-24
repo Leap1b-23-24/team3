@@ -106,6 +106,13 @@ export const Header = () => {
           />
         </Stack>
       </Stack>
+      <Stack
+        direction="row"
+        className="h-[100px] bg-[#F6F5FF] px-[378px] items-center"
+      >
+        <Typography>Home</Typography>
+        <Typography color="#FB2E86">. Shop Left Sidebar</Typography>
+      </Stack>
     </Stack>
   );
 };
