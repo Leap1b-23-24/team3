@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         productType,
       });
       toastSuccess(data);
-      router.push("/admin");
+      router.push("/merchant");
     } catch (error) {
       toastError(error);
     }

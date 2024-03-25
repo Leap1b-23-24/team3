@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 export default function ProductTable() {
-  const { allProducts } = useContext(MerchantContext);
+  const { allProducts, deleteProduct } = useContext(MerchantContext);
 
   return (
     <Box sx={{ width: "100%", color: "#3F4145" }}>
@@ -86,7 +86,7 @@ export default function ProductTable() {
                   <TableCell align="center">
                     <Stack direction="row" className="gap-2">
                       <Stack className="cursor-pointer">
-                        <IconButton>
+                        <IconButton onClick={() => deleteProduct(item._id)}>
                           <DeleteIcon
                             sx={{ fontSize: "20px", color: "#1C20243D" }}
                           />

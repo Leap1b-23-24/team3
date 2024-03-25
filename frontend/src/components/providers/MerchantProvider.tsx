@@ -33,6 +33,7 @@ type MerchantContextType = {
   setIsAddProduct: Dispatch<SetStateAction<boolean>>;
   allProducts: any;
   refreshProducts: () => void;
+  deleteProduct: (id: any) => Promise<void>;
 };
 export const MerchantContext = createContext<MerchantContextType>(
   {} as MerchantContextType
@@ -93,9 +94,10 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
       toastError(error);
     }
   };
-  const deleteProduct = async () => {
+  const deleteProduct = async (id: any) => {
+    console.log("id:", id);
     try {
-      const { data } = await api.get("/product/delete");
+      const { data } = await api.get("/product/delete", id);
       setAllProducts(data);
       toastSuccess(data);
     } catch (error) {
@@ -125,6 +127,7 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
         setIsAddProduct,
         allProducts,
         refreshProducts,
+        deleteProduct,
       }}
     >
       <DashboardNavbar />

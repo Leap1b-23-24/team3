@@ -14,12 +14,12 @@ export const login: RequestHandler = async (req, res) => {
     });
   }
 
-  const id = user._id;
-  const roles = user.roles;
+  // const id = user._id;
+  // const roles = user.roles;
 
-  const token = jwt.sign({ id, roles }, "secret-key");
+  // const token = jwt.sign({ id, roles }, "secret-key");
 
-  return res.json({ token });
+  return res.json({});
 };
 
 export const signUp: RequestHandler = async (req, res) => {
@@ -56,6 +56,7 @@ export const signUp: RequestHandler = async (req, res) => {
       experience,
       productType,
     });
+
     return res.json({ message: "Хэрэглэгч амжилттай бүртгэгдлээ" });
   } catch (error) {
     res.json(error);
