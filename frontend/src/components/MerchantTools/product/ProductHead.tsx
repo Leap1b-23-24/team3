@@ -4,13 +4,13 @@ import AddIcon from "@mui/icons-material/Add";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 
 import { useContext, useState } from "react";
-import { AdminContext } from "@/components/providers/MerchantProvider";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function ProductHead() {
   const [isBorder, setIsBorder] = useState(true);
-  const { setIsAddProduct } = useContext(AdminContext);
+  const { setIsAddProduct } = useContext(MerchantContext);
   return (
     <Stack className="bg-[#F7F7F8] ">
       <Stack direction="row" className="h-[56px] ">

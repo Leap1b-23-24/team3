@@ -7,15 +7,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useContext, useState } from "react";
-import { AdminContext } from "@/components/providers/MerchantProvider";
+import { useContext } from "react";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { IconButton, Stack, TableHead, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 export default function ProductTable() {
-  const { AllProduct } = useContext(AdminContext);
+  const { allProducts } = useContext(MerchantContext);
 
   return (
     <Box sx={{ width: "100%", color: "#3F4145" }}>
@@ -47,7 +47,7 @@ export default function ProductTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {AllProduct.map((item: any, index: number) => (
+              {allProducts.map((item: any, index: number) => (
                 <TableRow key={index}>
                   <TableCell padding="checkbox">
                     <Checkbox color="primary" />
@@ -70,7 +70,7 @@ export default function ProductTable() {
                         >
                           {item.productName}
                         </Typography>
-                        <Typography>{`000${index + 1}`}</Typography>
+                        <Typography>{`000${index + 1}`.slice(-4)}</Typography>
                       </Stack>
                     </Stack>
                   </TableCell>
