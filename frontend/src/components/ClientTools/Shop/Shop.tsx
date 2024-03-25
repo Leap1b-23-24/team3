@@ -2,19 +2,17 @@ import { Stack } from "@mui/material";
 import ShopSidebar from "./Shopsidebar";
 import ShopCard from "./ShopCard";
 import Shopheader from "./Shopheader";
-import CardGrid from "./CardGrid";
+import MainCard from "./MainCard";
 
 export default function Shop() {
   return (
     <Stack className="px-[378px] ">
       <Shopheader />
-      <Stack>
-        <CardGrid />
-      </Stack>
-      {/* <Stack direction="row" className="gap-[102px]">
+      <Stack>{/* <MainCard /> */}</Stack>
+      <Stack direction="row" className="gap-[102px]">
         <ShopSidebar />
         <ShopCard />
-      </Stack> */}
+      </Stack>
     </Stack>
   );
 }

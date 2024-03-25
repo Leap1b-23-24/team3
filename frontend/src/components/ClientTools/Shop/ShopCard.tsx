@@ -1,4 +1,4 @@
-import { Rating, Stack, Typography } from "@mui/material";
+import { IconButton, Rating, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
@@ -40,12 +40,12 @@ export default function ShopCard() {
       {card.map((item) => {
         return (
           <Stack direction="row" className="gap-4 h-[270px] mb-[96px]">
-            <Stack className="w-[270px]  bg-[#EBF4F3] justify-center items-center">
+            <Stack className="w-[270px]  bg-[#EBF4F3] justify-center items-center ">
               <img width="169px" height="169px" src={item.image} />
             </Stack>
             <Stack className="gap-4 text-[#151875] p-[16px] h-[270px] justify-between">
               <Stack>
-                <Stack direction="row" className="gap-4 items-center">
+                <Stack direction="row" className="gap-4 items-center ">
                   <Typography fontSize="18px" fontWeight="700">
                     {item.title}
                   </Typography>
@@ -72,15 +72,15 @@ export default function ShopCard() {
                 <Typography>{item.text}</Typography>
               </Stack>
               <Stack direction="row" className="gap-[20px]">
-                <Stack className="w-[34px] h-[34px] bg-white rounded-full">
+                <IconButton className="w-[34px] h-[34px] bg-white ">
                   <ShoppingCartIcon />
-                </Stack>
-                <Stack className="w-[34px] h-[34px] bg-white rounded-full">
+                </IconButton>
+                <IconButton className="w-[34px] h-[34px] bg-white ">
                   <FavoriteBorderIcon />
-                </Stack>
-                <Stack className="w-[34px] h-[34px] bg-white rounded-full">
+                </IconButton>
+                <IconButton className="w-[34px] h-[34px] bg-white ">
                   <SavedSearchIcon />
-                </Stack>
+                </IconButton>
               </Stack>
             </Stack>
           </Stack>
