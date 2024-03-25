@@ -1,58 +1,118 @@
 "use client";
-import { Stack } from "@mui/material";
-import Link from "next/link";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
-
+import {
+  FormControl,
+  FormHelperText,
+  InputAdornment,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import WifiCalling3OutlinedIcon from "@mui/icons-material/WifiCalling3Outlined";
+import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 export const Header = () => {
-  const [drop, setDrop] = useState(false);
   return (
-    <div className="bg-[#12A795] px-6">
-      <div className="max-w-[1240px] m-auto flex items-center justify-between py-[10px]">
-        <div className="flex gap-3 items-center">
-          <img src="./headerImages/Pinecone Logo.png" className="w-7 h-7" />
-          <p className="font-bold text-white text-2xl">Ecommerce</p>
-        </div>
-        <div className="flex bg-white items-center rounded-lg overflow-hidden relative w-[35%]">
-          <img
-            src="./headerImages/searchIcon.png"
-            className="w-7 h-7 absolute left-1"
-          />
-          <input
-            placeholder="Хайлт"
-            type="search"
-            className="py-[9px] pl-[35px] w-full"
-          />
-        </div>
-        <div className="w-[12%] flex items-center justify-between gap-2">
-          <img src="./headerImages/heart.png" className="w-6 h-6" />
-          <img src="./headerImages/sags.png" className="w-6 h-6" />{" "}
-          {drop && (
-            <Stack sx={{ color: "white" }}>
-              <Stack>
-                <Link href="/signup">Бүртгүүлэх</Link>
-              </Stack>
-              <Stack>
-                <Link href="#">Нэвтрэх</Link>
-              </Stack>
-            </Stack>
-          )}
-          <Stack
-            onClick={() => {
-              setDrop(!drop);
-            }}
-          >
-            <MenuIcon
+    <Stack>
+      <Stack
+        direction="row"
+        className="bg-[#7E33E0] items-center px-[378px]  h-11  text-white justify-between"
+      >
+        <Stack direction="row" className="gap-[66px]">
+          <Stack direction="row" className="items-center gap-[10px]">
+            <MailOutlineIcon
               sx={{
-                width: "24px",
-                height: "24px",
-                color: "white",
-                cursor: "pointer",
+                bgcolor: "#7E33E0",
+                width: "16px",
+                height: "16px",
               }}
             />
+            <Typography fontSize="16px" fontWeight="600">
+              info@ecommerce.mn
+            </Typography>
           </Stack>
-        </div>
-      </div>
-    </div>
+          <Stack direction="row" className="items-center gap-[10px]">
+            <WifiCalling3OutlinedIcon
+              sx={{
+                bgcolor: "#7E33E0",
+                width: "16px",
+                height: "16px",
+              }}
+            />
+            <Typography fontSize="16px" fontWeight="600">
+              77123456
+            </Typography>
+          </Stack>
+        </Stack>
+        <Stack direction="row" className="gap-[29px]">
+          <Stack direction="row" className="items-center">
+            <Typography fontSize="16px" fontWeight="600">
+              Нэвтрэх
+            </Typography>
+            <Person2OutlinedIcon />
+          </Stack>
+          <Stack direction="row" className="items-center">
+            <Typography fontSize="16px" fontWeight="600">
+              Хадгалах
+            </Typography>
+            <FavoriteBorderOutlinedIcon />
+          </Stack>
+          <ShoppingCartOutlinedIcon />
+        </Stack>
+      </Stack>
+      <Stack
+        direction="row"
+        className="items-center px-[378px]  h-11 justify-between"
+      >
+        <Stack direction="row" className="items-center gap-14">
+          <Typography fontSize="34px" fontWeight="700">
+            Ecommerce
+          </Typography>
+          <Stack direction="row">
+            <Typography>
+              Нүүр
+              <ExpandMoreOutlinedIcon />
+            </Typography>
+            <Typography>Ангилал</Typography>
+          </Stack>
+        </Stack>
+        <Stack direction="row">
+          <TextField
+            InputProps={{
+              sx: {
+                width: "317px",
+                height: "40px",
+                p: "0px",
+              },
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon
+                    sx={{
+                      height: "40px",
+                      width: "51px",
+                      bgcolor: "#FB2E86",
+                      color: "white",
+                    }}
+                  />
+                </InputAdornment>
+              ),
+            }}
+            type="search"
+          />
+        </Stack>
+      </Stack>
+      <Stack
+        direction="row"
+        className="h-[100px] bg-[#F6F5FF] px-[378px] items-center"
+      >
+        <Typography>Home</Typography>
+        <Typography color="#FB2E86">. Shop Left Sidebar</Typography>
+      </Stack>
+    </Stack>
   );
 };
