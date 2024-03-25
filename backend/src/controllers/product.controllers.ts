@@ -44,6 +44,7 @@ export const createProduct: RequestHandler = async (req, res) => {
 
 export const deleteProduct: RequestHandler = async (req, res) => {
   const { id } = req.body;
+  console.log(id);
   const isProductExist = await ProductModel.findOne({ id });
   if (!isProductExist) {
     return res.json("Wrong product ID");

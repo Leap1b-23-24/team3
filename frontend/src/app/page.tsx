@@ -1,5 +1,6 @@
 "use client";
 import { Footer, Header } from "@/components";
+import { AboutOfService } from "@/components/ClientTools/AboutOfService";
 import FeaturedProducts from "@/components/ClientTools/FeaturedProducts";
 import { Button, Stack, Typography } from "@mui/material";
 
@@ -45,7 +46,7 @@ export default function Home() {
         </Stack>
       </Stack>
       <FeaturedProducts />
-      <Stack maxWidth="1240px" m="auto"></Stack>
+      <AboutOfService />
       <Footer />
     </>
   );
