@@ -1,14 +1,5 @@
 "use client";
-import {
-  FormControl,
-  FormHelperText,
-  InputAdornment,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import WifiCalling3OutlinedIcon from "@mui/icons-material/WifiCalling3Outlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
@@ -67,7 +58,7 @@ export const Header = () => {
       </Stack>
       <Stack
         direction="row"
-        className="items-center px-[378px]  h-11 justify-between"
+        className="items-center px-[378px] py-5 justify-between"
       >
         <Stack direction="row" className="items-center gap-14">
           <Typography fontSize="34px" fontWeight="700">
