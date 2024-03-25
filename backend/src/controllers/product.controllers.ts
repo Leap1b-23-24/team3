@@ -16,7 +16,6 @@ export const createProduct: RequestHandler = async (req, res) => {
     description,
     price,
     thumbnail,
-    discount,
     qty,
     // images,
     category,
@@ -25,14 +24,12 @@ export const createProduct: RequestHandler = async (req, res) => {
     // size,
     // tags,
   } = req.body;
-  console.log(productName);
 
   const product = await ProductModel.create({
     productName,
     description,
     price,
     thumbnail,
-    discount,
     qty,
     // images,
     category,

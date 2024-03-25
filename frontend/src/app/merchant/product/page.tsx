@@ -2,14 +2,14 @@
 import AddProduct from "@/components/MerchantTools/product/AddProduct";
 import ProductHead from "@/components/MerchantTools/product/ProductHead";
 import ProductTable from "@/components/MerchantTools/product/ProductTable";
-import { AdminContext } from "@/components/providers/MerchantProvider";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 
 export default function Product() {
-  const { isAddProduct, setIsAddProduct } = useContext(AdminContext);
+  const { isAddProduct, setIsAddProduct } = useContext(MerchantContext);
   return (
     <Stack className="bg-[#F7F7F8] h-screen w-[1215px]">
       {isAddProduct && (

@@ -1,2 +1,2 @@
-export * from "./ClientTools/footer";
-export * from "./ClientTools/header";
+export * from "./ClientTools/ClientFooter";
+export * from "./ClientTools/ClientHeader";

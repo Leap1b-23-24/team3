@@ -3,15 +3,18 @@ import { CustomInput } from "../../CustomInput";
 import { Auth } from "../../providers/AuthProvider";
 import PhotoSizeSelectActualOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActualOutlined";
 import AddIcon from "@mui/icons-material/Add";
-import { ChangeEvent, ChangeEventHandler } from "react";
+import { ChangeEventHandler, useContext } from "react";
 import ProductImages from "./ImageUploadModal";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 type Product1Props = {
   productName: string;
   description: string;
   price: number;
   thumbnail: string;
-  discount: number;
   qty: number;
+  error: any;
+  helperText: any;
+  onBlur: any;
   // images: {
   //   imageLink: string;
   // }[];
@@ -24,23 +27,29 @@ export default function ProductFields1(props: Product1Props) {
     description,
     price,
     // thumbnail,
-    discount,
     qty,
     // images,
     handleChange,
+    error,
+    helperText,
+    onBlur,
   } = props;
 
-  const { handleImageChange, imageUrl, productModal, setProductModal } = Auth();
+  const { productModal, setProductModal } = Auth();
+  const { handleImageChange, imageUrl } = useContext(MerchantContext);
 
   return (
     <Stack className="max-w-[563px] gap-6 ">
       <Stack className="bg-white p-[24px] rounded-[12px] gap-[16px]">
-        <Stack>
+        <Stack mb="10px">
           <Typography>Бүтээгдэхүүний нэр</Typography>
           <CustomInput
             name="productName"
             placeholder="Нэр"
             defaultValue={productName}
+            error={error.productName}
+            helperText={helperText.productName}
+            onBlur={onBlur}
             onChange={(event) => {
               handleChange(event);
             }}
@@ -53,18 +62,9 @@ export default function ProductFields1(props: Product1Props) {
             name="description"
             placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
             defaultValue={description}
-            onChange={(event) => {
-              handleChange(event);
-            }}
-            className="bg-[#F7F7F8] text-lg"
-          />
-        </Stack>
-        <Stack>
-          <Typography>Барааны код</Typography>
-          <CustomInput
-            type="number"
-            name="price"
-            defaultValue={price}
+            error={error.description}
+            helperText={helperText.description}
+            onBlur={onBlur}
             onChange={(event) => {
               handleChange(event);
             }}
@@ -127,9 +127,12 @@ export default function ProductFields1(props: Product1Props) {
           <Typography>Үндсэн үнэ</Typography>
           <CustomInput
             type="number"
-            name="discount"
+            name="price"
             placeholder="Үндсэн үнэ"
-            defaultValue={discount}
+            value={price}
+            error={error.price}
+            helperText={helperText.price}
+            onBlur={onBlur}
             onChange={(event) => {
               handleChange(event);
             }}
@@ -142,7 +145,10 @@ export default function ProductFields1(props: Product1Props) {
             type="number"
             name="qty"
             placeholder="Үлдэгдэл тоо ширхэг"
-            defaultValue={qty}
+            value={qty}
+            error={error.qty}
+            helperText={helperText.qty}
+            onBlur={onBlur}
             onChange={(event) => {
               handleChange(event);
             }}

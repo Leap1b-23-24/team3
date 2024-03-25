@@ -1,11 +1,22 @@
 "use client";
-import { Button, Stack, TextField, Typography } from "@mui/material";
-import { CustomInput } from "../../CustomInput";
+import {
+  Button,
+  IconButton,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { MuiColorInput } from "mui-color-input";
 import AddIcon from "@mui/icons-material/Add";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, Dispatch, useState } from "react";
+import categoryArr from "./categories.json";
+import subcateArr from "./subcategories.json";
 type Product2Props = {
-  category: string;
-  subCategory: string;
+  setMainCate: Dispatch<any>;
+  setSubCate: Dispatch<any>;
+  mainCate: any;
+  subCate: any;
   // color: {
   //   colorName: string;
   //   colorCode: string;
@@ -16,71 +27,85 @@ type Product2Props = {
   // tags: {
   //   tagsName: string;
   // }[];
-  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
+
 export default function ProductFields2(props: Product2Props) {
-  const { category, subCategory, handleChange } = props;
+  const { setSubCate, setMainCate, mainCate, subCate } = props;
+
+  // const [colorValue, setColorValue] = useState("");
+  // const [isPicker, setIsPicker] = useState([]);
   return (
     <Stack className="w-[563px] gap-6">
       <Stack className="bg-white rounded-[13px] p-[24px] gap-[16px] ">
-        <Stack>
+        <Stack mb="10px">
           <Typography>Ерөнхий ангилал</Typography>
-          <CustomInput
+          <Select
             name="category"
-            placeholder="Сонгох"
-            defaultValue={category}
-            onChange={(event) => {
-              handleChange(event);
+            value={mainCate}
+            onChange={(event: any) => {
+              setMainCate(event.target.value);
             }}
             className="bg-[#F7F7F8] text-lg"
-          />
+          >
+            {categoryArr.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
         </Stack>
-        <Stack>
+        <Stack mb="10px">
           <Typography>Дэд ангилал</Typography>
-          <CustomInput
+          <Select
             name="subCategory"
-            placeholder="Сонгох"
-            defaultValue={subCategory}
-            onChange={(event) => {
-              handleChange(event);
+            value={subCate}
+            onChange={(event: any) => {
+              setSubCate(event.target.value);
             }}
             className="bg-[#F7F7F8] text-lg"
-          />
+          >
+            {subcateArr.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
         </Stack>
       </Stack>
       <Stack className="bg-white p-[24px] gap-6 rounded-[13px]">
         <Typography>Төрөл</Typography>
-        <Stack direction="row" gap="16px">
+        <Stack direction="row" gap="16px" alignItems="center">
           <Typography>Өнгө</Typography>
-          {}
-          <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px] " />
+          {/* {Boolean(isPicker) && (
+            <Stack>
+              <MuiColorInput
+                format="hex"
+                sx={{
+                  width: "52px",
+                  "& fieldset": { border: "none" },
+                }}
+                value={colorValue}
+                onChange={(value: any) => {
+                  setColorValue(value);
+                }}
+              />
+            </Stack>
+          )}
+          <IconButton
+            onClick={() => {
+              setIsPicker((prev) => prev, isPicker);
+            }}
+          >
+            <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px]" />
+          </IconButton> */}
         </Stack>
-        <Stack direction="row" gap="16px">
+        <Stack direction="row" gap="16px" alignItems="center">
           <Typography>Хэмжээ</Typography>
-          <Typography></Typography>
           <AddIcon
             className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px] "
             onClick={() => {}}
           />
         </Stack>
-        <Button
-          variant="outlined"
-          className="text-[14px] h-[53px] w-[160px] font-semibold"
-        >
-          Төрөл нэмэх
-        </Button>
-      </Stack>
-      <Stack className="bg-white p-[24px] gap-4 rounded-[13px]">
-        <Typography>Таг</Typography>
-        <CustomInput
-          // name="tags"
-          // defaultValue={tags}
-          // onChange={(event) => {
-          //   handleChange(event);
-          // }}
-          className="text-lg"
-        />
-        <Typography>Санал болгох: Гутал , Цүнх , Эмэгтэй </Typography>
       </Stack>
     </Stack>
   );

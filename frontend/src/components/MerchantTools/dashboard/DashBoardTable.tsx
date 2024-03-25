@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Stack, Typography } from "@mui/material";
 import { useContext } from "react";
-import { AdminContext } from "@/components/providers/MerchantProvider";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { numberFormatter } from "@/components/numberFormatter";
 
 const rows = [
@@ -17,7 +17,7 @@ const rows = [
 ];
 
 export default function DashboardTable() {
-  const { AllProduct } = useContext(AdminContext);
+  const { allProducts } = useContext(MerchantContext);
   return (
     <Stack
       width="581px"
@@ -43,7 +43,7 @@ export default function DashboardTable() {
             </TableRow>
           </TableHead>
           <TableBody className="bg-white">
-            {AllProduct.map((item: any, index: number) => (
+            {allProducts.map((item: any, index: number) => (
               <TableRow key={index}>
                 <TableCell width="30px">{index + 1}</TableCell>
                 <TableCell align="center">

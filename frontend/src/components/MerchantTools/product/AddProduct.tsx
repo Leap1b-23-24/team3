@@ -2,51 +2,55 @@
 import { Button, Modal, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Auth } from "@/components/providers/AuthProvider";
 import ProductFields1 from "@/components/MerchantTools/product/ProductFields1";
 import ProductFields2 from "@/components/MerchantTools/product/ProductFields2";
-import { useContext } from "react";
-import { AdminContext } from "@/components/providers/MerchantProvider";
+import { useContext, useState } from "react";
 import { Box } from "@mui/system";
-import AddModel from "./AddProductModal";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
+import AddModal from "./AddProductModal";
 
 const validationSchema = yup.object({
-  productName: yup.string(),
-  description: yup.string(),
-  price: yup.string(),
-  thumbnail: yup.string(),
-  discount: yup.string(),
-  qty: yup.string(),
-  category: yup.string(),
-  subCategory: yup.string(),
+  productName: yup.string().required("Бүтээгдэхүүний нэр оруулна уу"),
+  description: yup.string().required("Бүтээгдэхүүний тайлбар оруулна уу"),
+  price: yup.string().required("Бүтээгдэхүүний үнэ оруулна уу"),
+  thumbnail: yup.string().required("Бүтээгдэхүүний зураг оруулна уу"),
+  discount: yup.string().required("Бүтээгдэхүүний хөнгөлөлт оруулна уу"),
+  qty: yup.string().required("Бүтээгдэхүүний үлдэгдэл оруулна уу"),
 });
 export default function AddProduct() {
-  const { creatProduct, imageUrl, isAddProduct, setIsAddProduct } = Auth();
-  const { refreshProducts } = useContext(AdminContext);
+  const [isModal, setIsModal] = useState(false);
+  const [mainCate, setMainCate] = useState<any>("");
+  const [subCate, setSubCate] = useState<any>("");
+  const { creatProduct, imageUrl, refreshProducts } =
+    useContext(MerchantContext);
+
   const formik = useFormik({
     initialValues: {
       productName: "",
       description: "",
       price: 0,
       thumbnail: "",
-      discount: 0,
       qty: 0,
-      category: "",
-      subCategory: "",
+      category: mainCate,
+      subCategory: subCate,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      console.log(formik.errors);
       await creatProduct({
         productName: values.productName,
         description: values.description,
         price: values.price,
         thumbnail: imageUrl,
-        discount: values.discount,
         qty: values.qty,
-        category: values.category,
-        subCategory: values.subCategory,
+        category: mainCate,
+        subCategory: subCate,
       });
-      refreshProducts();
+
+      await setTimeout(() => {
+        setIsModal(true);
+      }, 4000);
+      await refreshProducts();
     },
   });
   return (
@@ -57,14 +61,17 @@ export default function AddProduct() {
           description={formik.values.description}
           price={formik.values.price}
           thumbnail={formik.values.thumbnail}
-          discount={formik.values.discount}
           qty={formik.values.qty}
           handleChange={formik.handleChange}
+          error={formik.touched && Boolean(formik.errors)}
+          helperText={formik.touched && formik.errors}
+          onBlur={formik.handleBlur}
         />
         <ProductFields2
-          category={formik.values.category}
-          subCategory={formik.values.subCategory}
-          handleChange={formik.handleChange}
+          setMainCate={setMainCate}
+          setSubCate={setSubCate}
+          mainCate={mainCate}
+          subCate={subCate}
         />
       </Stack>
       <Stack direction="row" className="gap-8 justify-end pt-6 bg-[#F7F7F8]">
@@ -77,19 +84,6 @@ export default function AddProduct() {
         <Button
           variant="contained"
           className="w-[116px] h-[56px] text-[18px] mr-8 font-semibold bg-black"
-          // disabled={
-          //   !formik.values.productName ||
-          //   !formik.values.description ||
-          //   // !formik.values.price ||
-          //   //   !formik.values.thumbnail ||
-          //   // !formik.values.discount ||
-          //   // !formik.values.qty ||
-          //   //   !formik.values.images ||
-          //   // !formik.values.category ||
-          //   // !formik.values.subCategory ||
-          //   //   !formik.values.color ||
-          //   // !formik.values.tags
-          // }
           onClick={() => {
             formik.handleSubmit();
           }}
@@ -97,7 +91,7 @@ export default function AddProduct() {
           Нийтлэх
         </Button>
       </Stack>
-      <Modal open={isAddProduct}>
+      <Modal open={isModal}>
         <Box
           sx={{
             position: "absolute" as "absolute",
@@ -114,12 +108,12 @@ export default function AddProduct() {
             display="flex"
             justifyContent="end"
             onClick={() => {
-              setIsAddProduct(false);
+              setIsModal(true);
             }}
           >
             X
           </Typography>
-          {isAddProduct && <AddModel />}
+          {isModal && <AddModal />}
         </Box>
       </Modal>
     </Stack>

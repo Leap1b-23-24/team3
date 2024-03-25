@@ -7,6 +7,7 @@ import { ThemeProvider } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { theme } from "@/theme";
+import { ClientProvider } from "@/components/providers/ClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="w-screen">
         <ThemeProvider theme={theme}>
-          <AuthProvider> {children} </AuthProvider>
+          <ClientProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </ClientProvider>
+
           <ToastContainer
             position="top-center"
             autoClose={5000}
