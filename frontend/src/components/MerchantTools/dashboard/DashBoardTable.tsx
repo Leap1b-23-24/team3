@@ -53,17 +53,17 @@ export default function DashboardTable() {
                     className="max-w-[250px] justify-between"
                   >
                     <img
-                      src={item.thumbnail}
+                      src={item.images[0]}
                       className="w-10 h-10 rounded-full"
                     />
-                    <Stack alignItems="flex-start">
+                    <Stack alignItems="flex-start" ml={1}>
                       <Typography
                         sx={{ fontWeight: 600 }}
-                        className="text-sm font-semibold uppercase"
+                        className="text-sm font-semibold uppercase "
                       >
                         {item.productName}
                       </Typography>
-                      <Typography>{item._id}</Typography>
+                      <Typography>{item._id.slice(15)}</Typography>
                     </Stack>
                   </Stack>
                 </TableCell>

@@ -13,22 +13,16 @@ const productSchema = new Schema({
     type: Number,
     required: false,
   },
-  thumbnail: {
-    type: String,
-    required: false,
-  },
   qty: {
     type: Number,
     required: false,
   },
-  // images: [
-  //   {
-  //     imageLink: {
-  //       type: String,
-  //       require: false,
-  //     },
-  //   },
-  // ],
+  images: [
+    {
+      type: String,
+      require: false,
+    },
+  ],
   category: {
     type: String,
     required: false,

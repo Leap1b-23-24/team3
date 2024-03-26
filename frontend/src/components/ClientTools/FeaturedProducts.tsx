@@ -15,7 +15,7 @@ export default function FeaturedProducts() {
 
     const id = setTimeout(() => {
       setStep((prev) => (prev + 1) % 4);
-    }, 2500);
+    }, 4500);
 
     return () => {
       clearTimeout(id);
@@ -32,7 +32,7 @@ export default function FeaturedProducts() {
         className="justify-around w-[400%] "
         sx={{
           translate: `${step * -25}%`,
-          transitionDuration: step === 0 ? "0s" : "1s",
+          transitionDuration: step === 0 ? "0s" : "0.6s",
         }}
       >
         {allProducts
@@ -44,7 +44,7 @@ export default function FeaturedProducts() {
                   setPause={setPause}
                   name={item.productName}
                   price={item.price}
-                  image={item.thumbnail}
+                  image={item.images[0]}
                 />
               </Stack>
             );

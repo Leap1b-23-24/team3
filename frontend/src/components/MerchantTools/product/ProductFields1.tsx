@@ -1,4 +1,11 @@
-import { Box, Modal, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Modal,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { CustomInput } from "../../CustomInput";
 import { Auth } from "../../providers/AuthProvider";
 import PhotoSizeSelectActualOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActualOutlined";
@@ -10,15 +17,10 @@ type Product1Props = {
   productName: string;
   description: string;
   price: number;
-  thumbnail: string;
   qty: number;
   error: any;
   helperText: any;
   onBlur: any;
-  // images: {
-  //   imageLink: string;
-  // }[];
-
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 export default function ProductFields1(props: Product1Props) {
@@ -26,9 +28,7 @@ export default function ProductFields1(props: Product1Props) {
     productName,
     description,
     price,
-    // thumbnail,
     qty,
-    // images,
     handleChange,
     error,
     helperText,
@@ -74,47 +74,34 @@ export default function ProductFields1(props: Product1Props) {
       </Stack>
       <Stack className="bg-white p-[24px] rounded-[12px] gap-[16px]">
         <Typography>Бүтээгдэхүүний зураг</Typography>
-        <Stack direction="row" className="justify-between">
-          <Stack className="w-[125px] h-[125px] border-dashed border-[2px]  justify-center items-center rounded-[16px] relative">
-            {imageUrl && (
-              <img
-                className="absolute w-full h-full rounded-[16px]"
-                src={imageUrl}
-                onClick={() => {
-                  handleImageChange;
-                }}
-              />
-            )}
-            <PhotoSizeSelectActualOutlinedIcon />
-          </Stack>
-          <Stack className="w-[125px] h-[125px] border-dashed border-[2px]  justify-center items-center rounded-[16px]">
-            <PhotoSizeSelectActualOutlinedIcon />
-          </Stack>
-          <Stack className="w-[125px] h-[125px] border-dashed border-[2px]  justify-center items-center rounded-[16px]">
-            <PhotoSizeSelectActualOutlinedIcon />
-          </Stack>
+        <Stack direction="row" gap={1}>
+          {imageUrl.map((item, index) => {
+            return (
+              <Stack
+                key={index}
+                className="w-[125px] h-[125px] border-dashed border-[2px]  justify-center items-center rounded-[16px] relative"
+              >
+                <img
+                  className="absolute w-full h-full rounded-[16px]"
+                  src={item}
+                  onClick={() => {
+                    handleImageChange;
+                  }}
+                />
+                <PhotoSizeSelectActualOutlinedIcon />
+              </Stack>
+            );
+          })}
+
           <Stack
             className="w-[125px] h-[125px] justify-center items-center relative"
             onClick={() => {
               setProductModal(true);
             }}
           >
-            <Modal open={productModal}>
-              <Box
-                sx={{
-                  position: "absolute" as "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  borderRadius: "20px",
-                }}
-              >
-                {productModal && <ProductImages />}
-              </Box>
-            </Modal>
-            <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px]" />
+            <Stack className="w-[125px] h-[125px] border-dashed border-[2px]  justify-center items-center rounded-[16px] relative">
+              <AddIcon className="bg-[#ECEDF0] rounded-[100%] w-[32px] h-[32px] cursor-pointer" />
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
@@ -156,6 +143,28 @@ export default function ProductFields1(props: Product1Props) {
           />
         </Stack>
       </Stack>
+      <Modal
+        aria-labelledby="unstyled-modal-title"
+        aria-describedby="unstyled-modal-description"
+        open={productModal}
+        onClose={() => {
+          setProductModal(false);
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            borderRadius: "20px",
+          }}
+        >
+          {productModal && <ProductImages />}
+        </Box>
+      </Modal>
     </Stack>
   );
 }

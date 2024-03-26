@@ -3,8 +3,9 @@ import Shopping from "@mui/icons-material/ShoppingCartOutlined";
 import Favorite from "@mui/icons-material/FavoriteBorder";
 import ZoomIn from "@mui/icons-material/ZoomIn";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { numberFormatter } from "../numberFormatter";
+import { Client } from "../providers/ClientProvider";
 type cardTypes = {
   setPause: Dispatch<SetStateAction<boolean>>;
   name: string;
@@ -12,7 +13,12 @@ type cardTypes = {
   image: string;
 };
 export default function FeaturedProductSingleCard(props: cardTypes) {
+  const { allProducts, setDetails } = Client();
   const { setPause, name, price, image } = props;
+  function handleDetail() {
+    return allProducts;
+  }
+
   return (
     <Stack
       className="w-[270px] h-[360px] shadow-slate-200 mb-10 shadow-lg"
@@ -60,6 +66,9 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
           style={{ margin: "auto" }}
         />
         <Stack
+          onClick={() => {
+            handleDetail();
+          }}
           className="details w-[94px] h-8 rounded-sm mb-2 absolute bottom-0 left-[65px] cursor-pointer"
           sx={{
             bgcolor: "#08D15F",

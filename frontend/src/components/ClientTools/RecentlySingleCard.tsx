@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
@@ -11,19 +11,27 @@ export default function MainCard(props: any) {
       <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px]">
         <Stack
           className="w-[270px] h-[280px] justify-center items-center relative bg-[#F6F7FB] hover:bg-[#EBF4F3]"
-          sx={{ "&:hover .icon": { opacity: 1 } }}
+          sx={{
+            "&:hover .icon": { opacity: 1 },
+          }}
         >
-          <img width="169px" height="158px" src={image} />
-          <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon">
-            <Stack className="w-[34px] h-[34px] hover:bg-white rounded-full justify-center items-center">
+          <img
+            width="100%"
+            height="100%"
+            src={image}
+            style={{ maxWidth: "169px", maxHeight: "158px" }}
+            className="img"
+          />
+          <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon ">
+            <IconButton>
               <ShoppingCartIcon />
-            </Stack>
-            <Stack className="w-[34px] h-[34px] hover:bg-white rounded-full justify-center items-center">
+            </IconButton>
+            <IconButton>
               <FavoriteBorderIcon />
-            </Stack>
-            <Stack className="w-[34px] h-[34px] hover:bg-white rounded-full justify-center items-center">
+            </IconButton>
+            <IconButton>
               <SavedSearchIcon />
-            </Stack>
+            </IconButton>
           </Stack>
         </Stack>
         <Stack className="gap-2 text-center items-center mt-4">

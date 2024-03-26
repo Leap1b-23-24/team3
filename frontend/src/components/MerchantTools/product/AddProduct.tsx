@@ -1,25 +1,23 @@
 "use client";
-import { Button, Modal, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import ProductFields1 from "@/components/MerchantTools/product/ProductFields1";
 import ProductFields2 from "@/components/MerchantTools/product/ProductFields2";
 import { useContext, useState } from "react";
-import { Box } from "@mui/system";
 import { MerchantContext } from "@/components/providers/MerchantProvider";
-import AddModal from "./AddProductModal";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   productName: yup.string().required("Бүтээгдэхүүний нэр оруулна уу"),
   description: yup.string().required("Бүтээгдэхүүний тайлбар оруулна уу"),
   price: yup.string().required("Бүтээгдэхүүний үнэ оруулна уу"),
-  thumbnail: yup.string().required("Бүтээгдэхүүний зураг оруулна уу"),
   discount: yup.string().required("Бүтээгдэхүүний хөнгөлөлт оруулна уу"),
   qty: yup.string().required("Бүтээгдэхүүний үлдэгдэл оруулна уу"),
 });
 export default function AddProduct() {
   const [isModal, setIsModal] = useState(false);
-  const [mainCate, setMainCate] = useState<any>("");
+  const router = useRouter();
   const { creatProduct, imageUrl, refreshProducts } =
     useContext(MerchantContext);
 
@@ -27,32 +25,31 @@ export default function AddProduct() {
     initialValues: {
       productName: "",
       description: "",
+      discount: "",
       price: 0,
-      thumbnail: "",
+      images: [""],
       qty: 0,
-      category: `${mainCate}`,
+      category: "",
       subCategory: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(formik.errors);
+      console.log("GGG", imageUrl);
       await creatProduct({
         productName: values.productName,
         description: values.description,
+        discount: values.discount,
         price: values.price,
-        thumbnail: imageUrl,
+        images: imageUrl,
         qty: values.qty,
-        category: mainCate,
+        category: values.category,
         subCategory: values.subCategory,
       });
-
-      setTimeout(() => {
-        setIsModal(true);
-      }, 4000);
+      window.location.reload();
       refreshProducts();
     },
   });
-  console.log(formik.values);
+
   return (
     <Stack>
       <Stack direction="row" gap="30px" fontSize="14px">
@@ -60,7 +57,6 @@ export default function AddProduct() {
           productName={formik.values.productName}
           description={formik.values.description}
           price={formik.values.price}
-          thumbnail={formik.values.thumbnail}
           qty={formik.values.qty}
           handleChange={formik.handleChange}
           error={formik.touched && Boolean(formik.errors)}
@@ -68,8 +64,9 @@ export default function AddProduct() {
           onBlur={formik.handleBlur}
         />
         <ProductFields2
-          setMainCate={setMainCate}
-          mainCate={mainCate}
+          discount={formik.values.discount}
+          category={formik.values.category}
+          subCategory={formik.values.subCategory}
           handleChange={formik.handleChange}
           error={formik.touched && Boolean(formik.errors)}
           helperText={formik.touched && formik.errors}
@@ -85,6 +82,15 @@ export default function AddProduct() {
         <Button
           variant="contained"
           className="w-[116px] h-[56px] text-[18px] mr-8 font-semibold bg-black"
+          disabled={
+            !formik.values.price ||
+            !formik.values.productName ||
+            !formik.values.description ||
+            !formik.values.discount ||
+            !formik.values.qty ||
+            !formik.values.subCategory ||
+            !imageUrl.length
+          }
           onClick={() => {
             formik.handleSubmit();
           }}
@@ -92,31 +98,6 @@ export default function AddProduct() {
           Нийтлэх
         </Button>
       </Stack>
-      <Modal open={isModal}>
-        <Box
-          sx={{
-            position: "absolute" as "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            borderRadius: "20px",
-            p: "24px",
-          }}
-        >
-          <Typography
-            display="flex"
-            justifyContent="end"
-            onClick={() => {
-              setIsModal(true);
-            }}
-          >
-            X
-          </Typography>
-          {isModal && <AddModal />}
-        </Box>
-      </Modal>
     </Stack>
   );
 }

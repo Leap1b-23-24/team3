@@ -7,16 +7,17 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { MuiColorInput } from "mui-color-input";
 import AddIcon from "@mui/icons-material/Add";
-import { ChangeEventHandler, Dispatch, useState } from "react";
+import { ChangeEventHandler, Dispatch } from "react";
 import categoryArr from "./categories.json";
 import { CustomInput } from "@/components/CustomInput";
 type Product2Props = {
-  setMainCate: Dispatch<any>;
-  setSubCate: Dispatch<any>;
-  mainCate: any;
-  subCate: any;
+  handleChange: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  error: any;
+  helperText: any;
+  subCategory: string;
+  category: string;
+  discount: string;
   // color: {
   //   colorName: string;
   //   colorCode: string;
@@ -30,21 +31,20 @@ type Product2Props = {
 };
 
 export default function ProductFields2(props: Product2Props) {
-  const { setSubCate, setMainCate, mainCate, subCate } = props;
+  const { handleChange, error, helperText, subCategory, category, discount } =
+    props;
 
-  // const [colorValue, setColorValue] = useState("");
-  // const [isPicker, setIsPicker] = useState([]);
   return (
     <Stack className="w-[563px] gap-6">
       <Stack className="bg-white rounded-[13px] p-[24px] gap-[16px] ">
         <Stack mb="10px">
           <Typography>Ерөнхий ангилал</Typography>
-          <Select
+          <CustomInput
+            type="select"
+            select
             name="category"
-            value={mainCate}
-            onChange={(event: any) => {
-              setMainCate(event.target.value);
-            }}
+            value={category}
+            onChange={handleChange}
             className="bg-[#F7F7F8] text-lg"
           >
             {categoryArr.map((item, index) => (
@@ -52,19 +52,32 @@ export default function ProductFields2(props: Product2Props) {
                 {item}
               </MenuItem>
             ))}
-          </Select>
+          </CustomInput>
         </Stack>
         <Stack mb="10px">
           <Typography>Дэд ангилал</Typography>
           <CustomInput
-            // name="productName"
-            // placeholder="Бөглөх"
-            // defaultValue={productName}
-            // error={error.productName}
-            // helperText={helperText.productName}
-            // onChange={(event) => {
-            //   handleChange(event);
-            // }}
+            name="subCategory"
+            placeholder="Бөглөх"
+            defaultValue={subCategory}
+            error={error.subCategory}
+            helperText={helperText.subCategory}
+            onChange={handleChange}
+            className="bg-[#F7F7F8] text-lg"
+          />
+        </Stack>
+      </Stack>
+
+      <Stack className="bg-white rounded-[13px] p-[24px] gap-[16px] ">
+        <Stack mb="10px">
+          <Typography>Хөнгөлөлт</Typography>
+          <CustomInput
+            name="discount"
+            placeholder="Хөнгөлөлт"
+            defaultValue={discount}
+            error={error.discount}
+            helperText={helperText.discount}
+            onChange={handleChange}
             className="bg-[#F7F7F8] text-lg"
           />
         </Stack>

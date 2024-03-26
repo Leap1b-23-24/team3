@@ -9,7 +9,13 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { useContext } from "react";
 import { MerchantContext } from "@/components/providers/MerchantProvider";
-import { IconButton, Stack, TableHead, Typography } from "@mui/material";
+import {
+  IconButton,
+  Stack,
+  TableHead,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -25,7 +31,7 @@ export default function ProductTable() {
             <TableHead>
               <TableRow>
                 <TableCell className="font-semibold w-8"></TableCell>
-                <TableCell className="font-semibold w-[200px]" align="center">
+                <TableCell className="font-semibold w-[220px]" align="center">
                   Бүтээгдэхүүн
                 </TableCell>
                 <TableCell className="font-semibold" align="center">
@@ -59,14 +65,14 @@ export default function ProductTable() {
                       className="max-w-[200px] gap-3"
                     >
                       <img
-                        src={item.thumbnail}
+                        src={item.images[0]}
                         alt="no image"
                         className="w-10 h-10 rounded-full border"
                       />
                       <Stack alignItems="flex-start">
                         <Typography
                           sx={{ fontWeight: 600 }}
-                          className="text-sm font-semibold uppercase"
+                          className="text-sm font-semibold uppercase text-left"
                         >
                           {item.productName}
                         </Typography>
@@ -86,18 +92,22 @@ export default function ProductTable() {
                   <TableCell align="center">
                     <Stack direction="row" className="gap-2">
                       <Stack className="cursor-pointer">
-                        <IconButton onClick={() => deleteProduct(item._id)}>
-                          <DeleteIcon
-                            sx={{ fontSize: "20px", color: "#1C20243D" }}
-                          />
-                        </IconButton>
+                        <Tooltip title="Устгах">
+                          <IconButton onClick={() => deleteProduct(item._id)}>
+                            <DeleteIcon
+                              sx={{ fontSize: "20px", color: "#1C20243D" }}
+                            />
+                          </IconButton>
+                        </Tooltip>
                       </Stack>
                       <Stack className="cursor-pointer">
-                        <IconButton>
-                          <EditIcon
-                            sx={{ fontSize: "20px", color: "#1C20243D" }}
-                          />
-                        </IconButton>
+                        <Tooltip title="Засварлах">
+                          <IconButton>
+                            <EditIcon
+                              sx={{ fontSize: "20px", color: "#1C20243D" }}
+                            />
+                          </IconButton>
+                        </Tooltip>
                       </Stack>
                     </Stack>
                   </TableCell>

@@ -30,7 +30,9 @@ export default function IncomeTable() {
             <TableBody className="bg-white">
               {allProducts.map((item: any, index: number) => (
                 <TableRow key={index}>
-                  <TableCell className="font-semibold">{item._id}</TableCell>
+                  <TableCell className="font-semibold">
+                    {item._id.slice(15)}
+                  </TableCell>
                   <TableCell align="center">{item.subcriber}</TableCell>
                   <TableCell align="center">
                     {numberFormatter.format(item.price)}₮

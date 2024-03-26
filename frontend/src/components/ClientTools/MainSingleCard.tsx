@@ -2,44 +2,19 @@ import { IconButton, Rating, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
-export default function ShopCard() {
-  const card = [
-    {
-      image: "image 1165.png",
-      title: "Усан ягаан сандал",
-      price: "750’000",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    },
-    {
-      image: "image 1165.png",
-      title: "Усан ягаан сандал",
-      price: "750’000",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    },
-    {
-      image: "image 1165.png",
-      title: "Усан ягаан сандал",
-      price: "750’000",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    },
-    {
-      image: "image 1165.png",
-      title: "Усан ягаан сандал",
-      price: "750’000",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    },
-    {
-      image: "image 1165.png",
-      title: "Усан ягаан сандал",
-      price: "750’000",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    },
-  ];
+import { useContext } from "react";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
+export default function MainSingleCard() {
+  const { allProducts } = useContext(MerchantContext);
   return (
     <Stack className="gap-[34px]">
-      {card.map((item) => {
+      {allProducts.map((item: any, index: number) => {
         return (
-          <Stack direction="row" className="gap-4 h-[270px] mb-[96px]">
+          <Stack
+            key={index}
+            direction="row"
+            className="gap-4 h-[270px] mb-[96px]"
+          >
             <Stack className="w-[270px]  bg-[#EBF4F3] justify-center items-center ">
               <img width="169px" height="169px" src={item.image} />
             </Stack>
@@ -72,13 +47,13 @@ export default function ShopCard() {
                 <Typography>{item.text}</Typography>
               </Stack>
               <Stack direction="row" className="gap-[20px]">
-                <IconButton className="w-[34px] h-[34px] bg-white ">
+                <IconButton className="w-[34px] h-[34px]">
                   <ShoppingCartIcon />
                 </IconButton>
-                <IconButton className="w-[34px] h-[34px] bg-white ">
+                <IconButton className="w-[34px] h-[34px] ">
                   <FavoriteBorderIcon />
                 </IconButton>
-                <IconButton className="w-[34px] h-[34px] bg-white ">
+                <IconButton className="w-[34px] h-[34px] ">
                   <SavedSearchIcon />
                 </IconButton>
               </Stack>

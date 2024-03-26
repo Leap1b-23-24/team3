@@ -15,18 +15,19 @@ import { useRouter } from "next/navigation";
 type creatProductParams = {
   productName: string;
   description: string;
+  discount: string;
   price: number;
-  thumbnail: string;
+  images: string[];
   qty: number;
   category: string;
   subCategory: string;
 };
 type MerchantContextType = {
+  imageUrl: string[];
+  setImageUrl: Dispatch<SetStateAction<string[]>>;
   creatProduct: (type: creatProductParams) => Promise<void>;
   handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleImageInput: () => Promise<void>;
-  imageUrl: string;
-  setImageUrl: Dispatch<SetStateAction<string>>;
   selectedFile: File | null;
   setSelectedFile: Dispatch<SetStateAction<File | null>>;
   isAddProduct: boolean;
@@ -42,7 +43,7 @@ export const MerchantContext = createContext<MerchantContextType>(
 export default function MerchantProvider({ children }: PropsWithChildren) {
   const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [isAddProduct, setIsAddProduct] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const [refresh, setRefresh] = useState(0);
@@ -65,7 +66,7 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
           }
         );
         const data = await response.json();
-        setImageUrl(data.secure_url);
+        setImageUrl([...imageUrl, data.secure_url]);
       } catch (error) {
         console.error("Image upload error:", error);
       }
@@ -74,7 +75,6 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
   const creatProduct = async (type: creatProductParams) => {
     try {
       const { data } = await api.post("/product/create", type);
-      router.push("/merchant/product");
       toastSuccess(data);
     } catch (error) {
       if (error) {
@@ -85,10 +85,12 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     handleImageInput();
   }, []);
+
   const getallProducts = async () => {
     try {
       const { data } = await api.get("/product/");
       setAllProducts(data);
+
       toastSuccess(data);
     } catch (error) {
       toastError(error);

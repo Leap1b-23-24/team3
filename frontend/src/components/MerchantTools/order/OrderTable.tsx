@@ -27,7 +27,7 @@ export default function OrderTable() {
         <Table className="w-full">
           <TableHead>
             <TableRow className="bg-[#ECEDF0]">
-              <TableCell className="font-semibold w-[190px]" align="center">
+              <TableCell className="font-semibold " align="center">
                 Захиалгын ID дугаар
               </TableCell>
               <TableCell className="font-semibold" align="center">
@@ -53,7 +53,9 @@ export default function OrderTable() {
           <TableBody className="bg-white">
             {allProducts.map((item: any, index: number) => (
               <TableRow key={index} onClick={() => {}}>
-                <TableCell className="w-[190px]">{item._id}</TableCell>
+                <TableCell className="w-[190px]">
+                  {item._id.slice(15)}
+                </TableCell>
                 <TableCell align="center">{item.name}</TableCell>
                 <TableCell align="center">
                   {item.createdAt.slice(0, 10)}
