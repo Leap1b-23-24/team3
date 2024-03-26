@@ -7,12 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Stack } from "@mui/material";
-import { AdminContext } from "@/components/providers/MerchantProvider";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { useContext } from "react";
 import { numberFormatter } from "@/components/numberFormatter";
 
 export default function IncomeTable() {
-  const { AllProduct } = useContext(AdminContext);
+  const { allProducts } = useContext(MerchantContext);
 
   return (
     <Stack>
@@ -28,9 +28,11 @@ export default function IncomeTable() {
               </TableRow>
             </TableHead>
             <TableBody className="bg-white">
-              {AllProduct.map((item: any, index: number) => (
+              {allProducts.map((item: any, index: number) => (
                 <TableRow key={index}>
-                  <TableCell className="font-semibold">{item._id}</TableCell>
+                  <TableCell className="font-semibold">
+                    {item._id.slice(15)}
+                  </TableCell>
                   <TableCell align="center">{item.subcriber}</TableCell>
                   <TableCell align="center">
                     {numberFormatter.format(item.price)}₮

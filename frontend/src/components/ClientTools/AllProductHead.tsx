@@ -1,7 +1,7 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import WindowIcon from "@mui/icons-material/Window";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-export default function Shopheader() {
+export default function AllProductHead() {
   return (
     <Stack direction="row" className=" justify-between mb-[48px] mt-24">
       <Stack>

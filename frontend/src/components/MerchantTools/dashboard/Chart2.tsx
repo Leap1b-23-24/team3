@@ -1,6 +1,5 @@
-import { Card, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { array } from "prop-types";
 export default function Chart2() {
   const data = [
     { city: "Улаанбаатар", percent: "70" },

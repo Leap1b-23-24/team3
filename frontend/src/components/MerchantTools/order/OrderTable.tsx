@@ -9,13 +9,13 @@ import { Stack } from "@mui/material";
 import { useContext } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import moment from "moment";
-import { AdminContext } from "@/components/providers/MerchantProvider";
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { numberFormatter } from "@/components/numberFormatter";
 
 const rows = [{ id: "0983294058", name: "aksdd" }];
 
 export default function OrderTable() {
-  const { AllProduct } = useContext(AdminContext);
+  const { allProducts } = useContext(MerchantContext);
   return (
     <Stack
       height="706px"
@@ -27,7 +27,7 @@ export default function OrderTable() {
         <Table className="w-full">
           <TableHead>
             <TableRow className="bg-[#ECEDF0]">
-              <TableCell className="font-semibold w-[190px]" align="center">
+              <TableCell className="font-semibold " align="center">
                 Захиалгын ID дугаар
               </TableCell>
               <TableCell className="font-semibold" align="center">
@@ -51,9 +51,11 @@ export default function OrderTable() {
             </TableRow>
           </TableHead>
           <TableBody className="bg-white">
-            {AllProduct.map((item: any, index: number) => (
+            {allProducts.map((item: any, index: number) => (
               <TableRow key={index} onClick={() => {}}>
-                <TableCell className="w-[190px]">{item._id}</TableCell>
+                <TableCell className="w-[190px]">
+                  {item._id.slice(15)}
+                </TableCell>
                 <TableCell align="center">{item.name}</TableCell>
                 <TableCell align="center">
                   {item.createdAt.slice(0, 10)}

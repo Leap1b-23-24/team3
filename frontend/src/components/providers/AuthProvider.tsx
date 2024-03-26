@@ -7,15 +7,12 @@ import {
   createContext,
   useContext,
   useState,
-  ChangeEvent,
-  useEffect,
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
 
 import { api } from "@/common";
 type AuthContextType = {
-  creatProduct: (type: creatProductParams) => Promise<void>;
   index: string;
   checkUser: (params: CheckUserParams) => Promise<void>;
   setIndex: Dispatch<SetStateAction<string>>;
@@ -30,29 +27,11 @@ type AuthContextType = {
   setQuestion1: Dispatch<SetStateAction<string>>;
   setQuestion2: Dispatch<SetStateAction<string>>;
   signUp: () => Promise<void>;
-  handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleImageInput: () => Promise<void>;
-  imageUrl: string;
-  setImageUrl: Dispatch<SetStateAction<string>>;
-  selectedFile: File | null;
-  setSelectedFile: Dispatch<SetStateAction<File | null>>;
   productModal: boolean;
   setProductModal: Dispatch<SetStateAction<boolean>>;
-  isAddProduct: boolean;
-  setIsAddProduct: Dispatch<SetStateAction<boolean>>;
 };
 type CheckUserParams = {
   email: string;
-};
-type creatProductParams = {
-  productName: string;
-  description: string;
-  price: number;
-  thumbnail: string;
-  discount: number;
-  qty: number;
-  category: string;
-  subCategory: string;
 };
 
 export const AuthContext = createContext<AuthContextType>(
@@ -70,47 +49,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [sect, setKhoroo] = useState("");
   const [experience, setQuestion1] = useState("");
   const [productType, setQuestion2] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState("");
   const [productModal, setProductModal] = useState(false);
-  const [isAddProduct, setIsAddProduct] = useState(false);
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    setSelectedFile(event.target.files[0]);
-  };
-
-  const handleImageInput = async () => {
-    if (selectedFile) {
-      try {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await response.json();
-        setImageUrl(data.secure_url);
-      } catch (error) {
-        console.error("Image upload error:", error);
-      }
-    }
-  };
-  const creatProduct = async (type: creatProductParams) => {
-    try {
-      const { data } = await api.post("/product/create", type);
-      toastSuccess(data);
-    } catch (error) {
-      if (error) {
-        toastError(error);
-      }
-    }
-  };
-  useEffect(() => {
-    handleImageInput();
-  }, []);
 
   const checkUser = async (params: CheckUserParams) => {
     try {
@@ -146,7 +85,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         productType,
       });
       toastSuccess(data);
-      router.push("/admin");
+      router.push("/merchant");
     } catch (error) {
       toastError(error);
     }
@@ -168,17 +107,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setQuestion1,
         setQuestion2,
         signUp,
-        handleImageChange,
-        handleImageInput,
-        creatProduct,
-        imageUrl,
-        setImageUrl,
-        selectedFile,
-        setSelectedFile,
         productModal,
         setProductModal,
-        isAddProduct,
-        setIsAddProduct,
       }}
     >
       {children}

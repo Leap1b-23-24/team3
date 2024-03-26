@@ -11,6 +11,6 @@ const productRouter = Router();
 productRouter
   .get("/", getAllProduct)
   .post("/create", createProduct)
-  .delete("/delete", deleteProduct)
+  .post("/delete", deleteProduct)
   .post("/edit", editProduct);
 export default productRouter;

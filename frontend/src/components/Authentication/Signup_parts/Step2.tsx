@@ -2,10 +2,10 @@
 import { Button, MenuItem, Stack, Typography } from "@mui/material";
 import ArrowBackTwoToneIcon from "@mui/icons-material/ArrowBackTwoTone";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { CustomInput } from "../CustomInput";
+import { CustomInput } from "../../CustomInput";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Auth } from "../providers/AuthProvider";
+import { Auth } from "../../providers/AuthProvider";
 import { useEffect } from "react";
 import cities from "./cities.json";
 
