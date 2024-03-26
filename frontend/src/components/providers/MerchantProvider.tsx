@@ -94,12 +94,11 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
       toastError(error);
     }
   };
-  const deleteProduct = async (id: any) => {
-    console.log("id:", id);
+  const deleteProduct = async (id: object) => {
     try {
-      const { data } = await api.get("/product/delete", id);
-      setAllProducts(data);
+      const { data } = await api.post("/product/delete", { id: id });
       toastSuccess(data);
+      refreshProducts();
     } catch (error) {
       toastError(error);
     }

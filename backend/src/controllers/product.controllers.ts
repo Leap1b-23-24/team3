@@ -45,11 +45,11 @@ export const createProduct: RequestHandler = async (req, res) => {
 export const deleteProduct: RequestHandler = async (req, res) => {
   const { id } = req.body;
   console.log(id);
-  const isProductExist = await ProductModel.findOne({ id });
+  const isProductExist = await ProductModel.findOne({ _id: id });
   if (!isProductExist) {
-    return res.json("Wrong product ID");
+    return res.status(400).json("Wrong product ID");
   }
-  const deleteProduct = await ProductModel.findOneAndDelete({ id });
+  await ProductModel.findOneAndDelete({ _id: id });
   res.json({ message: "Бүтээгдэхүүн устлаа" });
 };
 

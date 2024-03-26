@@ -86,20 +86,20 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         zIndex={1}
       >
         <Stack direction="row" gap={2} p="11px">
-          <IconButton>
-            <Shopping
-              sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
-            />
+          <IconButton
+            sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
+          >
+            <Shopping />
           </IconButton>
-          <IconButton>
-            <Favorite
-              sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
-            />
+          <IconButton
+            sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
+          >
+            <Favorite />
           </IconButton>
-          <IconButton>
-            <ZoomIn
-              sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
-            />
+          <IconButton
+            sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
+          >
+            <ZoomIn />
           </IconButton>
         </Stack>
       </Stack>

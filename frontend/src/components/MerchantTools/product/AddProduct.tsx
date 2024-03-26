@@ -20,7 +20,6 @@ const validationSchema = yup.object({
 export default function AddProduct() {
   const [isModal, setIsModal] = useState(false);
   const [mainCate, setMainCate] = useState<any>("");
-  const [subCate, setSubCate] = useState<any>("");
   const { creatProduct, imageUrl, refreshProducts } =
     useContext(MerchantContext);
 
@@ -31,8 +30,8 @@ export default function AddProduct() {
       price: 0,
       thumbnail: "",
       qty: 0,
-      category: mainCate,
-      subCategory: subCate,
+      category: `${mainCate}`,
+      subCategory: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -44,15 +43,16 @@ export default function AddProduct() {
         thumbnail: imageUrl,
         qty: values.qty,
         category: mainCate,
-        subCategory: subCate,
+        subCategory: values.subCategory,
       });
 
-      await setTimeout(() => {
+      setTimeout(() => {
         setIsModal(true);
       }, 4000);
-      await refreshProducts();
+      refreshProducts();
     },
   });
+  console.log(formik.values);
   return (
     <Stack>
       <Stack direction="row" gap="30px" fontSize="14px">
@@ -69,9 +69,10 @@ export default function AddProduct() {
         />
         <ProductFields2
           setMainCate={setMainCate}
-          setSubCate={setSubCate}
           mainCate={mainCate}
-          subCate={subCate}
+          handleChange={formik.handleChange}
+          error={formik.touched && Boolean(formik.errors)}
+          helperText={formik.touched && formik.errors}
         />
       </Stack>
       <Stack direction="row" className="gap-8 justify-end pt-6 bg-[#F7F7F8]">

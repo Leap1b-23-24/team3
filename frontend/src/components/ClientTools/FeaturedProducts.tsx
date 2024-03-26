@@ -32,7 +32,7 @@ export default function FeaturedProducts() {
         className="justify-around w-[400%] "
         sx={{
           translate: `${step * -25}%`,
-          transitionDuration: "1s",
+          transitionDuration: step === 0 ? "0s" : "1s",
         }}
       >
         {allProducts

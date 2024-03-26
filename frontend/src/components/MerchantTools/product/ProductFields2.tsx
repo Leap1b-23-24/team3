@@ -11,7 +11,7 @@ import { MuiColorInput } from "mui-color-input";
 import AddIcon from "@mui/icons-material/Add";
 import { ChangeEventHandler, Dispatch, useState } from "react";
 import categoryArr from "./categories.json";
-import subcateArr from "./subcategories.json";
+import { CustomInput } from "@/components/CustomInput";
 type Product2Props = {
   setMainCate: Dispatch<any>;
   setSubCate: Dispatch<any>;
@@ -56,20 +56,17 @@ export default function ProductFields2(props: Product2Props) {
         </Stack>
         <Stack mb="10px">
           <Typography>Дэд ангилал</Typography>
-          <Select
-            name="subCategory"
-            value={subCate}
-            onChange={(event: any) => {
-              setSubCate(event.target.value);
-            }}
+          <CustomInput
+            // name="productName"
+            // placeholder="Бөглөх"
+            // defaultValue={productName}
+            // error={error.productName}
+            // helperText={helperText.productName}
+            // onChange={(event) => {
+            //   handleChange(event);
+            // }}
             className="bg-[#F7F7F8] text-lg"
-          >
-            {subcateArr.map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
+          />
         </Stack>
       </Stack>
       <Stack className="bg-white p-[24px] gap-6 rounded-[13px]">
