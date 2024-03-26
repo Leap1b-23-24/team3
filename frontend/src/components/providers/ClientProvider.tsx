@@ -15,8 +15,8 @@ import { toastError, toastSuccess } from "../toastClient";
 type ClientContextType = {
   getallProducts: () => Promise<void>;
   allProducts: never[];
-  details: string[];
-  setDetails: Dispatch<SetStateAction<string[]>>;
+  details: string;
+  setDetails: Dispatch<SetStateAction<string>>;
 };
 
 export const ClientContext = createContext<ClientContextType>(
@@ -25,7 +25,7 @@ export const ClientContext = createContext<ClientContextType>(
 export const ClientProvider = ({ children }: PropsWithChildren) => {
   const [allProducts, setAllProducts] = useState([]);
   const [refresh, setRefresh] = useState(0);
-  const [details, setDetails] = useState<string[]>([]);
+  const [details, setDetails] = useState("");
 
   const getallProducts = async () => {
     try {

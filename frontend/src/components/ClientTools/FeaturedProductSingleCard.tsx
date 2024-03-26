@@ -6,18 +6,18 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
 import { numberFormatter } from "../numberFormatter";
 import { Client } from "../providers/ClientProvider";
+import { useRouter } from "next/navigation";
 type cardTypes = {
   setPause: Dispatch<SetStateAction<boolean>>;
   name: string;
   price: number;
   image: string;
+  id: string;
 };
 export default function FeaturedProductSingleCard(props: cardTypes) {
   const { allProducts, setDetails } = Client();
-  const { setPause, name, price, image } = props;
-  function handleDetail() {
-    return allProducts;
-  }
+  const router = useRouter();
+  const { setPause, name, price, image, id } = props;
 
   return (
     <Stack
@@ -67,7 +67,8 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         />
         <Stack
           onClick={() => {
-            handleDetail();
+            setDetails(id);
+            router.push("/productDetail");
           }}
           className="details w-[94px] h-8 rounded-sm mb-2 absolute bottom-0 left-[65px] cursor-pointer"
           sx={{

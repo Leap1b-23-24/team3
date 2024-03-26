@@ -1,7 +1,14 @@
-import { Rating, Stack, Typography } from "@mui/material";
+"use client";
+import { Client } from "@/components/providers/ClientProvider";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-export default function Default() {
+import { Rating, Stack, Typography } from "@mui/material";
+import { numberFormatter } from "@/components/numberFormatter";
+
+export default function Details() {
+  const { allProducts, details } = Client();
+  const product = allProducts.find((item: any) => item._id == details);
+  console.log(product);
   return (
     <Stack>
       <Stack direction="row" className="gap-[41px] px-[378px] mt-24 mb-12">
@@ -11,12 +18,12 @@ export default function Default() {
             <img width="151px" height="155px" src="Rectangle 136.png" />
             <img width="151px" height="155px" src="Rectangle 137.png" />
           </Stack>
-          <img width="375px" height="487px" src="Rectangle 138.png" />
+          <img width="375px" height="487px" src={`${product.image[0]}`} />
         </Stack>
         <Stack className="text-[#111C85] ">
           <Stack className="gap-[16px] mb-16">
             <Typography fontSize="36px" fontWeight="800">
-              Sofa
+              {product.productName}
             </Typography>
             <Stack direction="row" className="items-center">
               <Rating name="simple-controlled" />
@@ -25,7 +32,7 @@ export default function Default() {
               </Typography>
             </Stack>
             <Typography fontSize="32px" fontWeight="400">
-              750’000₮
+              {numberFormatter.format(product.price)}₮
             </Typography>
             <Stack direction="row" className="gap-[8px]">
               <Stack className="w-3 h-3 bg-[#DE9034] rounded-full"></Stack>
@@ -33,10 +40,7 @@ export default function Default() {
               <Stack className="w-3 h-3 bg-[#5E37FF] rounded-full"></Stack>
             </Stack>
             <Typography color="#9295AA" fontSize="17px">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in
-              est
-              <br />
-              adipiscing in phasellus non in justo.
+              {product.description}
             </Typography>
           </Stack>
           <Stack direction="row" className="gap-[20px]">
