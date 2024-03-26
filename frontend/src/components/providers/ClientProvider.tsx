@@ -11,10 +11,20 @@ import {
   useState,
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
+type ProductType = {
+  productName: string;
+  description: string;
+  discount: string;
+  price: any;
+  images: string[];
+  qty: number;
+  category: string;
+  subCategory: string;
+};
 
 type ClientContextType = {
   getallProducts: () => Promise<void>;
-  allProducts: never[];
+  allProducts: ProductType[];
   details: string;
   setDetails: Dispatch<SetStateAction<string>>;
 };

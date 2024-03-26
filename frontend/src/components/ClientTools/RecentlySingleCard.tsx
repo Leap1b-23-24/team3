@@ -19,7 +19,11 @@ export default function MainCard(props: any) {
             width="100%"
             height="100%"
             src={image}
-            style={{ maxWidth: "169px", maxHeight: "158px" }}
+            style={{
+              maxWidth: "169px",
+              maxHeight: "158px",
+              mixBlendMode: "multiply",
+            }}
             className="img"
           />
           <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon ">

@@ -4,11 +4,16 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Rating, Stack, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
+import { useRouter } from "next/navigation";
 
 export default function Details() {
+  const router = useRouter();
   const { allProducts, details } = Client();
   const product = allProducts.find((item: any) => item._id == details);
-  console.log(product);
+
+  if (!details) {
+    router.push("/");
+  }
   return (
     <Stack>
       <Stack direction="row" className="gap-[41px] px-[378px] mt-24 mb-12">
@@ -18,12 +23,16 @@ export default function Details() {
             <img width="151px" height="155px" src="Rectangle 136.png" />
             <img width="151px" height="155px" src="Rectangle 137.png" />
           </Stack>
-          <img width="375px" height="487px" src={`${product.image[0]}`} />
+          <img
+            width="375px"
+            height="487px"
+            // src={product?.image && product.image[0]}
+          />
         </Stack>
         <Stack className="text-[#111C85] ">
           <Stack className="gap-[16px] mb-16">
             <Typography fontSize="36px" fontWeight="800">
-              {product.productName}
+              {product?.productName}
             </Typography>
             <Stack direction="row" className="items-center">
               <Rating name="simple-controlled" />
@@ -32,7 +41,7 @@ export default function Details() {
               </Typography>
             </Stack>
             <Typography fontSize="32px" fontWeight="400">
-              {numberFormatter.format(product.price)}₮
+              {numberFormatter.format(product?.price)}₮
             </Typography>
             <Stack direction="row" className="gap-[8px]">
               <Stack className="w-3 h-3 bg-[#DE9034] rounded-full"></Stack>
@@ -40,7 +49,7 @@ export default function Details() {
               <Stack className="w-3 h-3 bg-[#5E37FF] rounded-full"></Stack>
             </Stack>
             <Typography color="#9295AA" fontSize="17px">
-              {product.description}
+              {product?.description}
             </Typography>
           </Stack>
           <Stack direction="row" className="gap-[20px]">
