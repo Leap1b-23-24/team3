@@ -12,7 +12,6 @@ export const isEmailUnique: RequestHandler = async (req, res) => {
   }
   return res.json({ message: "Амжилттай" });
 };
-
 export const isShopUnique: RequestHandler = async (req, res) => {
   const { shopName } = req.body;
   try {
