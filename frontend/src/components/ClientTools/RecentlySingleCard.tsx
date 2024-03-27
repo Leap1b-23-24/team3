@@ -15,7 +15,7 @@ export default function MainCard(props: any) {
     <Stack
       direction="row"
       onClick={() => {
-        setId(productId);
+        localStorage.setItem("itemId", productId);
         router.push(`/productDetail`);
       }}
     >

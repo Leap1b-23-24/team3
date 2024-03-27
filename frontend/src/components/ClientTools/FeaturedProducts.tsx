@@ -45,7 +45,7 @@ export default function FeaturedProducts() {
                   name={item.productName}
                   price={item.price}
                   image={item.images[0]}
-                  id={item._id}
+                  productId={item._id}
                 />
               </Stack>
             );

@@ -12,12 +12,12 @@ type cardTypes = {
   name: string;
   price: number;
   image: string;
-  id: string;
+  productId: string;
 };
 export default function FeaturedProductSingleCard(props: cardTypes) {
-  const { allProducts, setId } = Client();
+  const { allProducts } = Client();
   const router = useRouter();
-  const { setPause, name, price, image, id } = props;
+  const { setPause, name, price, image, productId } = props;
 
   return (
     <Stack
@@ -67,7 +67,7 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         />
         <Stack
           onClick={() => {
-            setId(id);
+            localStorage.setItem("itemId", productId);
             router.push("/productDetail");
           }}
           className="details w-[94px] h-8 rounded-sm mb-2 absolute bottom-0 left-[65px] cursor-pointer"

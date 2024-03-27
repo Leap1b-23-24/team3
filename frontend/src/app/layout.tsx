@@ -1,5 +1,4 @@
 "use client";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import { AuthProvider } from "@/components/providers/AuthProvider";
@@ -8,8 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { theme } from "@/theme";
 import { ClientProvider } from "@/components/providers/ClientProvider";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,

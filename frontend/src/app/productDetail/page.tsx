@@ -13,16 +13,16 @@ import { Footer } from "@/components";
 export default function Details() {
   const [selectImg, setSelectImg] = useState(0);
   const [isRating, setIsRating] = useState(0);
+  const [newProduct, setNewProduct] = useState(null);
   const router = useRouter();
-  const { allProducts, id } = Client();
+  const { allProducts } = Client();
   const arr = ["Нэмэлт мэдээлэл", "Үнэлгээ"];
 
-  useEffect(() => {
-    const products = allProducts.find((item: any) => item._id == id);
-    if (!products) return;
-    localStorage.setItem("itemDetails", JSON.stringify(products));
-  }, []);
-  const product = JSON.parse(localStorage.getItem("itemDetails"));
+  const productId = localStorage.getItem("itemId");
+  if (!productId) {
+    router.push("/");
+  }
+  const product = allProducts.find((item: any) => item._id == productId);
 
   return (
     <>
@@ -34,7 +34,7 @@ export default function Details() {
         >
           <Stack direction="row" className="gap-[20px] w-[547px] h-[487px]">
             <Stack className="gap-[11px]">
-              {product.images &&
+              {product?.images &&
                 product.images.map((item: any, index: number) => {
                   return (
                     <Stack
@@ -98,7 +98,7 @@ export default function Details() {
             </Stack>
             <Stack direction="row" className="gap-[20px]">
               <Typography fontSize="16px" fontWeight="800">
-                Add To cart
+                Сагслах
               </Typography>
               <FavoriteBorderIcon />
             </Stack>
@@ -186,7 +186,7 @@ export default function Details() {
               </Stack>
             </Stack>
           ) : (
-            <ProductRating productId={id} />
+            <ProductRating />
           )}
         </Stack>
       </Stack>
