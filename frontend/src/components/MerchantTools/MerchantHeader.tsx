@@ -16,7 +16,6 @@ export default function AdminHeader() {
           height="30px"
           className="cursor-pointer"
         />
-
         <Stack direction="row" spacing={2} alignItems="center">
           <NotificationsNoneOutlined className="text-white" />
           <Stack direction="row" spacing={1} alignItems="center">
