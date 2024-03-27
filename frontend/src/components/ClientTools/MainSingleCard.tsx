@@ -7,7 +7,7 @@ import { MerchantContext } from "@/components/providers/MerchantProvider";
 export default function MainSingleCard() {
   const { allProducts } = useContext(MerchantContext);
   return (
-    <Stack className="gap-[34px]">
+    <Stack className="gap-[34px] cursor-pointer">
       {allProducts.map((item: any, index: number) => {
         return (
           <Stack

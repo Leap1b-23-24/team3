@@ -3,13 +3,22 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { numberFormatter } from "@/components/numberFormatter";
-import Image from "next/image";
+import { Client } from "../providers/ClientProvider";
+import { useRouter } from "next/navigation";
 
 export default function MainCard(props: any) {
+  const router = useRouter();
+  const { setId } = Client();
   const { name, image, price, productId } = props;
   return (
-    <Stack direction="row">
-      <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px]">
+    <Stack
+      direction="row"
+      onClick={() => {
+        setId(productId);
+        router.push("/productDetail");
+      }}
+    >
+      <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px] cursor-pointer">
         <Stack
           className="w-[270px] h-[280px] justify-center items-center relative bg-[#F6F7FB] hover:bg-[#EBF4F3]"
           sx={{

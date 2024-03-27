@@ -21,12 +21,17 @@ type ProductType = {
   category?: string;
   subCategory?: string;
 };
-
+type ratingAndCommentsType = {
+  productId: string;
+  star: number;
+  comment: string;
+};
 type ClientContextType = {
   getallProducts: () => Promise<void>;
   allProducts: ProductType[];
   id: string;
   setId: Dispatch<SetStateAction<string>>;
+  ratingAndComments: (params: ratingAndCommentsType) => Promise<void>;
 };
 
 export const ClientContext = createContext<ClientContextType>(
@@ -46,6 +51,15 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
       toastError(error);
     }
   };
+  const ratingAndComments = async (params: ratingAndCommentsType) => {
+    try {
+      const { data } = await api.post("/#", params);
+      toastSuccess(data);
+    } catch (error) {
+      toastError(error);
+    }
+  };
+
   const refreshProducts = () => {
     setRefresh((prev) => 1 - prev);
   };
@@ -55,7 +69,9 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
   }, [refresh]);
 
   return (
-    <ClientContext.Provider value={{ getallProducts, allProducts, id, setId }}>
+    <ClientContext.Provider
+      value={{ getallProducts, allProducts, id, setId, ratingAndComments }}
+    >
       {children}
     </ClientContext.Provider>
   );
