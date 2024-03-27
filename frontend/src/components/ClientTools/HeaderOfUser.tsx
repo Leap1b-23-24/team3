@@ -14,7 +14,10 @@ export const Header = () => {
         direction="row"
         className="bg-[#7E33E0] items-center px-[378px]  h-11  text-white justify-between"
       >
-        <Stack direction="row" className="gap-[66px]">
+        <Stack
+          direction="row"
+          className="justify-between w-full max-w-[1240px]"
+        >
           <Stack direction="row" className="items-center gap-[10px]">
             <MailOutlineIcon
               sx={{
@@ -25,6 +28,9 @@ export const Header = () => {
             />
             <Typography fontSize="16px" fontWeight="600">
               info@ecommerce.mn
+            </Typography>{" "}
+            <Typography fontSize="16px" fontWeight="600">
+              77123456
             </Typography>
           </Stack>
           <Stack direction="row" className="items-center gap-[10px]">
@@ -35,9 +41,6 @@ export const Header = () => {
                 height: "16px",
               }}
             />
-            <Typography fontSize="16px" fontWeight="600">
-              77123456
-            </Typography>
           </Stack>
         </Stack>
         <Stack direction="row" className="gap-[29px]">

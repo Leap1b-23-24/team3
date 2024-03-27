@@ -3,6 +3,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { numberFormatter } from "@/components/numberFormatter";
+import Image from "next/image";
 
 export default function MainCard(props: any) {
   const { name, image, price, productId } = props;
@@ -16,8 +17,6 @@ export default function MainCard(props: any) {
           }}
         >
           <img
-            width="100%"
-            height="100%"
             src={image}
             style={{
               maxWidth: "169px",

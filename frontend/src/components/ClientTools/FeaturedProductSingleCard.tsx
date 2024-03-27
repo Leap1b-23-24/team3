@@ -3,7 +3,7 @@ import Shopping from "@mui/icons-material/ShoppingCartOutlined";
 import Favorite from "@mui/icons-material/FavoriteBorder";
 import ZoomIn from "@mui/icons-material/ZoomIn";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { numberFormatter } from "../numberFormatter";
 import { Client } from "../providers/ClientProvider";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ type cardTypes = {
   id: string;
 };
 export default function FeaturedProductSingleCard(props: cardTypes) {
-  const { allProducts, setDetails } = Client();
+  const { allProducts, setId } = Client();
   const router = useRouter();
   const { setPause, name, price, image, id } = props;
 
@@ -67,7 +67,7 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         />
         <Stack
           onClick={() => {
-            setDetails(id);
+            setId(id);
             router.push("/productDetail");
           }}
           className="details w-[94px] h-8 rounded-sm mb-2 absolute bottom-0 left-[65px] cursor-pointer"

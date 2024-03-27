@@ -12,21 +12,21 @@ import {
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 type ProductType = {
-  productName: string;
-  description: string;
-  discount: string;
-  price: any;
-  images: string[];
-  qty: number;
-  category: string;
-  subCategory: string;
+  productName?: string;
+  description?: string;
+  discount?: string;
+  price?: any;
+  images?: string[];
+  qty?: number;
+  category?: string;
+  subCategory?: string;
 };
 
 type ClientContextType = {
   getallProducts: () => Promise<void>;
   allProducts: ProductType[];
-  details: string;
-  setDetails: Dispatch<SetStateAction<string>>;
+  id: string;
+  setId: Dispatch<SetStateAction<string>>;
 };
 
 export const ClientContext = createContext<ClientContextType>(
@@ -35,7 +35,7 @@ export const ClientContext = createContext<ClientContextType>(
 export const ClientProvider = ({ children }: PropsWithChildren) => {
   const [allProducts, setAllProducts] = useState([]);
   const [refresh, setRefresh] = useState(0);
-  const [details, setDetails] = useState("");
+  const [id, setId] = useState("");
 
   const getallProducts = async () => {
     try {
@@ -55,9 +55,7 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
   }, [refresh]);
 
   return (
-    <ClientContext.Provider
-      value={{ getallProducts, allProducts, details, setDetails }}
-    >
+    <ClientContext.Provider value={{ getallProducts, allProducts, id, setId }}>
       {children}
     </ClientContext.Provider>
   );

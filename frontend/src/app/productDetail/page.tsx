@@ -8,10 +8,9 @@ import { useRouter } from "next/navigation";
 
 export default function Details() {
   const router = useRouter();
-  const { allProducts, details } = Client();
-  const product = allProducts.find((item: any) => item._id == details);
-
-  if (!details) {
+  const { allProducts, id } = Client();
+  const product = allProducts.find((item: any) => item._id == id);
+  if (!id) {
     router.push("/");
   }
   return (
@@ -26,7 +25,7 @@ export default function Details() {
           <img
             width="375px"
             height="487px"
-            // src={product?.image && product.image[0]}
+            src={product?.images && product.images[0]}
           />
         </Stack>
         <Stack className="text-[#111C85] ">
