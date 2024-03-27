@@ -1,7 +1,7 @@
 "use client";
+
 import { CustomInput } from "@/components/CustomInput";
 import { Button, Card, Stack, Typography } from "@mui/material";
-
 import { useRouter } from "next/navigation";
 export default function Login() {
   const router = useRouter();

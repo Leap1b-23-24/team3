@@ -3,7 +3,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { numberFormatter } from "@/components/numberFormatter";
-import { Client } from "../providers/ClientProvider";
+import { Client } from "../../providers/ClientProvider";
 import { useRouter } from "next/navigation";
 
 export default function MainCard(props: any) {
@@ -16,7 +16,7 @@ export default function MainCard(props: any) {
       direction="row"
       onClick={() => {
         localStorage.setItem("itemId", productId);
-        router.push(`/productDetail`);
+        router.push(`/productDetail/${productId}`);
       }}
     >
       <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px] cursor-pointer">

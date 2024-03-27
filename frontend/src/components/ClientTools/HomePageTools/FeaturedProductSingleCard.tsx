@@ -4,8 +4,8 @@ import Favorite from "@mui/icons-material/FavoriteBorder";
 import ZoomIn from "@mui/icons-material/ZoomIn";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
-import { numberFormatter } from "../numberFormatter";
-import { Client } from "../providers/ClientProvider";
+import { numberFormatter } from "../../numberFormatter";
+import { Client } from "../../providers/ClientProvider";
 import { useRouter } from "next/navigation";
 type cardTypes = {
   setPause: Dispatch<SetStateAction<boolean>>;
@@ -15,7 +15,7 @@ type cardTypes = {
   productId: string;
 };
 export default function FeaturedProductSingleCard(props: cardTypes) {
-  const { allProducts } = Client();
+  const { allProducts, setAddToBasket } = Client();
   const router = useRouter();
   const { setPause, name, price, image, productId } = props;
 
@@ -68,7 +68,7 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         <Stack
           onClick={() => {
             localStorage.setItem("itemId", productId);
-            router.push("/productDetail");
+            router.push(`/productDetail/${productId}`);
           }}
           className="details w-[94px] h-8 rounded-sm mb-2 absolute bottom-0 left-[65px] cursor-pointer"
           sx={{
@@ -97,6 +97,12 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
       >
         <Stack direction="row" gap={2} p="11px">
           <IconButton
+            onClick={() => {
+              setAddToBasket((prev: any) => [
+                ...prev,
+                { name, price, image, productId, orderQty: 1 },
+              ]);
+            }}
             sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
           >
             <Shopping />

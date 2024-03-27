@@ -1,13 +1,14 @@
 "use client";
+import { Client } from "@/components/providers/ClientProvider";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function ShoppingCart() {
-  //   const { setCartProduct, cartProduct, numberFormatter } = useData();
+  const { setAddToBasket, addToBasket } = Client();
   const router = useRouter();
-  //   const sumCart = cartProduct.reduce((sum, currentValue) => {
-  //     return sum + currentValue.productPrice * currentValue.orderQty;
-  //   }, 0);
+  const sumBasketPrice = addToBasket.reduce((sum, currentValue) => {
+    return sum + currentValue.price * currentValue.orderQty;
+  }, 0);
   return (
     <Stack>
       <Container maxWidth="lg">
@@ -54,7 +55,7 @@ export default function ShoppingCart() {
                   Нийлбэр:
                 </Typography>
                 <Typography fontSize={18} fontWeight={700} color="#151875">
-                  {/* {numberFormatter.format(sumCart)} */}
+                  {/* {numberFormatter.format(sumBasketPrice)} */}
                 </Typography>
               </Stack>
               <Stack
@@ -69,7 +70,7 @@ export default function ShoppingCart() {
                   Төлөх дүн:
                 </Typography>
                 <Typography fontSize={20} fontWeight={700} color="#151875">
-                  {/* {numberFormatter.format(sumCart)} */}
+                  {/* {numberFormatter.format(sumBasketPrice)} */}
                 </Typography>
               </Stack>
               <Stack mt="47px">

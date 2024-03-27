@@ -1,6 +1,6 @@
 "use client";
 import { Grid, Stack, Typography } from "@mui/material";
-import { Client } from "../providers/ClientProvider";
+import { Client } from "../../providers/ClientProvider";
 import MainCard from "./RecentlySingleCard";
 
 export const RecentlyAddedProducts = () => {
