@@ -8,14 +8,15 @@ import { useRouter } from "next/navigation";
 
 export default function MainCard(props: any) {
   const router = useRouter();
-  const { setId } = Client();
+  const { setId, id } = Client();
   const { name, image, price, productId } = props;
+
   return (
     <Stack
       direction="row"
       onClick={() => {
         setId(productId);
-        router.push("/productDetail");
+        router.push(`/productDetail`);
       }}
     >
       <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px] cursor-pointer">
@@ -35,7 +36,11 @@ export default function MainCard(props: any) {
             className="img"
           />
           <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon ">
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                // addToBasket();
+              }}
+            >
               <ShoppingCartIcon />
             </IconButton>
             <IconButton>

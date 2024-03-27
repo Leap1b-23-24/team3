@@ -26,9 +26,11 @@ export default function ShoppingCart() {
                 onClick={() => {
                   //   setCartProduct([]);
                 }}
-                color="success"
                 variant="contained"
-                sx={{ width: "fit-content" }}
+                sx={{
+                  width: "fit-content",
+                  bgcolor: ({ palette }) => palette.success.main + "!important",
+                }}
               >
                 <Typography fontSize={16} fontWeight={600}>
                   Карт цэвэрлэх
@@ -76,11 +78,11 @@ export default function ShoppingCart() {
                     router.push("/addressDetail");
                   }}
                   //   disabled={!cartProduct.length}
-                  color="secondary"
                   variant="contained"
                   sx={{
                     height: "40px",
-                    "&:hover": { bgcolor: "#19D16F" },
+                    bgcolor: ({ palette }) =>
+                      palette.secondary.main + "!important",
                   }}
                 >
                   <Typography fontSize={14} fontWeight={700}>

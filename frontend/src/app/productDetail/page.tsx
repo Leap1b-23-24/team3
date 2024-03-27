@@ -2,10 +2,10 @@
 import { Client } from "@/components/providers/ClientProvider";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Rating, Stack, Typography } from "@mui/material";
+import { Button, Rating, Stack, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductRating } from "../../components/ClientTools/Rating&Comment";
 import { Header } from "@/components/ClientTools/HeaderOfUser";
 import { Footer } from "@/components";
@@ -16,10 +16,13 @@ export default function Details() {
   const router = useRouter();
   const { allProducts, id } = Client();
   const arr = ["Нэмэлт мэдээлэл", "Үнэлгээ"];
-  const product = allProducts.find((item: any) => item._id == id);
-  if (!id) {
-    router.push("/");
-  }
+
+  useEffect(() => {
+    const products = allProducts.find((item: any) => item._id == id);
+    if (!products) return;
+    localStorage.setItem("itemDetails", JSON.stringify(products));
+  }, []);
+  const product = JSON.parse(localStorage.getItem("itemDetails"));
 
   return (
     <>
@@ -31,8 +34,8 @@ export default function Details() {
         >
           <Stack direction="row" className="gap-[20px] w-[547px] h-[487px]">
             <Stack className="gap-[11px]">
-              {product?.images &&
-                product.images.map((item, index) => {
+              {product.images &&
+                product.images.map((item: any, index: number) => {
                   return (
                     <Stack
                       width="170px"

@@ -29,7 +29,7 @@ export const Header = () => {
     <Stack>
       <Stack
         direction="row"
-        className="bg-[#7E33E0] items-center px-[378px]  h-12  text-white justify-between mb-5"
+        className="bg-[#7E33E0] items-center  h-12  text-white justify-between mb-5"
       >
         <Stack
           direction="row"

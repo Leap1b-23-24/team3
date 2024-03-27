@@ -32,6 +32,8 @@ type ClientContextType = {
   id: string;
   setId: Dispatch<SetStateAction<string>>;
   ratingAndComments: (params: ratingAndCommentsType) => Promise<void>;
+  addToBasket: never[];
+  setAddToBasket: Dispatch<SetStateAction<never[]>>;
 };
 
 export const ClientContext = createContext<ClientContextType>(
@@ -41,6 +43,7 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
   const [allProducts, setAllProducts] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [id, setId] = useState("");
+  const [addToBasket, setAddToBasket] = useState([]);
 
   const getallProducts = async () => {
     try {
@@ -51,6 +54,7 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
       toastError(error);
     }
   };
+
   const ratingAndComments = async (params: ratingAndCommentsType) => {
     try {
       const { data } = await api.post("/#", params);
@@ -70,7 +74,15 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <ClientContext.Provider
-      value={{ getallProducts, allProducts, id, setId, ratingAndComments }}
+      value={{
+        getallProducts,
+        allProducts,
+        id,
+        setId,
+        ratingAndComments,
+        addToBasket,
+        setAddToBasket,
+      }}
     >
       {children}
     </ClientContext.Provider>
