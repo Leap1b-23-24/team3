@@ -13,6 +13,7 @@ import {
   categorySubCreateRouter,
   categorySubGetRouter,
 } from "./routers/category.router";
+import commentRouter from "./routers/comment.router";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/categorySub", categorySubGetRouter);
 app.use("/merchant", merchantRouter);
 app.use("/order", orderRouter);
 app.use("/subscriber", createNewSubscriber);
+app.use("/comment", commentRouter);
 
 //Web Admin Only
 // app.use(adminAuthMiddleware);

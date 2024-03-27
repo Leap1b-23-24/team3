@@ -68,6 +68,16 @@ const productSchema = new Schema({
     require: false,
     default: 0,
   },
+  reviewNumber: {
+    type: Number,
+    require: false,
+    default: 0,
+  },
+  avgRating: {
+    type: Number,
+    require: false,
+    default: 0,
+  },
 });
 
 export const ProductModel = model("product", productSchema);
