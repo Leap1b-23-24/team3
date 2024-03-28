@@ -1,43 +1,43 @@
 "use client";
-import { Button, Card, Stack, Typography } from "@mui/material";
-import { CustomInput } from "../../components/CustomInput";
-import { useFormik, validateYupSchema } from "formik";
-import * as yup from "yup";
+import { CustomInput } from "@/components/CustomInput";
 import { Auth } from "@/components/providers/AuthProvider";
-const validationSchema = yup.object({
+import { Button, Card, Stack, Typography } from "@mui/material";
+import { useFormik } from "formik";
+import * as yup from "yup";
+const validateYupSchema = yup.object({
   email: yup
     .string()
     .email("И-мэйл буруу байна")
     .required("И-мэйлээ оруулна уу"),
   password: yup.string().required("Нууц үгээ оруулна уу"),
 });
-export default function SignUp() {
-  const { signUpShop } = Auth();
+export default function Login() {
+  const { login } = Auth();
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    validationSchema: validationSchema,
+    validationSchema: validateYupSchema,
     onSubmit: async (values) => {
-      await signUpShop({
+      await login({
         email: values.email,
         password: values.password,
       });
     },
   });
+  console.log(formik.errors);
   return (
     <Stack className="items-center gap-[16px] text-center">
-      <Card className="flex flex-col w-[496px] px-8 py-6 text-center m-32 text-[#9096B2] gap-[21px]">
+      <Card className="flex flex-col w-[496px] px-8 py-6 text-center mt-32 text-[#9096B2] gap-[21px]">
         <Typography fontSize="32px" fontWeight="800" color="black">
-          Бүртгүүлэх
+          Нэвтрэх
         </Typography>
         <Typography fontSize="17px" fontWeight="400">
-          Доорх мэдээллийг бөглөнө үү
+          Доорх мэдээллийн оруулж нэвтэрнэ үү
         </Typography>
         <CustomInput
           placeholder="Имэйл хаяг"
-          id="email"
           name="email"
           value={formik.values.email}
           onChange={formik.handleChange}
@@ -57,16 +57,6 @@ export default function SignUp() {
           onBlur={formik.handleBlur}
           type="password"
         />
-        <CustomInput
-          type="password"
-          placeholder="Нууц үг давтах"
-          name="password1"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-          onBlur={formik.handleBlur}
-        />
         <Typography fontSize="17px" fontWeight="400">
           Нууц үгээ мартсан
         </Typography>
@@ -77,12 +67,15 @@ export default function SignUp() {
             formik.handleSubmit();
           }}
         >
-          Бүртгүүлэх
+          Нэвтрэх
         </Button>
-        <Typography fontSize="17px" fontWeight="400">
-          Нэвтрэх хэсэг
+        <Typography className="text-[17px] font-normal">
+          Шинээр бүртгүүлэх
         </Typography>
       </Card>
+      <Typography className="mb-32 text-[#9096B2] border-b-2">
+        мерчант нэвтрэх
+      </Typography>
     </Stack>
   );
 }

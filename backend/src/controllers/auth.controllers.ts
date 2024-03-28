@@ -73,25 +73,18 @@ export const merchantSignUp: RequestHandler = async (req, res) => {
 };
 
 export const signUp: RequestHandler = async (req, res) => {
-  const { name, email, password, city, district, sect } = req.body;
+  const { email, password } = req.body;
   try {
     const user = await UserModel.findOne({ email: email });
-
     if (user) {
       return res.status(401).json({
         message: "И-мэйл нэр давхцаж байна",
       });
     }
-
     UserModel.create({
-      name,
       email,
       password,
-      city,
-      district,
-      sect,
     });
-
     const isSubscriber = await SubscriberModel.findOne({ email });
     if (isSubscriber) {
       const updateSubscriberRole = await SubscriberModel.findOneAndUpdate(

@@ -3,33 +3,32 @@ import { Schema, model } from "mongoose";
 const userSchema = new Schema({
   name: {
     type: String,
-    require: true,
+    require: false,
   },
   email: {
-    type: String,
-    require: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    require: true,
-  },
-  shopName: {
     type: String,
     require: false,
     unique: true,
   },
+  password: {
+    type: String,
+    require: false,
+  },
+  shopName: {
+    type: String,
+    require: false,
+  },
   city: {
     type: String,
-    require: true,
+    require: false,
   },
   district: {
     type: String,
-    require: true,
+    require: false,
   },
   sect: {
     type: String,
-    require: true,
+    require: false,
   },
   experience: {
     type: String,
@@ -44,5 +43,4 @@ const userSchema = new Schema({
     default: "customer",
   },
 });
-
-export const UserModel = model("user", userSchema);
+export const UserModel = model("users", userSchema);
