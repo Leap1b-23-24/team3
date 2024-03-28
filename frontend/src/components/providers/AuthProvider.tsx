@@ -10,8 +10,8 @@ import {
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
-
 import { api } from "@/common";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 type AuthContextType = {
   index: string;
   checkUser: (params: CheckUserParams) => Promise<void>;
@@ -29,11 +29,21 @@ type AuthContextType = {
   signUp: () => Promise<void>;
   productModal: boolean;
   setProductModal: Dispatch<SetStateAction<boolean>>;
+  signUpShop: (params: SignupParams) => Promise<void>;
+  router: AppRouterInstance;
+  login: (type: loginType) => Promise<void>;
 };
 type CheckUserParams = {
   email: string;
 };
-
+type SignupParams = {
+  email: string;
+  password: string;
+};
+type loginType = {
+  email: string;
+  password: string;
+};
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
@@ -51,6 +61,28 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [productType, setQuestion2] = useState("");
   const [productModal, setProductModal] = useState(false);
 
+  const signUpShop = async (params: SignupParams) => {
+    try {
+      const { data } = await api.post("/signup", params);
+      toastSuccess(data);
+      router.push("/login");
+    } catch (error) {
+      toastError(error);
+    }
+  };
+
+  const login = async (params: loginType) => {
+    try {
+      const { data } = await api.post("/login", params);
+      const { token } = data;
+      localStorage.setItem("token", token);
+      toastSuccess(data);
+    } catch (error) {
+      if (error) {
+        toastError(error);
+      }
+    }
+  };
   const checkUser = async (params: CheckUserParams) => {
     try {
       const { data } = await api.post("/account/email", params);
@@ -109,6 +141,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         signUp,
         productModal,
         setProductModal,
+        signUpShop,
+        login,
+        router,
       }}
     >
       {children}
