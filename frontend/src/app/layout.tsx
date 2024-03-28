@@ -15,7 +15,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="w-screen">
+      <body className="w-screen ">
         <ThemeProvider theme={theme}>
           <AuthProvider> {children} </AuthProvider>
           <ToastContainer

@@ -5,6 +5,10 @@ export const theme = createTheme({
       main: "#000",
       contrastText: "#fff",
     },
+    secondary: {
+      main: "#FF1788",
+      contrastText: "#fff",
+    },
   },
   components: {
     MuiButton: {
