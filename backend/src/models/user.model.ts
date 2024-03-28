@@ -16,7 +16,7 @@ const userSchema = new Schema({
   },
   shopName: {
     type: String,
-    require: true,
+    require: false,
     unique: true,
   },
   city: {
@@ -33,11 +33,11 @@ const userSchema = new Schema({
   },
   experience: {
     type: String,
-    require: true,
+    require: false,
   },
   productType: {
     type: String,
-    require: true,
+    require: false,
   },
   roles: {
     type: String,
