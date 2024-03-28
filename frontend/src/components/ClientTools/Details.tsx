@@ -201,7 +201,7 @@ export default function Details(props: ProductDetailProps) {
               </Stack>
             </Stack>
           ) : (
-            <ProductRating />
+            <ProductRating id={id} />
           )}
         </Stack>
       </Stack>

@@ -1,83 +1,31 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const productSchema = new Schema({
-  productName: {
-    type: String,
-    required: false,
+  merchId: mongoose.Schema.Types.ObjectId,
+  productName: String,
+  description: String,
+  productCode: String,
+  images: Object,
+  price: Number,
+  category: String,
+  subCategory: String,
+  color: Object,
+  size: Object,
+  tags: Object,
+  productReactionCount: { type: Number, required: false },
+  qty: { type: Number, required: false },
+  salePercent: { type: Number, required: false },
+  stars: {
+    1: { type: Number, required: false },
+    2: { type: Number, required: false },
+    3: { type: Number, required: false },
+    4: { type: Number, required: false },
+    5: { type: Number, required: false },
   },
-  description: {
-    type: String,
-    required: false,
-  },
-  price: {
-    type: Number,
-    required: false,
-  },
-  qty: {
-    type: Number,
-    required: false,
-  },
-  images: [
-    {
-      type: String,
-      require: false,
-    },
-  ],
-  category: {
-    type: String,
-    required: false,
-  },
-  subCategory: {
-    type: String,
-    required: false,
-  },
-  // color: [
-  //   {
-  //     colorName: {
-  //       type: String,
-  //       required: false,
-  //     },
-  //     colorCode: {
-  //       type: String,
-  //       required: false,
-  //     },
-  //   },
-  // ],
-  // size: [
-  //   {
-  //     sizeType: {
-  //       type: String,
-  //       require: false,
-  //     },
-  //   },
-  // ],
-  // tags: [
-  //   {
-  //     tagsName: {
-  //       type: String,
-  //       required: false,
-  //     },
-  //   },
-  // ],
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-  sales: {
-    type: Number,
-    require: false,
-    default: 0,
-  },
-  reviewNumber: {
-    type: Number,
-    require: false,
-    default: 0,
-  },
-  avgRating: {
-    type: Number,
-    require: false,
-    default: 0,
-  },
+  avgStars: { type: Number, required: false },
+  reviewCount: { type: Number, required: false },
+  updatedAt: Date,
+  createdAt: Date,
 });
 
 export const ProductModel = model("product", productSchema);

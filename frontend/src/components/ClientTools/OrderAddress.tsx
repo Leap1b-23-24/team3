@@ -1,18 +1,26 @@
 "use client";
+import {
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 import { Button, Checkbox, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 const validationSchema = yup.object({
   firstName: yup.string().required("Нэрээ оруулна уу."),
-  phone: yup.string().required("Утасны дугаараа оруулна уу."),
+  phone: yup
+    .string()
+    .required("Утасны дугаараа оруулна уу.")
+    .length(8, "Утасны дугаараа оруулна уу."),
   address: yup.string().required("Хаягаа оруулна уу."),
 });
 export const OrderAddress = () => {
+  const [isContinue, setIsContinue] = useState(false);
   const formik = useFormik({
     initialValues: {
       phone: "",
       firstName: "",
-      lastName: "",
       address: "",
       additional: "",
     },
@@ -21,12 +29,25 @@ export const OrderAddress = () => {
       console.log(
         values.phone,
         values.firstName,
-        values.lastName,
         values.address,
         values.additional
       );
     },
   });
+
+  useEffect(() => {
+    document.addEventListener("keydown", detectKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", detectKeyDown);
+    };
+  }, []);
+
+  const detectKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      formik.handleSubmit();
+    }
+  };
 
   return (
     <Stack className="bg-[#F8F8FD] rounded-sm pt-[69px] pr-10 pb-16 pl-11">
@@ -76,18 +97,6 @@ export const OrderAddress = () => {
               borderBottom: "2px solid #BFC6E0",
             }}
           />
-          <TextField
-            fullWidth
-            type="text"
-            name="lastName"
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
-            placeholder="Овог"
-            sx={{
-              "& fieldset": { border: "none" },
-              borderBottom: "2px solid #BFC6E0",
-            }}
-          />
         </Stack>
         <TextField
           fullWidth
@@ -122,17 +131,51 @@ export const OrderAddress = () => {
             borderBottom: "2px solid #BFC6E0",
           }}
         />
-        <Button
-          onClick={formik.submitForm}
-          variant="contained"
-          sx={{
-            width: "fit-content",
-            marginTop: "67px",
-            bgcolor: ({ palette }) => palette.success.main + "!important",
-          }}
+        <Stack
+          width={1}
+          direction="row"
+          alignItems="center"
+          mt={3}
+          justifyContent="end"
+          gap={2}
         >
-          <Typography>Үргэлжлүүлэх</Typography>
-        </Button>
+          {isContinue ? (
+            <CheckCircleOutlined
+              style={{ fontSize: "40px", color: "#19D16F" }}
+            />
+          ) : (
+            <ExclamationCircleOutlined
+              style={{ fontSize: "40px", color: "#FB2E86" }}
+            />
+          )}
+          <Button
+            onClick={() => {
+              if (
+                (formik.values.firstName,
+                formik.values.address,
+                formik.values.phone,
+                formik.values.additional)
+              )
+                setIsContinue(true);
+              formik.submitForm;
+            }}
+            variant="contained"
+            disabled={isContinue}
+            sx={{
+              width: "fit-content",
+
+              bgcolor: isContinue
+                ? "#19D16F !important"
+                : ({ palette }) => palette.success.main + "!important",
+            }}
+          >
+            {isContinue ? (
+              <Typography>Амжилттай</Typography>
+            ) : (
+              <Typography>Үргэлжлүүлэх</Typography>
+            )}
+          </Button>
+        </Stack>
       </Stack>
     </Stack>
   );

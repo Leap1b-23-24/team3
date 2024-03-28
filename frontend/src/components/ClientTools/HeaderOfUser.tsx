@@ -12,14 +12,18 @@ import WifiCalling3OutlinedIcon from "@mui/icons-material/WifiCalling3Outlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { LogoutOutlined } from "@ant-design/icons";
 import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Client } from "../providers/ClientProvider";
 import { useState } from "react";
+import { Auth } from "../providers/AuthProvider";
+
 export const Header = () => {
   const { addToBasket } = Client();
+  const { isLoggedIn, userInfo } = Auth();
   const router = useRouter();
   const [isPink, setIsPink] = useState(true);
 
@@ -42,9 +46,16 @@ export const Header = () => {
                   height: "16px",
                 }}
               />
-              <Typography fontSize="16px" fontWeight="600">
-                info@ecommerce.mn
-              </Typography>{" "}
+
+              {isLoggedIn ? (
+                <Typography fontSize="16px" fontWeight="600">
+                  {userInfo.email}
+                </Typography>
+              ) : (
+                <Typography fontSize="16px" fontWeight="600">
+                  info@ecommerce.mn
+                </Typography>
+              )}
             </Stack>
             <Stack direction="row" className="items-center gap-[10px]">
               <WifiCalling3OutlinedIcon
@@ -59,13 +70,7 @@ export const Header = () => {
               </Typography>
             </Stack>
           </Stack>
-          <Stack direction="row" className="gap-[29px]">
-            <Stack direction="row" className="items-center">
-              <Typography fontSize="16px" fontWeight="600">
-                Нэвтрэх
-              </Typography>
-              <Person2OutlinedIcon />
-            </Stack>
+          <Stack direction="row" className="gap-[29px] items-center">
             <Stack direction="row" className="items-center">
               <Typography fontSize="16px" fontWeight="600">
                 Хадгалах
@@ -84,24 +89,32 @@ export const Header = () => {
                 <ShoppingCartOutlinedIcon sx={{ color: "white" }} />
               </Badge>
             </IconButton>
+            {!isLoggedIn ? (
+              <Link href={"/login"}>
+                <Stack direction="row" className="items-center">
+                  <Typography fontSize="16px" fontWeight="600">
+                    Нэвтрэх
+                  </Typography>
+                  <Person2OutlinedIcon />
+                </Stack>
+              </Link>
+            ) : (
+              <Stack
+                direction="row"
+                className="items-center cursor-pointer"
+                onClick={async () => {
+                  localStorage.removeItem("token");
+                  window.location.reload();
+                }}
+                gap={1}
+              >
+                <Typography fontSize="16px" fontWeight="600">
+                  Гарах
+                </Typography>
+                <LogoutOutlined />
+              </Stack>
+            )}
           </Stack>
-        </Stack>
-        <Stack direction="row" className="gap-[29px]">
-          <Link href={"/signupshop"}>
-            <Stack direction="row" className="items-center">
-              <Typography fontSize="16px" fontWeight="600">
-                Нэвтрэх
-              </Typography>
-              <Person2OutlinedIcon />
-            </Stack>
-          </Link>
-          <Stack direction="row" className="items-center">
-            <Typography fontSize="16px" fontWeight="600">
-              Хадгалах
-            </Typography>
-            <FavoriteBorderOutlinedIcon />
-          </Stack>
-          <ShoppingCartOutlinedIcon />
         </Stack>
       </Stack>
 

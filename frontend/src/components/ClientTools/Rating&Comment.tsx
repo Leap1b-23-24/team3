@@ -30,14 +30,14 @@ type CommentType = {
 };
 
 type ProductRatingProps = {
-  productId?: string;
-  productRating?: number;
+  id?: string;
+  rating?: number;
   comments?: CommentType[];
   reviewCount?: number;
 };
 
 export const ProductRating = (props: ProductRatingProps) => {
-  const { productId, comments, productRating, reviewCount } = props;
+  const { id, comments, rating, reviewCount } = props;
   const { ratingAndComments } = Client();
   const [star, setStar] = useState(0);
 
@@ -46,7 +46,9 @@ export const ProductRating = (props: ProductRatingProps) => {
       comment: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      // ratingAndComments({ comment: values.comment, rating,id });
+    },
   });
 
   return (
@@ -102,7 +104,7 @@ export const ProductRating = (props: ProductRatingProps) => {
           <Typography mr={2} fontSize={18} fontWeight={800} color="#1D3178">
             Нийт үнэлгээ
           </Typography>
-          <Rating value={productRating} readOnly />
+          <Rating value={rating} readOnly />
           <Typography ml={0.5}>({reviewCount})</Typography>
         </Stack>
         <Stack

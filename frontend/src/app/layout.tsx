@@ -13,7 +13,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="w-screen">
+      <body className="w-screen font-serif">
         <ThemeProvider theme={theme}>
           <ClientProvider>
             <AuthProvider>{children}</AuthProvider>

@@ -10,7 +10,7 @@ export const login: RequestHandler = async (req, res) => {
   });
   if (!user) {
     return res.status(401).json({
-      message: "Wrong email or password",
+      message: "Имэйл эсвэл нууц үг буруу байна",
     });
   }
 
@@ -29,7 +29,7 @@ export const login: RequestHandler = async (req, res) => {
     return res.json({ token, admin });
   }
 
-  return res.json({ token });
+  return res.json({ token, message: "Амжилттай нэвтэрлээ" });
 };
 
 export const merchantSignUp: RequestHandler = async (req, res) => {
@@ -101,5 +101,33 @@ export const signUp: RequestHandler = async (req, res) => {
     return res.json({ message: "Хэрэглэгч амжилттай бүртгэгдлээ" });
   } catch (error) {
     res.json(error);
+  }
+};
+
+export const getAllUsers: RequestHandler = async (req, res) => {
+  const user = await UserModel.find({});
+  return res.json(user);
+};
+
+export const getUser: RequestHandler = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    if (!authorization) {
+      return res.status(401).json({ message: "Unauthorized1" });
+    }
+    const { id: userId } = jwt.verify(
+      authorization,
+      "secret-key"
+    ) as JwtPayload;
+
+    const user = await UserModel.findOne({ _id: userId });
+
+    if (!user) {
+      return res.status(401).json({ message: "Хэрэглэгч олдсонгүй" });
+    }
+
+    return res.json(user);
+  } catch (err) {
+    res.json(err);
   }
 };
