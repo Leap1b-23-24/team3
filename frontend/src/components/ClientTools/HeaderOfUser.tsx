@@ -16,16 +16,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Client } from "../providers/ClientProvider";
 export const Header = () => {
+  const { addToBasket } = Client();
   const router = useRouter();
   const [isPink, setIsPink] = useState(0);
-  const [badgelength, setBadgeLength] = useState(0);
-
-  // useEffect(() => {
-  //   const data = JSON.parse(localStorage.getItem("OrderProduct") || "");
-  //   if (!data) return;
-  //   setBadgeLength(data.length);
-  // }, []);
 
   const arr = [
     { name: "Нүүр", icon: <ExpandMoreOutlinedIcon /> },
@@ -84,7 +79,7 @@ export const Header = () => {
             </Stack>
             <IconButton>
               <Badge
-                badgeContent={badgelength}
+                badgeContent={addToBasket.length}
                 color="success"
                 sx={{ cursor: "pointer" }}
                 onClick={() => {

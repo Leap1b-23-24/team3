@@ -51,6 +51,7 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
   const [refresh, setRefresh] = useState(0);
   const [id, setId] = useState("");
   const [addToBasket, setAddToBasket] = useState<BasketType[]>([]);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   const getallProducts = async () => {
     try {
@@ -78,6 +79,20 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     getallProducts();
   }, [refresh]);
+
+  useEffect(() => {
+    const basket = localStorage.getItem("OrderProduct");
+
+    if (basket) {
+      setAddToBasket(JSON.parse(basket));
+    }
+    setIsFirstRender(false);
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRender) return;
+    localStorage.setItem("OrderProduct", JSON.stringify(addToBasket));
+  }, [addToBasket]);
 
   return (
     <ClientContext.Provider

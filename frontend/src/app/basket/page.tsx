@@ -5,21 +5,12 @@ import { Client } from "@/components/providers/ClientProvider";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { object } from "yup";
 
 export default function Basket() {
-  const { setAddToBasket } = Client();
-  const [products, setProducts] = useState([]);
+  const { addToBasket, setAddToBasket } = Client();
   const router = useRouter();
-  useEffect(() => {
-    const data = localStorage.getItem("OrderProduct");
-    if (!data) return;
-    const product = JSON.parse(data || "");
-    console.log(product);
-    setProducts(product);
-  }, []);
 
-  const sumBasketPrice = products.reduce((sum: any, currentValue: any) => {
+  const sumBasketPrice = addToBasket.reduce((sum: any, currentValue: any) => {
     return sum + currentValue.price * currentValue.orderQty;
   }, 0);
 
@@ -37,7 +28,7 @@ export default function Basket() {
           <Stack width={0.7}>
             <ProductOfBasket />
 
-            {!products.length ? (
+            {!addToBasket.length ? (
               <Stack m="auto" mt="20px">
                 Сагс хоосон байна
               </Stack>
@@ -45,7 +36,7 @@ export default function Basket() {
               <Stack width={1} alignItems="end">
                 <Button
                   onClick={() => {
-                    localStorage.removeItem("OrderProduct");
+                    setAddToBasket([]);
                   }}
                   variant="contained"
                   sx={{
@@ -100,7 +91,7 @@ export default function Basket() {
                   onClick={() => {
                     router.push("/addressDetail");
                   }}
-                  disabled={!products.length}
+                  disabled={!addToBasket.length}
                   variant="contained"
                   sx={{
                     height: "40px",

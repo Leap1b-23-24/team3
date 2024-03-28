@@ -12,7 +12,7 @@ export default function Details() {
   const [selectImg, setSelectImg] = useState(0);
   const [isRating, setIsRating] = useState(0);
   const router = useRouter();
-  const { allProducts } = Client();
+  const { allProducts,setAddToBasket,addToBasket } = Client();
   const arr = ["Нэмэлт мэдээлэл", "Үнэлгээ"];
 
   const productId = localStorage.getItem("itemId");
@@ -95,11 +95,10 @@ export default function Details() {
             <Stack
               direction="row"
               className="gap-[20px]"
-              onClick={() => {
-                // setAddToBasket((prev: any) => [
-                //   ...prev,
-                //   { product.productName, product.price, image, productId, orderQty: 1 },
-                // ]);
+              onClick={ () => {
+                setAddToBasket((prev: any) => [
+                  ...prev, 
+                ]);
               }}
             >
               <Typography fontSize="16px" fontWeight="800">
