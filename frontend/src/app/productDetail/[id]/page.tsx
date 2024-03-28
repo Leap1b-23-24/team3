@@ -6,16 +6,13 @@ import { Rating, Stack, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-import { Header } from "@/components/ClientTools/HeaderOfUser";
-import { Footer } from "@/components";
 import { ProductRating } from "@/components/ClientTools/Rating&Comment";
 
 export default function Details() {
   const [selectImg, setSelectImg] = useState(0);
   const [isRating, setIsRating] = useState(0);
   const router = useRouter();
-  const { allProducts, setAddToBasket, addToBasket } = Client();
+  const { allProducts } = Client();
   const arr = ["Нэмэлт мэдээлэл", "Үнэлгээ"];
 
   const productId = localStorage.getItem("itemId");
@@ -26,7 +23,6 @@ export default function Details() {
 
   return (
     <>
-      <Header />
       <Stack>
         <Stack
           direction="row"
@@ -199,7 +195,6 @@ export default function Details() {
           )}
         </Stack>
       </Stack>
-      <Footer />
     </>
   );
 }

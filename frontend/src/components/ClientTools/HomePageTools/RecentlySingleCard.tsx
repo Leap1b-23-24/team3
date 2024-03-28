@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 export default function MainCard(props: any) {
   const router = useRouter();
-  const { setId, id, setAddToBasket, addToBasket } = Client();
+  const { setAddToBasket, addToBasket } = Client();
   const { name, image, price, productId } = props;
 
   return (
@@ -41,6 +41,9 @@ export default function MainCard(props: any) {
                     ...prev,
                     { name, price, image, productId, orderQty: 1 },
                   ]);
+                  const arr = JSON.stringify(addToBasket);
+                  localStorage.setItem("OrderProduct", arr);
+                  console.log(arr);
                 }
               }}
             >

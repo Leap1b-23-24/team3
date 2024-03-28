@@ -8,12 +8,10 @@ import { Stack } from "@mui/material";
 export default function Home() {
   return (
     <>
-      <Header />
       <BigBanner />
       <FeaturedProducts />
       <RecentlyAddedProducts />
       <AboutOfService />
-      <Footer />
     </>
   );
 }

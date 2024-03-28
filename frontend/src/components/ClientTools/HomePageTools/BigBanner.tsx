@@ -1,12 +1,9 @@
 "use client";
 
-import { Client } from "@/components/providers/ClientProvider";
 import { Button, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+
 const data = ["/pinkarmchair.png", "", ""];
 export default function BigBanner() {
-  const { allProducts } = Client();
-  const [step, setStep] = useState(0);
   return (
     <Stack className="bg-[#F2F0FF] h-[764px] w-full">
       <Stack
@@ -14,16 +11,19 @@ export default function BigBanner() {
         className="max-w-[1240px] m-auto items-center justify-between w-full"
       >
         <Stack>
-          <p className="text-base text-[#FB2E86]">
+          <Typography className="text-base text-[#FB2E86]">
             Тав тухтай орчинг таны амьдралд
-          </p>
-          <Typography className="w-[650px] text-[53px] leading-[63px] font-extrabold mb-6 mt-3 font-sans">
+          </Typography>
+          <Typography
+            sx={{ fontSize: "53px", lineHeight: "63px" }}
+            className="w-[650px] font-extrabold mb-6 mt-3 font-sans"
+          >
             2024 оны хамгийн шинэ загвар
           </Typography>
-          <p className="text-[#8A8FB9] text-base mb-7 max-w-[385px] w-full">
+          <Typography className="text-[#8A8FB9] text-base mb-7 max-w-[385px] w-full">
             Швед улсын хамгийн шилдэг брэндийг албан ёсны эрхтэйгээр оруулж ирж
             байна
-          </p>
+          </Typography>
           <Button className="bg-[#FB2E86] w-[163px] h-[50px] hover:bg-[#e0196f] text-white text-base">
             Дэлгэрэнгүй
           </Button>

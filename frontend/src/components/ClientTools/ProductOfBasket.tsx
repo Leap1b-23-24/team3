@@ -15,7 +15,14 @@ import { Client } from "../providers/ClientProvider";
 import { numberFormatter } from "../numberFormatter";
 
 export const ProductOfBasket = () => {
-  const { addToBasket, setAddToBasket } = Client();
+  const { setAddToBasket } = Client();
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    const product = JSON.parse(localStorage.getItem("OrderProduct") || "{}");
+    setProducts(product);
+  }, []);
+
   const tableHeader = ["Бүтээгдэхүүн", "Үнэ", "Тоо ширхэг", "Нийт", ""];
 
   return (
@@ -35,7 +42,7 @@ export const ProductOfBasket = () => {
           </TableHead>
 
           <TableBody>
-            {addToBasket.map((row, index) => (
+            {products.map((row: any, index: number) => (
               <TableRow
                 key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -94,7 +101,7 @@ export const ProductOfBasket = () => {
                   >
                     <Typography
                       onClick={() => {
-                        const newCart = addToBasket.map((element) => {
+                        const newCart = products.map((element: any) => {
                           if (element.productId == row.productId) {
                             if (element.orderQty > 1) {
                               element.orderQty -= 1;
@@ -128,7 +135,7 @@ export const ProductOfBasket = () => {
                     >
                       <Add
                         onClick={() => {
-                          const newCart = addToBasket.map((element) => {
+                          const newCart = products.map((element: any) => {
                             if (element.productId == row.productId) {
                               element.orderQty += 1;
                               return element;
@@ -152,8 +159,8 @@ export const ProductOfBasket = () => {
                 <TableCell align="center">
                   <Typography
                     onClick={() => {
-                      const newCart = addToBasket.filter(
-                        (item) => item.productId != row.productId
+                      const newCart = products.filter(
+                        (item: any) => item.productId != row.productId
                       );
                       setAddToBasket(newCart);
                     }}

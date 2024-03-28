@@ -15,12 +15,18 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Client } from "../providers/ClientProvider";
+import { useEffect, useState } from "react";
 export const Header = () => {
   const router = useRouter();
   const [isPink, setIsPink] = useState(0);
-  const { addToBasket } = Client();
+  const [badgelength, setBadgeLength] = useState(0);
+
+  // useEffect(() => {
+  //   const data = JSON.parse(localStorage.getItem("OrderProduct") || "");
+  //   if (!data) return;
+  //   setBadgeLength(data.length);
+  // }, []);
+
   const arr = [
     { name: "Нүүр", icon: <ExpandMoreOutlinedIcon /> },
     {
@@ -78,7 +84,7 @@ export const Header = () => {
             </Stack>
             <IconButton>
               <Badge
-                badgeContent={addToBasket.length}
+                badgeContent={badgelength}
                 color="success"
                 sx={{ cursor: "pointer" }}
                 onClick={() => {

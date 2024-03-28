@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { theme } from "@/theme";
 import { ClientProvider } from "@/components/providers/ClientProvider";
+import { Header } from "@/components/ClientTools/HeaderOfUser";
+import { Footer } from "@/components";
 
 export default function RootLayout({
   children,
@@ -16,7 +18,11 @@ export default function RootLayout({
       <body className="w-screen">
         <ThemeProvider theme={theme}>
           <ClientProvider>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <Header />
+              {children}
+              <Footer />
+            </AuthProvider>
           </ClientProvider>
 
           <ToastContainer

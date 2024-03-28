@@ -1,14 +1,15 @@
 "use client";
 
 import { OrderAddress } from "@/components/ClientTools/OrderAddress";
-import { Box, Container, Stack, Typography } from "@mui/material";
-import Image from "next/image";
+import { numberFormatter } from "@/components/numberFormatter";
+import { Client } from "@/components/providers/ClientProvider";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 
 export default function DeliveryAddress() {
-  //   const { cartProduct, numberFormatter } = useData();
-  //   const sumCart = cartProduct.reduce((sum, currentValue) => {
-  //     return sum + currentValue.productPrice * currentValue.orderQty;
-  //   }, 0);
+  const { addToBasket } = Client();
+  const sumBasketIsProduct = addToBasket.reduce((sum, currentValue) => {
+    return sum + currentValue.price * currentValue.orderQty;
+  }, 0);
   return (
     <Stack my={12}>
       <Container maxWidth="lg">
@@ -26,71 +27,67 @@ export default function DeliveryAddress() {
               <OrderAddress />
             </Stack>
             <Stack width={0.3} gap="14px">
-              {/* {cartProduct.map((item, index) => ( */}
-              <Box
-                //   key={index}
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-                gap="14px"
-                borderBottom={1}
-                borderColor="#E1E1E4"
-                pb="15px"
-              >
-                <Stack
-                  position="relative"
-                  width={1}
-                  sx={{ aspectRatio: 1 / 1 }}
+              {addToBasket.map((item, index) => (
+                <Box
+                  key={index}
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  gap="14px"
+                  borderBottom={1}
+                  borderColor="#E1E1E4"
+                  pb="15px"
                 >
-                  <Image
-                    src={item.productImage[0]}
-                    style={{ objectFit: "cover" }}
-                    sizes="small"
-                    alt="product image"
-                    fill
-                  />
-                </Stack>
-                <Stack width={1}>
-                  <Typography fontSize={14} fontWeight={800}>
-                    {/* {item.productName} */}
-                  </Typography>
-                  <Typography
-                    fontSize={12}
-                    fontWeight={800}
-                    color="#A1A8C1"
-                    display="flex"
-                    flexDirection="row"
-                    alignItems="center"
-                    gap={1}
+                  <Stack
+                    position="relative"
+                    width={1}
+                    sx={{ aspectRatio: 1 / 1 }}
                   >
-                    Өнгө:
-                    <Stack flexDirection="row" gap={0.5}>
-                      {/* {item.productColor.map((element, index) => ( */}
-                      <Stack
-                        // key={index}
-                        flexDirection="row"
-                        position="relative"
-                        sx={{ aspectRatio: 1 / 1 }}
-                        p={0.5}
-                        borderRadius="50%"
-                        // bgcolor={element}
-                      ></Stack>
-                      {/* ))} */}
-                    </Stack>
-                  </Typography>
-                </Stack>
+                    <img
+                      src={item.image}
+                      style={{ objectFit: "cover" }}
+                      sizes="small"
+                      alt="product image"
+                    />
+                  </Stack>
+                  <Stack width={1}>
+                    <Typography fontSize={14} fontWeight={800}>
+                      {item.name}
+                    </Typography>
+                    <Typography
+                      fontSize={12}
+                      fontWeight={800}
+                      color="#A1A8C1"
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                      gap={1}
+                    >
+                      Өнгө:
+                      <Stack flexDirection="row" gap={0.5}>
+                        {/* {item.productColor.map((element, index) => (
+                          <Stack
+                            key={index}
+                            flexDirection="row"
+                            position="relative"
+                            sx={{ aspectRatio: 1 / 1 }}
+                            p={0.5}
+                            borderRadius="50%"
+                            bgcolor={element}
+                          ></Stack>
+                        ))} */}
+                      </Stack>
+                    </Typography>
+                  </Stack>
 
-                <Stack>
-                  <Typography fontSize={14} fontWeight={700} color="#151875">
-                    {/* {numberFormatter.format(
-                        item.productPrice * item.orderQty
-                      )}
-                      "₮" */}
-                  </Typography>
-                </Stack>
-              </Box>
-              {/* ))} */}
+                  <Stack>
+                    <Typography fontSize={14} fontWeight={700} color="#151875">
+                      {numberFormatter.format(item.price * item.orderQty)}₮
+                    </Typography>
+                  </Stack>
+                </Box>
+              ))}
 
               <Stack
                 flexDirection="row"
@@ -100,9 +97,25 @@ export default function DeliveryAddress() {
               >
                 <Typography fontWeight={600}>Нийт дүн:</Typography>
                 <Typography fontWeight={800}>
-                  {/* {numberFormatter.format(sumCart)}
-                  "₮" */}
+                  {numberFormatter.format(sumBasketIsProduct)}₮
                 </Typography>
+              </Stack>
+              <Stack mt="47px">
+                <Button
+                  onClick={() => {
+                    // router.push("/addressDetail");
+                  }}
+                  variant="contained"
+                  sx={{
+                    height: "40px",
+                    bgcolor: ({ palette }) =>
+                      palette.secondary.main + "!important",
+                  }}
+                >
+                  <Typography fontSize={14} fontWeight={700}>
+                    Худалдан авах
+                  </Typography>
+                </Button>
               </Stack>
             </Stack>
           </Stack>

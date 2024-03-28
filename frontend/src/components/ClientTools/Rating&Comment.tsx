@@ -40,14 +40,13 @@ export const ProductRating = (props: ProductRatingProps) => {
   const { productId, comments, productRating, reviewCount } = props;
   const { ratingAndComments } = Client();
   const [star, setStar] = useState(0);
+
   const formik = useFormik({
     initialValues: {
       comment: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      // ratingAndComments(productId || "", star, { comment: values.comment });
-    },
+    onSubmit: (values) => {},
   });
 
   return (
