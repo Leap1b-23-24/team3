@@ -8,7 +8,7 @@ export default function Chart2() {
     { city: "Бусад", percent: "0" },
   ];
   return (
-    <Stack className="min-w-[565px] p-4 bg-white h-fit rounded-xl">
+    <Stack className="min-w-[565px] p-4 bg-white h-[50%] rounded-xl">
       <Stack
         direction="row"
         className="w-full justify-between items-center mb-5"

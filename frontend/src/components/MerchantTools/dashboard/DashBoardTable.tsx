@@ -21,9 +21,8 @@ export default function DashboardTable() {
   return (
     <Stack
       width="581px"
-      height="706px"
       bgcolor="white"
-      className="rounded-xl px-6 py-4"
+      className="rounded-xl px-6 py-4 h-[100%]"
     >
       <Stack className="text-lg font-semibold mb-7">Шилдэг бүтээгдэхүүн</Stack>
       <TableContainer>
