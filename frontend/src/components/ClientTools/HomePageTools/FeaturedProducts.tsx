@@ -3,12 +3,13 @@
 import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import FeaturedProductSingleCard from "./FeaturedProductSingleCard";
-import { Client } from "../providers/ClientProvider";
+import { Client } from "../../providers/ClientProvider";
 
 export default function FeaturedProducts() {
   const { allProducts } = Client();
   const [step, setStep] = useState(0);
   const [pause, setPause] = useState(false);
+  const data = [0, 1, 2, 3];
 
   useEffect(() => {
     if (pause) return;
@@ -36,7 +37,7 @@ export default function FeaturedProducts() {
         }}
       >
         {allProducts
-          .filter((item, itemlength) => itemlength <= 16)
+          .filter((item, itemlength) => itemlength <= 15)
           .map((item: any, index: any) => {
             return (
               <Stack key={index}>
@@ -45,10 +46,29 @@ export default function FeaturedProducts() {
                   name={item.productName}
                   price={item.price}
                   image={item.images[0]}
+                  productId={item._id}
                 />
               </Stack>
             );
           })}
+      </Stack>
+      <Stack direction="row" gap="7px" m="auto">
+        {data.map((item, index) => {
+          return (
+            <Stack
+              onClick={() => {
+                setStep(index);
+              }}
+              key={index}
+              sx={{
+                height: "4px",
+                borderRadius: "10px",
+                width: step == item ? "24px" : "16px",
+                bgcolor: step == item ? "#FB2E86" : "#FEBAD7",
+              }}
+            ></Stack>
+          );
+        })}
       </Stack>
     </Stack>
   );

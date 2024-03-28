@@ -3,12 +3,17 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { numberFormatter } from "@/components/numberFormatter";
+import { Client } from "../../providers/ClientProvider";
+import { useRouter } from "next/navigation";
 
 export default function MainCard(props: any) {
+  const router = useRouter();
+  const { setAddToBasket, addToBasket } = Client();
   const { name, image, price, productId } = props;
+
   return (
     <Stack direction="row">
-      <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px]">
+      <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px] cursor-pointer">
         <Stack
           className="w-[270px] h-[280px] justify-center items-center relative bg-[#F6F7FB] hover:bg-[#EBF4F3]"
           sx={{
@@ -16,14 +21,32 @@ export default function MainCard(props: any) {
           }}
         >
           <img
-            width="100%"
-            height="100%"
+            onClick={() => {
+              localStorage.setItem("itemId", productId);
+              router.push(`/productDetail/${productId}`);
+            }}
             src={image}
-            style={{ maxWidth: "169px", maxHeight: "158px" }}
+            style={{
+              maxWidth: "169px",
+              maxHeight: "158px",
+              mixBlendMode: "multiply",
+            }}
             className="img"
           />
-          <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon ">
-            <IconButton>
+          <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon  ">
+            <IconButton
+              onClick={() => {
+                if (!addToBasket.find((item) => item.productId === productId)) {
+                  setAddToBasket((prev: any) => [
+                    ...prev,
+                    { name, price, image, productId, orderQty: 1 },
+                  ]);
+                  const arr = JSON.stringify(addToBasket);
+                  localStorage.setItem("OrderProduct", arr);
+                  console.log(arr);
+                }
+              }}
+            >
               <ShoppingCartIcon />
             </IconButton>
             <IconButton>

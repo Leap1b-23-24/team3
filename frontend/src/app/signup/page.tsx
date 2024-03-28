@@ -1,8 +1,8 @@
 "use client";
-import SignUp from "@/components/Authentication/Signup_parts/Signup";
-import Step1 from "@/components/Authentication/Signup_parts/Step1";
-import Step2 from "@/components/Authentication/Signup_parts/Step2";
-import Step3 from "@/components/Authentication/Signup_parts/Step3";
+import SignUp from "@/components/Authentication/Authentication_merchant/Signup";
+import Step1 from "@/components/Authentication/Authentication_merchant/Step1";
+import Step2 from "@/components/Authentication/Authentication_merchant/Step2";
+import Step3 from "@/components/Authentication/Authentication_merchant/Step3";
 import { Stack, Typography } from "@mui/material";
 import { Auth } from "@/components/providers/AuthProvider";
 

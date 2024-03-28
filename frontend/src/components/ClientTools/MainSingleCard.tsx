@@ -7,7 +7,7 @@ import { MerchantContext } from "@/components/providers/MerchantProvider";
 export default function MainSingleCard() {
   const { allProducts } = useContext(MerchantContext);
   return (
-    <Stack className="gap-[34px]">
+    <Stack className="gap-[34px] cursor-pointer">
       {allProducts.map((item: any, index: number) => {
         return (
           <Stack
@@ -16,7 +16,12 @@ export default function MainSingleCard() {
             className="gap-4 h-[270px] mb-[96px]"
           >
             <Stack className="w-[270px]  bg-[#EBF4F3] justify-center items-center ">
-              <img width="169px" height="169px" src={item.image} />
+              <img
+                width="169px"
+                height="169px"
+                src={item.image}
+                style={{ mixBlendMode: "multiply" }}
+              />
             </Stack>
             <Stack className="gap-4 text-[#151875] p-[16px] h-[270px] justify-between">
               <Stack>

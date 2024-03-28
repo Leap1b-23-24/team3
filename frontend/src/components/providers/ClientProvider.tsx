@@ -11,12 +11,36 @@ import {
   useState,
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
-
+type ProductType = {
+  productName?: string;
+  description?: string;
+  discount?: string;
+  price?: any;
+  images?: string[];
+  qty?: number;
+  category?: string;
+  subCategory?: string;
+};
+type BasketType = {
+  productId: string;
+  image: string;
+  name: string;
+  price: number;
+  orderQty: number;
+};
+type ratingAndCommentsType = {
+  productId: string;
+  star: number;
+  comment: string;
+};
 type ClientContextType = {
   getallProducts: () => Promise<void>;
-  allProducts: never[];
-  details: string[];
-  setDetails: Dispatch<SetStateAction<string[]>>;
+  allProducts: ProductType[];
+  id: string;
+  setId: Dispatch<SetStateAction<string>>;
+  ratingAndComments: (params: ratingAndCommentsType) => Promise<void>;
+  addToBasket: BasketType[];
+  setAddToBasket: Dispatch<SetStateAction<BasketType[]>>;
 };
 
 export const ClientContext = createContext<ClientContextType>(
@@ -25,7 +49,8 @@ export const ClientContext = createContext<ClientContextType>(
 export const ClientProvider = ({ children }: PropsWithChildren) => {
   const [allProducts, setAllProducts] = useState([]);
   const [refresh, setRefresh] = useState(0);
-  const [details, setDetails] = useState<string[]>([]);
+  const [id, setId] = useState("");
+  const [addToBasket, setAddToBasket] = useState<BasketType[]>([]);
 
   const getallProducts = async () => {
     try {
@@ -36,6 +61,16 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
       toastError(error);
     }
   };
+
+  const ratingAndComments = async (params: ratingAndCommentsType) => {
+    try {
+      const { data } = await api.post("/#", params);
+      toastSuccess(data);
+    } catch (error) {
+      toastError(error);
+    }
+  };
+
   const refreshProducts = () => {
     setRefresh((prev) => 1 - prev);
   };
@@ -46,7 +81,15 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <ClientContext.Provider
-      value={{ getallProducts, allProducts, details, setDetails }}
+      value={{
+        getallProducts,
+        allProducts,
+        id,
+        setId,
+        ratingAndComments,
+        addToBasket,
+        setAddToBasket,
+      }}
     >
       {children}
     </ClientContext.Provider>

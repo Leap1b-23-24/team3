@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.18.5",
+    "@ant-design/nextjs-registry": "^1.0.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.12",
@@ -16,6 +18,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.17",
     "@mui/x-data-grid": "^6.19.6",
     "@mui/x-date-pickers": "^6.19.8",
+    "antd": "^5.15.4",
     "axios": "^1.6.7",
     "chart.js": "^4.4.2",
     "dayjs": "^1.11.10",

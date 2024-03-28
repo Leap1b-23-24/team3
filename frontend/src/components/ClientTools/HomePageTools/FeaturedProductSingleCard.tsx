@@ -3,21 +3,21 @@ import Shopping from "@mui/icons-material/ShoppingCartOutlined";
 import Favorite from "@mui/icons-material/FavoriteBorder";
 import ZoomIn from "@mui/icons-material/ZoomIn";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { Dispatch, SetStateAction, useState } from "react";
-import { numberFormatter } from "../numberFormatter";
-import { Client } from "../providers/ClientProvider";
+import { Dispatch, SetStateAction } from "react";
+import { numberFormatter } from "../../numberFormatter";
+import { Client } from "../../providers/ClientProvider";
+import { useRouter } from "next/navigation";
 type cardTypes = {
   setPause: Dispatch<SetStateAction<boolean>>;
   name: string;
   price: number;
   image: string;
+  productId: string;
 };
 export default function FeaturedProductSingleCard(props: cardTypes) {
-  const { allProducts, setDetails } = Client();
-  const { setPause, name, price, image } = props;
-  function handleDetail() {
-    return allProducts;
-  }
+  const { setAddToBasket, addToBasket } = Client();
+  const router = useRouter();
+  const { setPause, name, price, image, productId } = props;
 
   return (
     <Stack
@@ -56,18 +56,23 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         },
       }}
     >
-      <Stack className="w-[225px] h-[225px] bg-white mx-auto relative">
+      <Stack className="w-[225px] h-[225px] bg-white mx-auto relative ">
         <img
           alt="No Image"
           src={image}
-          width={175}
-          height={190}
           className="image"
-          style={{ margin: "auto" }}
+          style={{
+            margin: "auto",
+            width: "190px",
+            height: "190px",
+            overflow: "hidden",
+            objectFit: "fill",
+          }}
         />
         <Stack
           onClick={() => {
-            handleDetail();
+            localStorage.setItem("itemId", productId);
+            router.push(`/productDetail/${productId}`);
           }}
           className="details w-[94px] h-8 rounded-sm mb-2 absolute bottom-0 left-[65px] cursor-pointer"
           sx={{
@@ -96,6 +101,17 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
       >
         <Stack direction="row" gap={2} p="11px">
           <IconButton
+            onClick={() => {
+              if (!addToBasket.find((item) => item.productId == productId)) {
+                setAddToBasket((prev: any) => [
+                  ...prev,
+                  { name, price, image, productId, orderQty: 1 },
+                ]);
+                const arr = JSON.stringify(addToBasket);
+                localStorage.setItem("OrderProduct", arr);
+                console.log(arr);
+              }
+            }}
             sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
           >
             <Shopping />

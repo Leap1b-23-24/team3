@@ -50,7 +50,7 @@ export default function DashboardTable() {
                   <Stack
                     direction="row"
                     alignItems="center"
-                    className="max-w-[250px] justify-between"
+                    className="max-w-[250px] "
                   >
                     <img
                       src={item.images[0]}
