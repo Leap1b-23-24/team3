@@ -22,13 +22,7 @@ type ProductType = {
   subCategory?: string;
   _id?: string
 };
-type BasketType = {
-  productId: string;
-  image: string;
-  name: string;
-  price: number;
-  orderQty: number;
-};
+
 type ratingAndCommentsType = {
   productId: string;
   star: number;
@@ -40,8 +34,8 @@ type ClientContextType = {
   id: string;
   setId: Dispatch<SetStateAction<string>>;
   ratingAndComments: (params: ratingAndCommentsType) => Promise<void>;
-  addToBasket: BasketType[];
-  setAddToBasket: Dispatch<SetStateAction<BasketType[]>>;
+  addToBasket: any[];
+  setAddToBasket: Dispatch<SetStateAction<any[]>>;
   refreshProducts: () => void;
   refresh: number;
   setRefresh: Dispatch<SetStateAction<number>>
@@ -54,7 +48,7 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
   const [allProducts, setAllProducts] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [id, setId] = useState("");
-  const [addToBasket, setAddToBasket] = useState<BasketType[]>([]);
+  const [addToBasket, setAddToBasket] = useState<any[]>([]);
   const [isFirstRender, setIsFirstRender] = useState(true);
 
   const getallProducts = async () => {

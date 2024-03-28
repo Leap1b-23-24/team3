@@ -72,7 +72,7 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         <Stack
           onClick={() => {
             localStorage.setItem("itemId", productId);
-            router.push(`/productDetail/${productId}`);
+            router.push(`/productDetail`);
           }}
           className="details w-[94px] h-8 rounded-sm mb-2 absolute bottom-0 left-[65px] cursor-pointer"
           sx={{

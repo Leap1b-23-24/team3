@@ -1,27 +1,25 @@
 "use client";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Client } from "@/components/providers/ClientProvider";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Rating, Stack, Typography } from "@mui/material";
+import { Button, Rating, Stack, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
 import { useState } from "react";
 import { ProductRating } from "@/components/ClientTools/Rating&Comment";
 type ProductDetailProps = {
   id?: string;
-  images?: string[];
+  image?: string[];
   name?: string;
-  price?: number;
+  price?: any;
+  description?: string;
 };
-export default function Details(props:ProductDetailProps) {
-  const {name,images,id, price}=props;
-  console.log(images)
+export default function Details(props: ProductDetailProps) {
+  const { name, image, id, price, description } = props;
   const [selectImg, setSelectImg] = useState(0);
   const [isRating, setIsRating] = useState(0);
-  const { allProducts,setAddToBasket, addToBasket } = Client();
+  const { allProducts, setAddToBasket, addToBasket } = Client();
   const arr = ["Нэмэлт мэдээлэл", "Үнэлгээ"];
-
-  const productId = localStorage.getItem("itemId");
-  const product = allProducts.find((item: any) => item._id == productId);
 
   return (
     <>
@@ -32,8 +30,8 @@ export default function Details(props:ProductDetailProps) {
         >
           <Stack direction="row" className="gap-[20px] w-[547px] h-[487px]">
             <Stack className="gap-[11px]">
-              {product?.images &&
-                product.images.map((item: any, index: number) => {
+              {image &&
+                image.map((item: any, index: number) => {
                   return (
                     <Stack
                       width="170px"
@@ -51,7 +49,7 @@ export default function Details(props:ProductDetailProps) {
                       <img
                         width="150px"
                         height="150px"
-                        src={product?.images && product.images[index]}
+                        src={image[index]}
                         className="mix-blend-multiply"
                       />
                     </Stack>
@@ -66,7 +64,7 @@ export default function Details(props:ProductDetailProps) {
               <img
                 width={280}
                 height={280}
-                src={product?.images && product.images[selectImg]}
+                src={image && image[selectImg]}
                 className="object-scale-down mix-blend-multiply"
               />
             </Stack>
@@ -83,7 +81,7 @@ export default function Details(props:ProductDetailProps) {
                 </Typography>
               </Stack>
               <Typography fontSize="32px" fontWeight="400">
-                {numberFormatter.format(product?.price)}₮
+                {numberFormatter.format(price)}₮
               </Typography>
               <Stack direction="row" className="gap-[8px]">
                 <Stack className="w-3 h-3 bg-[#DE9034] rounded-full"></Stack>
@@ -91,22 +89,33 @@ export default function Details(props:ProductDetailProps) {
                 <Stack className="w-3 h-3 bg-[#5E37FF] rounded-full"></Stack>
               </Stack>
               <Typography color="#9295AA" fontSize="17px">
-                {product?.description}
+                {description}
               </Typography>
             </Stack>
-            <Stack
-              direction="row"
-              className="gap-[20px]"
-              onClick={ () => {
-                setAddToBasket((prev: any) => [
-                  ...prev, 
-                ]);
-              }}
-            >
-              <Typography fontSize="16px" fontWeight="800">
-                Сагслах
-              </Typography>
-              <FavoriteBorderIcon />
+            <Stack direction="row" gap={3}>
+              <Button
+                variant="outlined"
+                className="gap-1 text-base"
+                onClick={() => {
+                  if (!addToBasket.find((item) => item.productId == id)) {
+                    setAddToBasket([
+                      ...addToBasket,
+                      {
+                        name,
+                        price,
+                        image,
+                        productId: id,
+                        orderQty: 1,
+                      },
+                    ]);
+                  }
+                }}
+              >
+                Сагслах <AddShoppingCartIcon sx={{ fontSize: "20px" }} />
+              </Button>
+              <Button variant="outlined">
+                Хадгалах <FavoriteBorderIcon />
+              </Button>
             </Stack>
           </Stack>
         </Stack>
