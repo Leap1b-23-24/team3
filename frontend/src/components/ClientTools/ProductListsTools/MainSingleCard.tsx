@@ -1,11 +1,13 @@
+"use client";
 import { IconButton, Rating, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { useContext } from "react";
 import { MerchantContext } from "@/components/providers/MerchantProvider";
+import { Client } from "@/components/providers/ClientProvider";
 export default function MainSingleCard() {
-  const { allProducts } = useContext(MerchantContext);
+  const { allProducts } = Client();
   return (
     <Stack className="gap-[34px] cursor-pointer">
       {allProducts.map((item: any, index: number) => {
@@ -13,21 +15,21 @@ export default function MainSingleCard() {
           <Stack
             key={index}
             direction="row"
-            className="gap-4 h-[270px] mb-[96px]"
+            className="gap-4 h-[270px] mb-[96px] w-full"
           >
-            <Stack className="w-[270px]  bg-[#EBF4F3] justify-center items-center ">
+            <Stack className="w-[270px] bg-[#EBF4F3] justify-center items-center ">
               <img
                 width="169px"
                 height="169px"
-                src={item.image}
+                src={item.images[0]}
                 style={{ mixBlendMode: "multiply" }}
               />
             </Stack>
-            <Stack className="gap-4 text-[#151875] p-[16px] h-[270px] justify-between">
+            <Stack className="gap-4 text-[#151875] p-[16px] h-[270px] justify-between max-w-[600px] w-full">
               <Stack>
                 <Stack direction="row" className="gap-4 items-center ">
                   <Typography fontSize="18px" fontWeight="700">
-                    {item.title}
+                    {item.productName}
                   </Typography>
                   <Stack direction="row" className="gap-[8px]">
                     <Stack className="w-3 h-3 bg-[#DE9034] rounded-full"></Stack>
@@ -49,7 +51,11 @@ export default function MainSingleCard() {
                     </Typography>
                   </Stack>
                 </Stack>
-                <Typography>{item.text}</Typography>
+                <Typography>
+                  {item.description.length < 150
+                    ? item.description
+                    : item.description.slice(0, 130)}
+                </Typography>
               </Stack>
               <Stack direction="row" className="gap-[20px]">
                 <IconButton className="w-[34px] h-[34px]">

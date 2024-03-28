@@ -21,14 +21,8 @@ import { useState } from "react";
 export const Header = () => {
   const { addToBasket } = Client();
   const router = useRouter();
-  const [isPink, setIsPink] = useState(0);
+  const [isPink, setIsPink] = useState(true);
 
-  const arr = [
-    { name: "Нүүр", icon: <ExpandMoreOutlinedIcon /> },
-    {
-      name: "Ангилал",
-    },
-  ];
   return (
     <Stack>
       <Stack
@@ -120,24 +114,20 @@ export const Header = () => {
             Ecommerce
           </Typography>
           <Stack direction="row" gap={2}>
-            {arr.map((item, index) => {
-              return (
-                <Stack
-                  key={index}
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => {
-                    setIsPink(index);
-                  }}
-                >
-                  <Typography
-                    sx={{ color: isPink == index ? "#FB2E86" : "black" }}
-                  >
-                    {item.name}
-                    {item.icon}
-                  </Typography>
-                </Stack>
-              );
-            })}
+            <Stack direction="row" sx={{ cursor: "pointer", gap: "25px" }}>
+              <Typography style={{ color: isPink ? "#FB2E86" : "black" }}>
+                Нүүр
+              </Typography>
+              <Typography
+                onClick={() => {
+                  setIsPink(false);
+                  router.push("/AllProducts");
+                }}
+                style={{ color: !isPink ? "#FB2E86" : "black" }}
+              >
+                Ангилал
+              </Typography>
+            </Stack>
           </Stack>
         </Stack>
         <Stack direction="row">
