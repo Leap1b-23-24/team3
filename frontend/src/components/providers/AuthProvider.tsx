@@ -58,7 +58,6 @@ type loginType = {
   email: string;
   password: string;
 };
-
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
@@ -83,7 +82,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     try {
       const { data } = await api.post("/signup", params);
       toastSuccess(data);
-
       router.push("/login");
     } catch (error) {
       toastError(error);
