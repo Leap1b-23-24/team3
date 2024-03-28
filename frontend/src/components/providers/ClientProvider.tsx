@@ -20,6 +20,7 @@ type ProductType = {
   qty?: number;
   category?: string;
   subCategory?: string;
+  _id?: string
 };
 type BasketType = {
   productId: string;
@@ -41,6 +42,9 @@ type ClientContextType = {
   ratingAndComments: (params: ratingAndCommentsType) => Promise<void>;
   addToBasket: BasketType[];
   setAddToBasket: Dispatch<SetStateAction<BasketType[]>>;
+  refreshProducts: () => void;
+  refresh: number;
+  setRefresh: Dispatch<SetStateAction<number>>
 };
 
 export const ClientContext = createContext<ClientContextType>(
@@ -104,6 +108,8 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
         ratingAndComments,
         addToBasket,
         setAddToBasket,
+        refreshProducts,
+        refresh, setRefresh
       }}
     >
       {children}
