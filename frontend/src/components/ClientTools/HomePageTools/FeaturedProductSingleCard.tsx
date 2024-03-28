@@ -103,13 +103,16 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
           <IconButton
             onClick={() => {
               if (!addToBasket.find((item) => item.productId == productId)) {
-                setAddToBasket((prev: any) => [
-                  ...prev,
-                  { name, price, image, productId, orderQty: 1 },
+                setAddToBasket([
+                  ...addToBasket,
+                  {
+                    name,
+                    price,
+                    image,
+                    productId,
+                    orderQty: 1,
+                  },
                 ]);
-                const arr = JSON.stringify(addToBasket);
-                localStorage.setItem("OrderProduct", arr);
-                console.log(arr);
               }
             }}
             sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}

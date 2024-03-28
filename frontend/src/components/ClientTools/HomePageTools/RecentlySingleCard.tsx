@@ -36,14 +36,17 @@ export default function MainCard(props: any) {
           <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon  ">
             <IconButton
               onClick={() => {
-                if (!addToBasket.find((item) => item.productId === productId)) {
-                  setAddToBasket((prev: any) => [
+                if (!addToBasket.find((item) => item.productId == productId)) {
+                  setAddToBasket((prev) => [
                     ...prev,
-                    { name, price, image, productId, orderQty: 1 },
+                    {
+                      name,
+                      price,
+                      image,
+                      productId,
+                      orderQty: 1,
+                    },
                   ]);
-                  const arr = JSON.stringify(addToBasket);
-                  localStorage.setItem("OrderProduct", arr);
-                  console.log(arr);
                 }
               }}
             >
