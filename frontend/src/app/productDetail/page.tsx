@@ -1,9 +1,9 @@
 "use client";
 import { Stack } from "@mui/material";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Client } from "@/components/providers/ClientProvider";
-import { api } from "@/common";
+import Details from "../../components/ClientTools/Details";
+import { Header } from "@/components/ClientTools/HeaderOfUser";
+import { Footer } from "@/components";
 
 type userType = {
   userName: string;
@@ -17,56 +17,22 @@ type userType = {
   createdAt: Date;
   updatedAt: Date;
 };
-type CommentType = {
-  userId: userType;
-  productId: string;
-  comment: string;
-  star: number;
-  createdAt: Date;
-  updatedAt: Date;
-};
 
-
-const detailId = localStorage.getItem("detailId");
 export default function ProductDetail(props: any) {
-  const { allProducts, id, refresh } = Client();
-  const [allComments, setAllComments] = useState<CommentType[]>([]);
-  const router = useRouter();
-  const selectedProduct = allProducts.find(
-    (product) => product._id == id
-  );
-  console.log(selectedProduct)
-  // const getAllComments = async () => {
-  //   try {
-  //     const { data } = await api.get("comment/getAllComments");
-  //     setAllComments(data);
-  //   } catch (error) {
-  //     console.log(error), "FFF";
-  //   }
-  // };
-  // const selectedProductComments = allComments.filter(
-  //   (comment) => comment.productId == detailId
-  // );
-
-  // useEffect(() => {
-  //   getAllComments();
-  // }, [refresh]);
-  if (!detailId) {
-    router.push("/");
-  }
+  const id = localStorage.getItem("itemId");
+  const { allProducts } = Client();
+  const products = allProducts.find((product) => product._id == id);
   return (
     <Stack>
-      <ProductDetail
-        id={selectedProduct?._id}
-        productImage={selectedProduct?.images}
-        productName={selectedProduct?.productName}
-        price={selectedProduct?.price}
-        // productAdditional={selectedProduct?.productAdditional}
-        // productColor={selectedProduct?.productColor}
-        // productRating={selectedProduct?.avgStars}
-        // reviewCount={selectedProduct?.reviewCount}
-        // comments={selectedProductComments}
+      <Header />
+      <Details
+        id={products?._id}
+        image={products?.images}
+        name={products?.productName}
+        price={products?.price}
+        description={products?.description}
       />
+      <Footer />
     </Stack>
   );
 }

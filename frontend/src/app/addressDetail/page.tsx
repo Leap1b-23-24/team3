@@ -38,6 +38,7 @@ export default function DeliveryAddress() {
                   borderBottom={1}
                   borderColor="#E1E1E4"
                   pb="15px"
+                  height="100px"
                 >
                   <Stack
                     position="relative"
@@ -46,9 +47,12 @@ export default function DeliveryAddress() {
                   >
                     <img
                       src={item.image}
-                      style={{ objectFit: "cover" }}
-                      sizes="small"
-                      alt="product image"
+                      style={{
+                        objectFit: "scale-down",
+                        height: "87px",
+                        width: "87px",
+                        margin: "auto",
+                      }}
                     />
                   </Stack>
                   <Stack width={1}>
