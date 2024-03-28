@@ -4,21 +4,23 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Rating, Stack, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ProductRating } from "@/components/ClientTools/Rating&Comment";
-
-export default function Details() {
+type ProductDetailProps = {
+  id?: string;
+  images?: string[];
+  name?: string;
+  price?: number;
+};
+export default function Details(props:ProductDetailProps) {
+  const {name,images,id, price}=props;
+  console.log(images)
   const [selectImg, setSelectImg] = useState(0);
   const [isRating, setIsRating] = useState(0);
-  const router = useRouter();
-  const { allProducts,setAddToBasket,addToBasket } = Client();
+  const { allProducts,setAddToBasket, addToBasket } = Client();
   const arr = ["Нэмэлт мэдээлэл", "Үнэлгээ"];
 
   const productId = localStorage.getItem("itemId");
-  if (!productId) {
-    router.push("/");
-  }
   const product = allProducts.find((item: any) => item._id == productId);
 
   return (
@@ -72,7 +74,7 @@ export default function Details() {
           <Stack className="text-[#111C85] w-[590px]">
             <Stack className="gap-[16px] mb-16">
               <Typography fontSize="36px" fontWeight="800">
-                {product?.productName}
+                {name}
               </Typography>
               <Stack direction="row" className="items-center">
                 <Rating name="simple-controlled" />
