@@ -23,7 +23,7 @@ type ProductType = {
 };
 type BasketType = {
   productId: string;
-  image: string[];
+  image: string;
   name: string;
   price: number;
   orderQty: number;

@@ -15,7 +15,7 @@ type cardTypes = {
   productId: string;
 };
 export default function FeaturedProductSingleCard(props: cardTypes) {
-  const { allProducts, setAddToBasket } = Client();
+  const { setAddToBasket, addToBasket } = Client();
   const router = useRouter();
   const { setPause, name, price, image, productId } = props;
 
@@ -56,14 +56,18 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         },
       }}
     >
-      <Stack className="w-[225px] h-[225px] bg-white mx-auto relative">
+      <Stack className="w-[225px] h-[225px] bg-white mx-auto relative ">
         <img
           alt="No Image"
           src={image}
-          width={175}
-          height={190}
           className="image"
-          style={{ margin: "auto" }}
+          style={{
+            margin: "auto",
+            width: "190px",
+            height: "190px",
+            overflow: "hidden",
+            objectFit: "fill",
+          }}
         />
         <Stack
           onClick={() => {
@@ -98,10 +102,12 @@ export default function FeaturedProductSingleCard(props: cardTypes) {
         <Stack direction="row" gap={2} p="11px">
           <IconButton
             onClick={() => {
-              setAddToBasket((prev: any) => [
-                ...prev,
-                { name, price, image, productId, orderQty: 1 },
-              ]);
+              if (!addToBasket.find((item) => item.productId === productId)) {
+                setAddToBasket((prev: any) => [
+                  ...prev,
+                  { name, price, image, productId, orderQty: 1 },
+                ]);
+              }
             }}
             sx={{ color: "#1DB4E7", "&:hover": { color: "#2F1AC4" } }}
           >

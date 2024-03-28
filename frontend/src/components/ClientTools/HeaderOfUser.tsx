@@ -16,9 +16,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Client } from "../providers/ClientProvider";
 export const Header = () => {
   const router = useRouter();
   const [isPink, setIsPink] = useState(0);
+  const { addToBasket } = Client();
   const arr = [
     { name: "Нүүр", icon: <ExpandMoreOutlinedIcon /> },
     {
@@ -76,7 +78,7 @@ export const Header = () => {
             </Stack>
             <IconButton>
               <Badge
-                badgeContent={1}
+                badgeContent={addToBasket.length}
                 color="success"
                 sx={{ cursor: "pointer" }}
                 onClick={() => {

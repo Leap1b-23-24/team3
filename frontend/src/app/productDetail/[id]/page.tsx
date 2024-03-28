@@ -2,10 +2,10 @@
 import { Client } from "@/components/providers/ClientProvider";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Button, Rating, Stack, Typography } from "@mui/material";
+import { Rating, Stack, Typography } from "@mui/material";
 import { numberFormatter } from "@/components/numberFormatter";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Header } from "@/components/ClientTools/HeaderOfUser";
 import { Footer } from "@/components";
@@ -14,9 +14,8 @@ import { ProductRating } from "@/components/ClientTools/Rating&Comment";
 export default function Details() {
   const [selectImg, setSelectImg] = useState(0);
   const [isRating, setIsRating] = useState(0);
-  const [newProduct, setNewProduct] = useState(null);
   const router = useRouter();
-  const { allProducts } = Client();
+  const { allProducts, setAddToBasket, addToBasket } = Client();
   const arr = ["Нэмэлт мэдээлэл", "Үнэлгээ"];
 
   const productId = localStorage.getItem("itemId");
@@ -97,7 +96,16 @@ export default function Details() {
                 {product?.description}
               </Typography>
             </Stack>
-            <Stack direction="row" className="gap-[20px]">
+            <Stack
+              direction="row"
+              className="gap-[20px]"
+              onClick={() => {
+                // setAddToBasket((prev: any) => [
+                //   ...prev,
+                //   { product.productName, product.price, image, productId, orderQty: 1 },
+                // ]);
+              }}
+            >
               <Typography fontSize="16px" fontWeight="800">
                 Сагслах
               </Typography>

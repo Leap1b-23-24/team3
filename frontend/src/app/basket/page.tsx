@@ -1,9 +1,11 @@
 "use client";
+import { ProductOfBasket } from "@/components/ClientTools/ProductOfBasket";
+import { numberFormatter } from "@/components/numberFormatter";
 import { Client } from "@/components/providers/ClientProvider";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
-export default function ShoppingCart() {
+export default function Basket() {
   const { setAddToBasket, addToBasket } = Client();
   const router = useRouter();
   const sumBasketPrice = addToBasket.reduce((sum, currentValue) => {
@@ -21,23 +23,31 @@ export default function ShoppingCart() {
           justifyContent="start"
         >
           <Stack width={0.7}>
-            {/* <Cart /> */}
-            <Stack width={1} alignItems="end">
-              <Button
-                onClick={() => {
-                  //   setCartProduct([]);
-                }}
-                variant="contained"
-                sx={{
-                  width: "fit-content",
-                  bgcolor: ({ palette }) => palette.success.main + "!important",
-                }}
-              >
-                <Typography fontSize={16} fontWeight={600}>
-                  Карт цэвэрлэх
-                </Typography>
-              </Button>
-            </Stack>
+            <ProductOfBasket />
+
+            {!addToBasket.length ? (
+              <Stack m="auto" mt="20px">
+                Сагс хоосон байна
+              </Stack>
+            ) : (
+              <Stack width={1} alignItems="end">
+                <Button
+                  onClick={() => {
+                    setAddToBasket([]);
+                  }}
+                  variant="contained"
+                  sx={{
+                    width: "fit-content",
+                    bgcolor: ({ palette }) =>
+                      palette.success.main + "!important",
+                  }}
+                >
+                  <Typography fontSize={16} fontWeight={600}>
+                    Карт цэвэрлэх
+                  </Typography>
+                </Button>
+              </Stack>
+            )}
           </Stack>
           <Stack width={0.3} gap={5} mt={2}>
             <Typography color="#1D3178" fontSize={20} fontWeight={800}>
@@ -55,7 +65,7 @@ export default function ShoppingCart() {
                   Нийлбэр:
                 </Typography>
                 <Typography fontSize={18} fontWeight={700} color="#151875">
-                  {/* {numberFormatter.format(sumBasketPrice)} */}
+                  {numberFormatter.format(sumBasketPrice)}
                 </Typography>
               </Stack>
               <Stack
@@ -70,7 +80,7 @@ export default function ShoppingCart() {
                   Төлөх дүн:
                 </Typography>
                 <Typography fontSize={20} fontWeight={700} color="#151875">
-                  {/* {numberFormatter.format(sumBasketPrice)} */}
+                  {numberFormatter.format(sumBasketPrice)}
                 </Typography>
               </Stack>
               <Stack mt="47px">
@@ -78,7 +88,7 @@ export default function ShoppingCart() {
                   onClick={() => {
                     router.push("/addressDetail");
                   }}
-                  //   disabled={!cartProduct.length}
+                  disabled={!addToBasket.length}
                   variant="contained"
                   sx={{
                     height: "40px",

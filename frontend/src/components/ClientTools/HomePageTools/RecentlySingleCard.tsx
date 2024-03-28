@@ -8,17 +8,11 @@ import { useRouter } from "next/navigation";
 
 export default function MainCard(props: any) {
   const router = useRouter();
-  const { setId, id } = Client();
+  const { setId, id, setAddToBasket, addToBasket } = Client();
   const { name, image, price, productId } = props;
 
   return (
-    <Stack
-      direction="row"
-      onClick={() => {
-        localStorage.setItem("itemId", productId);
-        router.push(`/productDetail/${productId}`);
-      }}
-    >
+    <Stack direction="row">
       <Stack className="w-[270px] justify-center items-center text-[#151875] mb-[53px] cursor-pointer">
         <Stack
           className="w-[270px] h-[280px] justify-center items-center relative bg-[#F6F7FB] hover:bg-[#EBF4F3]"
@@ -27,6 +21,10 @@ export default function MainCard(props: any) {
           }}
         >
           <img
+            onClick={() => {
+              localStorage.setItem("itemId", productId);
+              router.push(`/productDetail/${productId}`);
+            }}
             src={image}
             style={{
               maxWidth: "169px",
@@ -35,10 +33,15 @@ export default function MainCard(props: any) {
             }}
             className="img"
           />
-          <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon ">
+          <Stack className="gap-[20px] absolute bottom-2 left-2 opacity-0 icon  ">
             <IconButton
               onClick={() => {
-                // addToBasket();
+                if (!addToBasket.find((item) => item.productId === productId)) {
+                  setAddToBasket((prev: any) => [
+                    ...prev,
+                    { name, price, image, productId, orderQty: 1 },
+                  ]);
+                }
               }}
             >
               <ShoppingCartIcon />
