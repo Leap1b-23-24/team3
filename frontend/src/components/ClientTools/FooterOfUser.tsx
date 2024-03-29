@@ -20,7 +20,7 @@ export const Footer = () => {
   return (
     <Stack className="">
       <Stack bgcolor="#EEEFFB">
-        <Stack className="px-[378px]  py-[50px]  w-full m-auto color-[#FFFFFF]">
+        <Stack className="max-w-[1240px]  py-[50px]  w-full m-auto color-[#FFFFFF]">
           <Stack
             py="94px"
             direction="row"
@@ -111,7 +111,7 @@ export const Footer = () => {
         </Stack>
       </Stack>
       <Stack width={1} bgcolor="#E7E4FB">
-        <Stack className="px-[378px]">
+        <Stack className="max-w-[1240px] w-full m-auto">
           <Stack
             flexDirection="row"
             alignItems="center"

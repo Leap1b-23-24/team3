@@ -128,7 +128,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
       setIsUserInfo(data);
     } catch (error) {
-      toastError(error);
+      console.log(error);
     }
   };
 
@@ -179,7 +179,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       localStorage.removeItem("OrderProduct");
       router.push("/");
     } catch (error) {
-      toastError(error);
+      console.log(error);
     }
   };
 

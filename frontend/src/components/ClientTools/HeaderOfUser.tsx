@@ -35,7 +35,7 @@ export const Header = () => {
       >
         <Stack
           direction="row"
-          className="px-[378px] justify-between items-center w-full m-auto"
+          className="max-w-[1240px] justify-between items-center w-full m-auto"
         >
           <Stack direction="row" className=" w-full gap-16">
             <Stack direction="row" className="items-center gap-[10px]">
@@ -138,7 +138,7 @@ export const Header = () => {
 
       <Stack
         direction="row"
-        className="px-[378px] justify-between items-center w-full m-auto mb-5"
+        className="max-w-[1240px] justify-between items-center w-full m-auto mb-5"
       >
         <Stack direction="row" className="items-center gap-14">
           <Typography fontSize="34px" fontWeight="700">

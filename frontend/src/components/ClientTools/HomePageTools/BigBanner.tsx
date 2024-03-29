@@ -8,7 +8,7 @@ export default function BigBanner() {
     <Stack className="bg-[#F2F0FF] h-[764px] w-full">
       <Stack
         direction="row"
-        className="px-[378px] m-auto items-center justify-between w-full"
+        className="m-auto w-[1240px] items-center justify-between"
       >
         <Stack>
           <Typography className="text-base text-[#FB2E86]">

@@ -12,6 +12,10 @@ const validationSchema = yup.object({
     .email("И-мэйл буруу байна")
     .required("И-мэйлээ оруулна уу"),
   password: yup.string().required("Нууц үгээ оруулна уу"),
+  repassword: yup
+    .string()
+    .required("Нууц үгээ оруулна уу")
+    .oneOf([yup.ref("password")]),
 });
 export default function SignUp() {
   const { signUpShop, router } = Auth();
@@ -19,6 +23,7 @@ export default function SignUp() {
     initialValues: {
       email: "",
       password: "",
+      repassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -64,11 +69,13 @@ export default function SignUp() {
           <CustomInput
             type="password"
             placeholder="Нууц үг давтах"
-            name="password1"
-            value={formik.values.password}
+            name="repassword"
+            value={formik.values.repassword}
             onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
+            error={
+              formik.touched.repassword && Boolean(formik.errors.repassword)
+            }
+            helperText={formik.touched.repassword && formik.errors.repassword}
             onBlur={formik.handleBlur}
           />
           <Typography fontSize="17px" fontWeight="400">
