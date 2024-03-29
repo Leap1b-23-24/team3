@@ -104,9 +104,9 @@ export default function OrderDetial() {
               {orderDetail.customerEmail}, {orderDetail.customerPhone},
             </Typography>
           </Stack>
-          {orderDetail.orderDetails.map((item: any, index: any) => {
+          {orderDetail.orderDetails.map((item: any, index: number) => {
             return (
-              <Card className="flex bg-[#F7F7F8] mb-5" key={index}>
+              <Card className="flex bg-[#F7F7F8] mb-5" key={item._id}>
                 <img className="w-[180px]" src={item.image} />
                 <Stack className="w-full p-5">
                   <Typography fontSize="24px" fontWeight="700">

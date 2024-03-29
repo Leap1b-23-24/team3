@@ -98,7 +98,7 @@ export default function OrderDetial() {
             <img className="w-[180px]" src="Image.png" />
             <Stack className="w-full p-5">
               <Typography fontSize="24px" fontWeight="700">
-                WOMEN'S HORSEBIT MULE
+                WOMEN&apos;S HORSEBIT MULE
               </Typography>
               <Stack>
                 <Typography>2024-01-20</Typography>

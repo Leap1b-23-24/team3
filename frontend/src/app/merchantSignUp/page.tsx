@@ -6,7 +6,7 @@ import { Stack, Typography } from "@mui/material";
 import { Auth } from "@/components/providers/AuthProvider";
 import SignUpStep from "@/components/Authentication/Authentication_merchant/SignUpStep";
 
-export default function () {
+export default function Page() {
   const { index, router } = Auth();
 
   return (
