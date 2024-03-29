@@ -3,9 +3,8 @@ import { IconButton, Rating, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
-import { useContext } from "react";
-import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { Client } from "@/components/providers/ClientProvider";
+import { numberFormatter } from "@/components/numberFormatter";
 export default function MainSingleCard() {
   const { allProducts } = Client();
   return (
@@ -39,7 +38,7 @@ export default function MainSingleCard() {
                 </Stack>
                 <Stack direction="row" className="gap-3 items-center">
                   <Typography fontSize="21px" fontWeight="400">
-                    {item.price}₮
+                    {numberFormatter.format(item.price)}₮
                   </Typography>
                   <Stack direction="row">
                     <Rating

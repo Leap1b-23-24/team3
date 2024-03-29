@@ -9,7 +9,7 @@ export default function AllProducts() {
   return (
     <Stack>
       <Header />
-      <Stack className="px-[378px] ">
+      <Stack className="max-w-[1240px] w-full m-auto ">
         <AllProductHead />
         <Stack direction="row" className="gap-[102px]">
           <ShopSidebar />

@@ -31,12 +31,13 @@ export default function DeliveryAddress() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       createOrder(
-        { customerEmail: userInfo.email },
-        { customerName: values.firstName },
-        { customerPhone: values.phone },
-        { DeliveryAddress: values.address },
-        { customerCity: values.city },
-        { productTotalPrice: sumBasketIsProduct - 10000 }
+        userInfo.email,
+        values.firstName,
+        values.phone,
+        values.address,
+        values.city,
+        addToBasket,
+        sumBasketIsProduct
       );
     },
   });
@@ -110,19 +111,7 @@ export default function DeliveryAddress() {
                       gap={1}
                     >
                       Өнгө:
-                      <Stack flexDirection="row" gap={0.5}>
-                        {/* {item.productColor.map((element, index) => (
-                          <Stack
-                            key={index}
-                            flexDirection="row"
-                            position="relative"
-                            sx={{ aspectRatio: 1 / 1 }}
-                            p={0.5}
-                            borderRadius="50%"
-                            bgcolor={element}
-                          ></Stack>
-                        ))} */}
-                      </Stack>
+                      <Stack flexDirection="row" gap={0.5}></Stack>
                     </Typography>
                   </Stack>
 

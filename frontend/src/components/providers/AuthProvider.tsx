@@ -13,9 +13,7 @@ import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
 import { api } from "@/common";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useFormik } from "formik";
 import { Client } from "./ClientProvider";
-import OrderDetial from "../MerchantTools/order/OrderDetial";
 type AuthContextType = {
   index: string;
   checkUser: (params: CheckUserParams) => Promise<void>;
@@ -44,6 +42,7 @@ type AuthContextType = {
     customerPhone: string | any,
     deliveryAddress: string | any,
     customerCity: string | any,
+    orderDetails: any,
     orderTotalPrice: number | any
   ) => Promise<void>;
 };
@@ -129,7 +128,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
       setIsUserInfo(data);
     } catch (error) {
-      toastError(error);
+      console.log(error);
     }
   };
 
@@ -159,6 +158,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     customerPhone: string,
     deliveryAddress: string,
     customerCity: string,
+    orderDetails: any,
     orderTotalPrice: number
   ) => {
     try {
@@ -176,8 +176,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         { headers: { Authorization: localStorage.getItem("token") } }
       );
       toastSuccess(data);
+      localStorage.removeItem("OrderProduct");
+      router.push("/");
     } catch (error) {
-      toastError(error);
+      console.log(error);
     }
   };
 

@@ -45,9 +45,13 @@ export default function ShopSidebar() {
           >
             Үнэлгээ
           </Typography>
-          {unelgee.map((item) => {
+          {unelgee.map((item, index) => {
             return (
-              <Stack direction="row" className="gap-2 mb-4 items-center">
+              <Stack
+                direction="row"
+                className="gap-2 mb-4 items-center"
+                key={index}
+              >
                 <Checkbox
                   sx={{
                     bgcolor: "#FFF6DA",
@@ -80,9 +84,9 @@ export default function ShopSidebar() {
           >
             Ангилал
           </Typography>
-          {angilal.map((item) => {
+          {angilal.map((item, index) => {
             return (
-              <Stack direction="row" className="gap-2">
+              <Stack direction="row" className="gap-2" key={index}>
                 <Checkbox
                   sx={{
                     bgcolor: "#FFDBF1",
@@ -111,9 +115,9 @@ export default function ShopSidebar() {
           >
             Үнэ
           </Typography>
-          {une.map((item) => {
+          {une.map((item, index) => {
             return (
-              <Stack direction="row" className="gap-2 mb-4">
+              <Stack direction="row" className="gap-2 mb-4" key={index}>
                 <Checkbox
                   sx={{
                     bgcolor: "#FFDBF1",

@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 const rows = [{ id: "0983294058", name: "aksdd" }];
 
 export default function OrderTable() {
-  const { allOrders, setOrderDetails } = useContext(MerchantContext);
+  const { allOrders, setOrderDetail } = useContext(MerchantContext);
   const [isInput, setIsInput] = useState(1);
   console.log(allOrders);
   const router = useRouter();
@@ -67,7 +67,7 @@ export default function OrderTable() {
                 key={index}
                 sx={{ cursor: "pointer" }}
                 onClick={() => {
-                  setOrderDetails(item);
+                  setOrderDetail(item);
                   router.push("/merchant/order/OrderDetail");
                 }}
               >

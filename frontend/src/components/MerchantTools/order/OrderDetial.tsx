@@ -86,10 +86,6 @@ export default function OrderDetial() {
                   </MenuItem>
                 </Select>
               </FormControl>
-              {/* <Button className="bg-[#F7F7F8] rounded-[30px] flex gap-2">
-                <Typography>Бэлтгэгдэж байна</Typography>
-                <ExpandMoreIcon />
-              </Button> */}
             </Stack>
           </Stack>
           <Stack className="mb-5">
@@ -99,7 +95,7 @@ export default function OrderDetial() {
             </Typography>
           </Stack>
           <Card className="flex bg-[#F7F7F8]">
-            <img width="180px" src="Image.png" />
+            <img className="w-[180px]" src="Image.png" />
             <Stack className="w-full p-5">
               <Typography fontSize="24px" fontWeight="700">
                 WOMEN'S HORSEBIT MULE

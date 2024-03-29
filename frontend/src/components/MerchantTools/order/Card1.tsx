@@ -1,6 +1,9 @@
+import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { Card, Stack, Typography } from "@mui/material";
+import { useContext } from "react";
 
 export default function Card1() {
+  const { orderDetail } = useContext(MerchantContext);
   return (
     <Card className="w-[529px]">
       <Typography className="p-6 border-b-[1px]">
@@ -9,8 +12,7 @@ export default function Card1() {
       <Stack className="p-6">
         <Typography>Гэр</Typography>
         <Typography fontSize="16px" fontWeight="600">
-          Улаанбаатар, Сонгинохайрхан дүүрэг, 1-р хороо, 14r bair 8r orts 6r
-          darvar
+          {orderDetail.deliveryAddress}
         </Typography>
       </Stack>
     </Card>

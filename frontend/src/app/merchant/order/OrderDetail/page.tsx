@@ -15,11 +15,11 @@ import Card1 from "@/components/MerchantTools/order/Card1";
 import Card2 from "@/components/MerchantTools/order/Card2";
 import { MerchantContext } from "@/components/providers/MerchantProvider";
 import { useRouter } from "next/navigation";
+import { numberFormatter } from "@/components/numberFormatter";
 export default function OrderDetial() {
-  const { orderDetails } = useContext(MerchantContext);
+  const { orderDetail } = useContext(MerchantContext);
   const [isInput, setIsInput] = useState(0);
   const router = useRouter();
-  console.log(orderDetails);
   return (
     <Stack className="bg-[#F7F7F8] h-screen">
       <Button
@@ -96,38 +96,40 @@ export default function OrderDetial() {
                   </MenuItem>
                 </Select>
               </FormControl>
-              {/* <Button className="bg-[#F7F7F8] rounded-[30px] flex gap-2">
-                <Typography>Бэлтгэгдэж байна</Typography>
-                <ExpandMoreIcon />
-              </Button> */}
             </Stack>
           </Stack>
           <Stack className="mb-5">
             <Typography>Захиалагч: Хувь хүн </Typography>
             <Typography fontSize="16px" fontWeight="600">
-              Zoloosoko0526@gmail.com, 88556061
+              {orderDetail.customerEmail}, {orderDetail.customerPhone},
             </Typography>
           </Stack>
-          <Card className="flex bg-[#F7F7F8]">
-            <img width="180px" src="Image.png" />
-            <Stack className="w-full p-5">
-              <Typography fontSize="24px" fontWeight="700">
-                WOMEN'S HORSEBIT MULE
-              </Typography>
-              <Stack>
-                <Typography>2024-01-20</Typography>
-                <Typography>Бүтээгдэхүүний ID: 30349049903</Typography>
-              </Stack>
-              <Stack direction="row" className="justify-between">
-                <Typography fontSize="16px" fontWeight="500">
-                  Тоо ширхэг: 3
-                </Typography>
-                <Typography fontSize="18pxs" fontWeight="600">
-                  ₮677,100
-                </Typography>
-              </Stack>
-            </Stack>
-          </Card>
+          {orderDetail.orderDetails.map((item: any) => {
+            return (
+              <Card className="flex bg-[#F7F7F8] mb-5">
+                <img width="180px" src={item.image} />
+                <Stack className="w-full p-5">
+                  <Typography fontSize="24px" fontWeight="700">
+                    {item.name}
+                  </Typography>
+                  <Stack>
+                    <Typography>2024-03-27</Typography>
+                    <Typography>
+                      Бүтээгдэхүүний ID: {item._id.slice(0, 15)}
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" className="justify-between">
+                    <Typography fontSize="16px" fontWeight="500">
+                      Тоо ширхэг: {item.qty}
+                    </Typography>
+                    <Typography fontSize="18pxs" fontWeight="600">
+                      {numberFormatter.format(item.price)}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Card>
+            );
+          })}
         </Card>
         <Stack className="gap-7 ">
           <Card1 />

@@ -16,6 +16,7 @@ import { numberFormatter } from "../numberFormatter";
 
 export const ProductOfBasket = () => {
   const { setAddToBasket, addToBasket } = Client();
+  console.log(addToBasket);
 
   const tableHeader = ["Бүтээгдэхүүн", "Үнэ", "Тоо ширхэг", "Нийт", ""];
 
@@ -52,7 +53,9 @@ export const ProductOfBasket = () => {
                         sx={{ aspectRatio: 1 / 1 }}
                       >
                         <img
-                          src={row.image}
+                          src={
+                            row.image === undefined ? row.image[0] : row.image
+                          }
                           alt="product image"
                           style={{ objectFit: "cover" }}
                         />

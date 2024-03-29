@@ -38,8 +38,8 @@ type MerchantContextType = {
   refreshProducts: () => void;
   deleteProduct: (id: any) => Promise<void>;
   allOrders: never[];
-  orderDetails: never[];
-  setOrderDetails: Dispatch<SetStateAction<never[]>>;
+  orderDetail: any;
+  setOrderDetail: Dispatch<SetStateAction<never[]>>;
 };
 export const MerchantContext = createContext<MerchantContextType>(
   {} as MerchantContextType
@@ -53,7 +53,7 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
   const [allProducts, setAllProducts] = useState([]);
   const [allOrders, setAllOrders] = useState([]);
   const [refresh, setRefresh] = useState(0);
-  const [orderDetails, setOrderDetails] = useState([]);
+  const [orderDetail, setOrderDetail] = useState([]);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -148,8 +148,8 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
         refreshProducts,
         deleteProduct,
         allOrders,
-        orderDetails,
-        setOrderDetails,
+        orderDetail,
+        setOrderDetail,
       }}
     >
       <DashboardNavbar />
