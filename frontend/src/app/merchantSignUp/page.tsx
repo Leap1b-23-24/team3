@@ -12,16 +12,14 @@ export default function () {
   return (
     <Stack>
       <Stack className="p-11 h-screen ">
-        <img
-          src="/PineconeLogo.svg"
-          alt="pinecone"
-          width={193}
-          height={32}
-          className=" mb-14"
+        <Stack
           onClick={() => {
             router.push("/");
           }}
-        />
+        >
+          <img src="/PineconeLogo.svg" className=" mb-14 w-[193px] h-8" />
+        </Stack>
+
         {index !== "signup" && (
           <Stack className="max-w-[792px] w-full m-auto mb-[120px] ">
             <Stack
