@@ -33,8 +33,9 @@ export const DashboardHead = () => {
         justifyContent="space-between"
         marginY="32px"
       >
-        {data.map((item) => (
+        {data.map((item, index) => (
           <Stack
+            key={index}
             width="30%"
             bgcolor="white"
             gap="10px"

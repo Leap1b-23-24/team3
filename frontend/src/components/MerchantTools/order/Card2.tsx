@@ -9,9 +9,9 @@ export default function Card2() {
     <Card>
       <Typography className="p-6 border-b-[1px]">Төлбөрийн мэдээлэл</Typography>
       <Stack className="p-6">
-        {orderDetail.orderDetails.map((item: any) => {
+        {orderDetail.orderDetails.map((item: any, index: any) => {
           return (
-            <Stack>
+            <Stack key={index}>
               <Typography>Бүтээгдэхүүн</Typography>
               <Stack>
                 <Typography>{item.name}</Typography>
