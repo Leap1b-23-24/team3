@@ -43,6 +43,10 @@ const orderSchema = new Schema({
         type: String,
         require: true,
       },
+      image: {
+        type: String,
+        require: true,
+      },
       price: {
         type: Number,
         require: true,

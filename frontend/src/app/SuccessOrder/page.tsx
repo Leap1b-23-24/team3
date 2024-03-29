@@ -1,6 +1,7 @@
 "use client";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function OrderCompleted() {
   return (
@@ -83,9 +84,16 @@ export default function OrderCompleted() {
             color: "#fff",
           }}
         >
-          <Typography px={"16px"} py={"8px"} fontWeight={600} fontSize={"16px"}>
-            Үргэлжлүүлэх
-          </Typography>
+          <Link href="/SuccessOrder">
+            <Typography
+              px={"16px"}
+              py={"8px"}
+              fontWeight={600}
+              fontSize={"16px"}
+            >
+              Үргэлжлүүлэх
+            </Typography>
+          </Link>
         </Button>
       </Stack>
     </Container>

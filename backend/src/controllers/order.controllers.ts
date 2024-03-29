@@ -32,78 +32,18 @@ export const createOrder: RequestHandler = async (req, res) => {
     orderTotalPrice,
   } = req.body;
 
-  //Authorization section
   const { authorization } = req.headers;
   if (!authorization) {
     return res.json({ message: "not authorized" });
   }
-  //Customer id section
   const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
   const { id } = payload;
 
-  //Customer City section will be used for Dashboard
   const customerInfo = await UserModel.findOne({ _id: id });
   if (!customerInfo) {
     return res.status(400).json({ message: "customer info not found" });
   }
 
-  //Map ashiglaaguin order-n ali neg buteegdehuun aguulahad baigaa buteegdehuunii toog davhad return hiih yostoi
-  //map-n dotorh return ni map-n-iihaa uildeliig zogsooson CreateOrder functioniihaa uildeliig zogsooj chadahgui bolohoor For ashiglav
-  for (let i = 0; i < orderDetails.length; i++) {
-    const num = orderDetails[i].productQty;
-
-    const productStock = await ProductModel.findOne({
-      _id: orderDetails[i].productId,
-    });
-
-    if (!productStock) {
-      return res.status(400).json({ message: "product id not found" });
-    }
-
-    const productStockQty = productStock.qty;
-
-    // if (productStockQty < num || num < 0) {
-    //   return res.json({ message: "order exceeded stock" });
-    // }
-
-    const updateLeftProductQty = await ProductModel.findOneAndUpdate(
-      { _id: orderDetails[i].productId },
-      { $inc: { qty: -num } }
-    );
-
-    const updateSalesProductQty = await ProductModel.findOneAndUpdate(
-      { _id: orderDetails[i].productId },
-      { $inc: { sales: num } }
-    );
-  }
-  // const newOrderArr = orderDetails.map(async (item: any, index: number) => {
-  //   const num = item.productQty;
-
-  //   const productStock = await ProductModel.findOne({
-  //     _id: orderDetails.productId,
-  //   });
-  //   if (!productStock) {
-  //     return res.status(400).json({ message: "product id not found" });
-  //   }
-  //   const productStockQty = productStock.qty;
-
-  //   // Orj irsen zahialgiin too 0-s baga utga baij bolohq bas orj irsen zahialga noots butegdehuunii davj bolohgui
-  //   if (productStockQty < num && num < 0) {
-  //     return res.json({ message: "order exceeded stock" });
-  //   }
-
-  //   const updateLeftProductQty = await ProductModel.findOneAndUpdate(
-  //     { _id: item.productId },
-  //     { $inc: { qty: -num } }
-  //   );
-
-  //   const updateSalesProductQty = await ProductModel.findOneAndUpdate(
-  //     { _id: item.productId },
-  //     { $inc: { sales: num } }
-  //   );
-  // });
-
-  //Creating order section
   const newOrder = await OrderSchema.create({
     userId: id,
     customerEmail,
@@ -116,7 +56,7 @@ export const createOrder: RequestHandler = async (req, res) => {
     customerName: customerInfo.name,
   });
 
-  res.json(newOrder);
+  res.json({ newOrder, message: "Захиалга амжилттай хийгдлээ" });
 };
 
 export const orderStatusPreparing: RequestHandler = async (req, res) => {

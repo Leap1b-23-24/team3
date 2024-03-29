@@ -16,7 +16,7 @@ type ProductType = {
   description?: string;
   discount?: string;
   price?: any;
-  images?: string[];
+  images?: any[];
   qty?: number;
   category?: string;
   subCategory?: string;
