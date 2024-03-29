@@ -5,14 +5,14 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 export const getAllOrder: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.json({ message: "not authorized" });
-  }
+  // if (!authorization) {
+  //   return res.json({ message: "not authorized" });
+  // }
 
-  const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
+  // const payload = jwt.verify(authorization, "secret-key") as JwtPayload;
 
-  const { id } = payload;
-  const order = await OrderSchema.find({ userId: id });
+  // const { id } = payload;
+  const order = await OrderSchema.find({});
   if (!order) {
     return res.status(401).json({
       message: "Invalid user id",
