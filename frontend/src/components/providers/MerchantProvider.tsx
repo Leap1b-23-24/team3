@@ -12,6 +12,7 @@ import DashboardNavbar from "../MerchantTools/MerchantNavbar";
 import { api } from "@/common";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
+
 type creatProductParams = {
   productName: string;
   description: string;
@@ -22,6 +23,7 @@ type creatProductParams = {
   category: string;
   subCategory: string;
 };
+
 type MerchantContextType = {
   imageUrl: string[];
   setImageUrl: Dispatch<SetStateAction<string[]>>;

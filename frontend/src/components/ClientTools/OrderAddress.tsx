@@ -3,51 +3,37 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Checkbox, Stack, TextField, Typography } from "@mui/material";
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import * as yup from "yup";
-const validationSchema = yup.object({
-  firstName: yup.string().required("Нэрээ оруулна уу."),
-  phone: yup
-    .string()
-    .required("Утасны дугаараа оруулна уу.")
-    .length(8, "Утасны дугаараа оруулна уу."),
-  address: yup.string().required("Хаягаа оруулна уу."),
-});
-export const OrderAddress = () => {
+import {
+  Button,
+  Checkbox,
+  MenuItem,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { ChangeEventHandler, Dispatch, SetStateAction, useState } from "react";
+import cities from "../Authentication/Authentication_merchant/cities.json";
+type FormikType = {
+  phone: string;
+  firstName: string;
+  address: string;
+  additional: string;
+  city: string;
+  handleChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  setIsBtn: Dispatch<SetStateAction<boolean>>;
+};
+export const OrderAddress = (props: FormikType) => {
+  const {
+    phone,
+    firstName,
+    address,
+    additional,
+    handleChange,
+    setIsBtn,
+    city,
+  } = props;
+
   const [isContinue, setIsContinue] = useState(false);
-  const formik = useFormik({
-    initialValues: {
-      phone: "",
-      firstName: "",
-      address: "",
-      additional: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(
-        values.phone,
-        values.firstName,
-        values.address,
-        values.additional
-      );
-    },
-  });
-
-  useEffect(() => {
-    document.addEventListener("keydown", detectKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", detectKeyDown);
-    };
-  }, []);
-
-  const detectKeyDown = (e: any) => {
-    if (e.key === "Enter") {
-      formik.handleSubmit();
-    }
-  };
 
   return (
     <Stack className="bg-[#F8F8FD] rounded-sm pt-[69px] pr-10 pb-16 pl-11">
@@ -58,11 +44,8 @@ export const OrderAddress = () => {
         <TextField
           type="text"
           name="phone"
-          value={formik.values.phone}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.phone && Boolean(formik.errors.phone)}
-          helperText={formik.touched.phone && formik.errors.phone}
+          value={phone}
+          onChange={handleChange}
           placeholder="И-мэйл эсвэл утасны дугаар"
           sx={{
             "& fieldset": { border: "none" },
@@ -80,50 +63,79 @@ export const OrderAddress = () => {
           Мэдээ, онцгой саналуудын талаар надад байнга мэдээлж байгаарай
         </Typography>
       </Stack>
-      <Stack mt="109px">
+      <Stack mt="80px">
         <Typography color="#1D3178" fontSize={18} fontWeight={800}>
           Хүргэлтийн хаяг
         </Typography>
-        <Stack flexDirection="row" gap="30px" mt={3}>
-          <TextField
-            fullWidth
-            type="text"
-            name="firstName"
-            value={formik.values.firstName}
-            onChange={formik.handleChange}
-            placeholder="Нэр"
-            sx={{
-              "& fieldset": { border: "none" },
-              borderBottom: "2px solid #BFC6E0",
-            }}
-          />
-        </Stack>
+
         <TextField
           fullWidth
           type="text"
-          name="address"
-          value={formik.values.address}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.address && Boolean(formik.errors.address)}
-          helperText={formik.touched.address && formik.errors.address}
-          placeholder="Хаяг"
+          name="firstName"
+          value={firstName}
+          onChange={handleChange}
+          placeholder="Нэр"
           sx={{
             "& fieldset": { border: "none" },
-            marginTop: "24px",
-          }}
-          inputProps={{
-            style: {
-              borderBottom: "2px solid #BFC6E0",
-            },
+            borderBottom: "2px solid #BFC6E0",
           }}
         />
+        <Stack flexDirection="row" gap="30px" mt={3}>
+          <TextField
+            select
+            fullWidth
+            type="text"
+            name="city"
+            value={city}
+            onChange={handleChange}
+            defaultValue="Сонгох"
+            placeholder="Хот/аймаг"
+            sx={{
+              "& fieldset": { border: "none" },
+              marginTop: "24px",
+              borderBottom: "2px solid #BFC6E0",
+            }}
+          >
+            <MenuItem value="Сонгох" disabled>
+              Сонгох
+            </MenuItem>
+            {cities.map((city, index) => {
+              return (
+                <MenuItem
+                  key={index}
+                  className="cursor-pointer hover:bg-gray-100"
+                  value={city.name}
+                >
+                  {city.name}
+                </MenuItem>
+              );
+            })}
+          </TextField>
+          <TextField
+            fullWidth
+            type="text"
+            name="address"
+            value={address}
+            onChange={handleChange}
+            placeholder="Хаяг"
+            sx={{
+              "& fieldset": { border: "none" },
+              marginTop: "24px",
+            }}
+            inputProps={{
+              style: {
+                borderBottom: "2px solid #BFC6E0",
+              },
+            }}
+          />
+        </Stack>
+
         <TextField
           fullWidth
           type="text"
           name="additional"
-          value={formik.values.additional}
-          onChange={formik.handleChange}
+          value={additional}
+          onChange={handleChange}
           placeholder="Орц код, нэмэлт мэдээлэл"
           sx={{
             "& fieldset": { border: "none" },
@@ -150,20 +162,15 @@ export const OrderAddress = () => {
           )}
           <Button
             onClick={() => {
-              if (
-                (formik.values.firstName,
-                formik.values.address,
-                formik.values.phone,
-                formik.values.additional)
-              )
+              if (firstName && address && phone && additional && city) {
                 setIsContinue(true);
-              formik.submitForm;
+                setIsBtn(true);
+              }
             }}
             variant="contained"
             disabled={isContinue}
             sx={{
               width: "fit-content",
-
               bgcolor: isContinue
                 ? "#19D16F !important"
                 : ({ palette }) => palette.success.main + "!important",

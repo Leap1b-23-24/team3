@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { api } from "@/common";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useFormik } from "formik";
+import { Client } from "./ClientProvider";
+import OrderDetial from "../MerchantTools/order/OrderDetial";
 type AuthContextType = {
   index: string;
   checkUser: (params: CheckUserParams) => Promise<void>;
@@ -36,6 +38,14 @@ type AuthContextType = {
   login: (type: loginType) => Promise<void>;
   isLoggedIn: boolean;
   userInfo: any;
+  createOrder: (
+    customerEmail: string | any,
+    customerName: string | any,
+    customerPhone: string | any,
+    deliveryAddress: string | any,
+    customerCity: string | any,
+    orderTotalPrice: number | any
+  ) => Promise<void>;
 };
 type CheckUserParams = {
   email: string;
@@ -48,6 +58,7 @@ type loginType = {
   email: string;
   password: string;
 };
+
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
@@ -66,6 +77,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [productModal, setProductModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setIsUserInfo] = useState([]);
+  const { addToBasket } = Client();
 
   const signUpShop = async (params: SignupParams) => {
     try {
@@ -118,7 +130,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         headers: { Authorization: localStorage.getItem("token") },
       });
       setIsUserInfo(data);
-      console.log(data);
     } catch (error) {
       toastError(error);
     }
@@ -139,6 +150,34 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
       toastSuccess(data);
       router.push("/merchant");
+    } catch (error) {
+      toastError(error);
+    }
+  };
+
+  const createOrder = async (
+    customerEmail: string,
+    customerName: string,
+    customerPhone: string,
+    deliveryAddress: string,
+    customerCity: string,
+    orderTotalPrice: number
+  ) => {
+    try {
+      const { data } = await api.post(
+        "/order/create",
+        {
+          customerEmail,
+          customerName,
+          customerPhone,
+          deliveryAddress,
+          customerCity,
+          orderDetails: addToBasket,
+          orderTotalPrice,
+        },
+        { headers: { Authorization: localStorage.getItem("token") } }
+      );
+      toastSuccess(data);
     } catch (error) {
       toastError(error);
     }
@@ -177,6 +216,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         router,
         isLoggedIn,
         userInfo,
+        createOrder,
       }}
     >
       {children}

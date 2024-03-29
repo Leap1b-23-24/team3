@@ -2,13 +2,46 @@
 
 import { OrderAddress } from "@/components/ClientTools/OrderAddress";
 import { numberFormatter } from "@/components/numberFormatter";
+import { Auth } from "@/components/providers/AuthProvider";
 import { Client } from "@/components/providers/ClientProvider";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-
+import { useFormik } from "formik";
+import { useState } from "react";
+import * as yup from "yup";
+const validationSchema = yup.object({
+  firstName: yup.string().required(),
+  phone: yup.string().required(),
+  address: yup.string().required(),
+  additional: yup.string().required(),
+  city: yup.string().required(),
+});
 export default function DeliveryAddress() {
   const { addToBasket } = Client();
+  const { createOrder, userInfo } = Auth();
+  const [isBtn, setIsBtn] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      phone: "",
+      firstName: "",
+      address: "",
+      additional: "",
+      city: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      createOrder(
+        { customerEmail: userInfo.email },
+        { customerName: values.firstName },
+        { customerPhone: values.phone },
+        { DeliveryAddress: values.address },
+        { customerCity: values.city },
+        { productTotalPrice: sumBasketIsProduct - 10000 }
+      );
+    },
+  });
   const sumBasketIsProduct = addToBasket.reduce((sum, currentValue) => {
-    return sum + currentValue.price * currentValue.orderQty;
+    return sum + currentValue.price * currentValue.orderQty + 10000;
   }, 0);
   return (
     <Stack my={12}>
@@ -24,7 +57,15 @@ export default function DeliveryAddress() {
           </Stack>
           <Stack width={1} flexDirection="row" gap={3}>
             <Stack width={0.7}>
-              <OrderAddress />
+              <OrderAddress
+                phone={formik.values.phone}
+                city={formik.values.city}
+                firstName={formik.values.firstName}
+                address={formik.values.address}
+                additional={formik.values.additional}
+                handleChange={formik.handleChange}
+                setIsBtn={setIsBtn}
+              />
             </Stack>
             <Stack width={0.3} gap="14px">
               {addToBasket.map((item, index) => (
@@ -92,7 +133,10 @@ export default function DeliveryAddress() {
                   </Stack>
                 </Box>
               ))}
-
+              <Typography fontWeight={600}>Хүргэлтийн хураамж:</Typography>
+              <Typography fontWeight={800} textAlign="end" marginTop="-10px">
+                10,000₮
+              </Typography>
               <Stack
                 flexDirection="row"
                 justifyContent="space-between"
@@ -107,10 +151,12 @@ export default function DeliveryAddress() {
               <Stack mt="47px">
                 <Button
                   onClick={() => {
-                    // router.push("/addressDetail");
+                    if (isBtn) formik.handleSubmit();
                   }}
                   variant="contained"
+                  disabled={!isBtn}
                   sx={{
+                    cursor: !isBtn ? "not-allowed" : "pointer",
                     height: "40px",
                     bgcolor: ({ palette }) =>
                       palette.secondary.main + "!important",

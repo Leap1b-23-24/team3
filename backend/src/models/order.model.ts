@@ -39,36 +39,33 @@ const orderSchema = new Schema({
         type: String,
         require: true,
       },
-      productName: {
+      name: {
         type: String,
         require: true,
       },
-      productThumbnail: {
-        type: String,
-        require: true,
-      },
-      productPrice: {
+      price: {
         type: Number,
         require: true,
       },
-      productQty: {
+      orderQty: {
         type: Number,
         require: true,
       },
-      productDiscount: {
+      discount: {
         type: Number,
         require: false,
         default: 0,
       },
-      productTotalPrice: {
-        type: Number,
-        require: true,
-      },
     },
   ],
+  productTotalPrice: {
+    type: Number,
+    require: true,
+  },
   deliveryFee: {
     type: Number,
     require: true,
+    default: 10000,
   },
   orderTotalPrice: {
     type: Number,
