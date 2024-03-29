@@ -12,6 +12,7 @@ import DashboardNavbar from "../MerchantTools/MerchantNavbar";
 import { api } from "@/common";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
+
 type creatProductParams = {
   productName: string;
   description: string;
@@ -22,6 +23,7 @@ type creatProductParams = {
   category: string;
   subCategory: string;
 };
+
 type MerchantContextType = {
   imageUrl: string[];
   setImageUrl: Dispatch<SetStateAction<string[]>>;
@@ -35,6 +37,9 @@ type MerchantContextType = {
   allProducts: any;
   refreshProducts: () => void;
   deleteProduct: (id: any) => Promise<void>;
+  allOrders: never[];
+  orderDetails: never[];
+  setOrderDetails: Dispatch<SetStateAction<never[]>>;
 };
 export const MerchantContext = createContext<MerchantContextType>(
   {} as MerchantContextType
@@ -46,7 +51,9 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [isAddProduct, setIsAddProduct] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
   const [refresh, setRefresh] = useState(0);
+  const [orderDetails, setOrderDetails] = useState([]);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -96,6 +103,16 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
       toastError(error);
     }
   };
+
+  const getallOrder = async () => {
+    try {
+      const { data } = await api.get("/order/");
+      setAllOrders(data);
+      toastSuccess(data);
+    } catch (error) {
+      toastError(error);
+    }
+  };
   const deleteProduct = async (id: object) => {
     try {
       const { data } = await api.post("/product/delete", { id: id });
@@ -112,6 +129,7 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     getallProducts();
+    getallOrder();
   }, [refresh]);
 
   return (
@@ -129,6 +147,9 @@ export default function MerchantProvider({ children }: PropsWithChildren) {
         allProducts,
         refreshProducts,
         deleteProduct,
+        allOrders,
+        orderDetails,
+        setOrderDetails,
       }}
     >
       <DashboardNavbar />

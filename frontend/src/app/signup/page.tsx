@@ -1,88 +1,109 @@
 "use client";
-import SignUp from "@/components/Authentication/Authentication_merchant/Signup";
-import Step1 from "@/components/Authentication/Authentication_merchant/Step1";
-import Step2 from "@/components/Authentication/Authentication_merchant/Step2";
-import Step3 from "@/components/Authentication/Authentication_merchant/Step3";
-import { Stack, Typography } from "@mui/material";
+import { Button, Card, Stack, Typography } from "@mui/material";
+import { CustomInput } from "../../components/CustomInput";
+import { useFormik, validateYupSchema } from "formik";
+import * as yup from "yup";
 import { Auth } from "@/components/providers/AuthProvider";
+import { useEffect } from "react";
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email("И-мэйл буруу байна")
+    .required("И-мэйлээ оруулна уу"),
+  password: yup.string().required("Нууц үгээ оруулна уу"),
+  repassword: yup
+    .string()
+    .required("Нууц үгээ давтан оруулна уу")
+    .oneOf([yup.ref("password")], "Нууц үгтэй таарахгүй байна"),
+});
+export default function SignUp() {
+  const { signUpShop } = Auth();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      repassword: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      await signUpShop({
+        email: values.email,
+        password: values.password,
+      });
+    },
+  });
 
-export default function () {
-  const { index } = Auth();
+  useEffect(() => {
+    document.addEventListener("keydown", detectKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", detectKeyDown);
+    };
+  }, []);
+
+  const detectKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      formik.handleSubmit();
+    }
+  };
 
   return (
-    <Stack className="p-11">
-      <img
-        src="/PineconeLogo.svg"
-        alt="pinecone"
-        width={193}
-        height={32}
-        className=" mb-14"
-      />
-      {index !== "signup" && (
-        <Stack className="max-w-[792px] w-full m-auto mb-[120px] ">
-          <Stack
-            direction="row"
-            className="max-w-[656px] w-full m-auto relative justify-between"
-          >
-            <Stack className="z-10 w-9 h-9 bg-black rounded-full items-center justify-center text-white ">
-              {index !== "step1" ? <span>&#10003;</span> : 1}
-            </Stack>
-            <Stack
-              className="z-10 w-9 h-9 rounded-full items-center justify-center"
-              sx={{
-                bgcolor: index !== "step1" ? "#000" : "#ECEDF0",
-                color: index !== "step1" ? "white" : "black",
-              }}
-            >
-              {index == "step3" ? <span>&#10003;</span> : 2}
-            </Stack>
-            <Stack
-              className="z-10 w-9 h-9 rounded-full items-center justify-center"
-              sx={{
-                bgcolor: index == "step3" ? "#000" : "#ECEDF0",
-                color: index == "step3" ? "white" : "black",
-              }}
-            >
-              3
-            </Stack>
-            <Stack className="w-full h-1 bg-[#ECEDF0] absolute top-[50%]"></Stack>
-            <Stack
-              className="h-1 absolute top-[50%]"
-              sx={{
-                width:
-                  index === "step2"
-                    ? "50%"
-                    : "0%"
-                    ? index === "step3"
-                      ? "100%"
-                      : "0%"
-                    : "0%",
-                backgroundColor:
-                  index === "step2"
-                    ? "black"
-                    : "#ECEDF0"
-                    ? index === "step3"
-                      ? "black"
-                      : "#ECEDF0"
-                    : "#ECEDF0",
-              }}
-            ></Stack>
-          </Stack>
-          <Stack
-            direction="row"
-            className="w-full m-auto relative justify-between text-base font-semibold"
-          >
-            <Typography className="ml-8">Дэлгүүрийн нэр</Typography>
-            <Typography>Бүс нутаг</Typography>
-            <Typography className="mr-5">Нэмэлт мэдээлэл</Typography>
-          </Stack>
-        </Stack>
-      )}
-
-      {index === "signup" && <SignUp />}
-      {index === "step1" && <Step1 />}
-      {index === "step2" && <Step2 />}
-      {index === "step3" && <Step3 />}
+    <Stack className="items-center gap-[16px] text-center">
+      <Card className="flex flex-col w-[496px] px-8 py-6 text-center m-32 text-[#9096B2] gap-[21px]">
+        <Typography fontSize="32px" fontWeight="800" color="black">
+          Бүртгүүлэх
+        </Typography>
+        <Typography fontSize="17px" fontWeight="400">
+          Доорх мэдээллийг бөглөнө үү
+        </Typography>
+        <CustomInput
+          placeholder="Имэйл хаяг"
+          id="email"
+          name="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          onBlur={formik.handleBlur}
+          type="text"
+        />
+        <CustomInput
+          placeholder="Нууц үг"
+          id="password"
+          name="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          onBlur={formik.handleBlur}
+          type="password"
+        />
+        <CustomInput
+          type="repassword"
+          placeholder="Нууц үг давтах"
+          name="repassword"
+          value={formik.values.repassword}
+          onChange={formik.handleChange}
+          error={formik.touched.repassword && Boolean(formik.errors.repassword)}
+          helperText={formik.touched.repassword && formik.errors.repassword}
+          onBlur={formik.handleBlur}
+        />
+        <Typography fontSize="17px" fontWeight="400">
+          Нууц үгээ мартсан
+        </Typography>
+        <Button
+          variant="contained"
+          sx={{ bgcolor: "#FB2E86 !important" }}
+          onClick={() => {
+            formik.handleSubmit();
+          }}
+        >
+          Бүртгүүлэх
+        </Button>
+        <Typography fontSize="17px" fontWeight="400">
+          Нэвтрэх хэсэг
+        </Typography>
+      </Card>
     </Stack>
   );
 }

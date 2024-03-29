@@ -6,12 +6,16 @@ import {
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { toastError, toastSuccess } from "../toastClient";
 import { useRouter } from "next/navigation";
 import { api } from "@/common";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useFormik } from "formik";
+import { Client } from "./ClientProvider";
+import OrderDetial from "../MerchantTools/order/OrderDetial";
 type AuthContextType = {
   index: string;
   checkUser: (params: CheckUserParams) => Promise<void>;
@@ -32,6 +36,16 @@ type AuthContextType = {
   signUpShop: (params: SignupParams) => Promise<void>;
   router: AppRouterInstance;
   login: (type: loginType) => Promise<void>;
+  isLoggedIn: boolean;
+  userInfo: any;
+  createOrder: (
+    customerEmail: string | any,
+    customerName: string | any,
+    customerPhone: string | any,
+    deliveryAddress: string | any,
+    customerCity: string | any,
+    orderTotalPrice: number | any
+  ) => Promise<void>;
 };
 type CheckUserParams = {
   email: string;
@@ -44,6 +58,7 @@ type loginType = {
   email: string;
   password: string;
 };
+
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
@@ -60,11 +75,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [experience, setQuestion1] = useState("");
   const [productType, setQuestion2] = useState("");
   const [productModal, setProductModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setIsUserInfo] = useState([]);
+  const { addToBasket } = Client();
 
   const signUpShop = async (params: SignupParams) => {
     try {
       const { data } = await api.post("/signup", params);
       toastSuccess(data);
+
       router.push("/login");
     } catch (error) {
       toastError(error);
@@ -77,6 +96,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { token } = data;
       localStorage.setItem("token", token);
       toastSuccess(data);
+      setIsLoggedIn(true);
+      router.push("/");
     } catch (error) {
       if (error) {
         toastError(error);
@@ -103,6 +124,17 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getUserInfo = async () => {
+    try {
+      const { data } = await api.get("/getUser", {
+        headers: { Authorization: localStorage.getItem("token") },
+      });
+      setIsUserInfo(data);
+    } catch (error) {
+      toastError(error);
+    }
+  };
+
   const signUp = async () => {
     try {
       const { data } = await api.post("/signup", {
@@ -122,6 +154,44 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toastError(error);
     }
   };
+
+  const createOrder = async (
+    customerEmail: string,
+    customerName: string,
+    customerPhone: string,
+    deliveryAddress: string,
+    customerCity: string,
+    orderTotalPrice: number
+  ) => {
+    try {
+      const { data } = await api.post(
+        "/order/create",
+        {
+          customerEmail,
+          customerName,
+          customerPhone,
+          deliveryAddress,
+          customerCity,
+          orderDetails: addToBasket,
+          orderTotalPrice,
+        },
+        { headers: { Authorization: localStorage.getItem("token") } }
+      );
+      toastSuccess(data);
+    } catch (error) {
+      toastError(error);
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+      getUserInfo();
+    }
+  }, []);
   return (
     <AuthContext.Provider
       value={{
@@ -144,6 +214,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         signUpShop,
         login,
         router,
+        isLoggedIn,
+        userInfo,
+        createOrder,
       }}
     >
       {children}

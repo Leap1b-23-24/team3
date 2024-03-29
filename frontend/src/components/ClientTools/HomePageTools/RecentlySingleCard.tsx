@@ -23,7 +23,7 @@ export default function MainCard(props: any) {
           <img
             onClick={() => {
               localStorage.setItem("itemId", productId);
-              router.push(`/productDetail/${productId}`);
+              router.push(`/productDetail`);
             }}
             src={image}
             style={{
