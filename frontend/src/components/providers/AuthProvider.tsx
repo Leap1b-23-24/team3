@@ -58,7 +58,6 @@ type loginType = {
   email: string;
   password: string;
 };
-
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
@@ -83,7 +82,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     try {
       const { data } = await api.post("/signup", params);
       toastSuccess(data);
-
       router.push("/login");
     } catch (error) {
       toastError(error);
@@ -106,7 +104,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
   const checkUser = async (params: CheckUserParams) => {
     try {
-      const { data } = await api.post("/account/email", params);
+      const { data } = await api.post("/signup", params);
       toastSuccess(data);
       setIndex("step1");
     } catch (error) {
@@ -116,7 +114,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const checkShopName = async (shopName: any) => {
     try {
-      const { data } = await api.post("/account/shop", shopName);
+      const { data } = await api.post("/signup", shopName);
       toastSuccess(data);
       setIndex("step2");
     } catch (error) {

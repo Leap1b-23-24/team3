@@ -1,10 +1,10 @@
 "use client";
-import SignUp from "@/components/Authentication/Authentication_merchant/Signup";
 import Step1 from "@/components/Authentication/Authentication_merchant/Step1";
 import Step2 from "@/components/Authentication/Authentication_merchant/Step2";
 import Step3 from "@/components/Authentication/Authentication_merchant/Step3";
 import { Stack, Typography } from "@mui/material";
 import { Auth } from "@/components/providers/AuthProvider";
+import SignUpStep from "@/components/Authentication/Authentication_merchant/SignUpStep";
 
 export default function () {
   const { index } = Auth();
@@ -79,7 +79,7 @@ export default function () {
         </Stack>
       )}
 
-      {index === "signup" && <SignUp />}
+      {index === "signup" && <SignUpStep />}
       {index === "step1" && <Step1 />}
       {index === "step2" && <Step2 />}
       {index === "step3" && <Step3 />}

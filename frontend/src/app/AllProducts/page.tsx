@@ -7,12 +7,14 @@ import { Header } from "../../components/ClientTools/HeaderOfUser";
 
 export default function AllProducts() {
   return (
-    <Stack className="px-[378px] ">
+    <Stack>
       <Header />
-      <AllProductHead />
-      <Stack direction="row" className="gap-[102px]">
-        <ShopSidebar />
-        <MainSingleCard />
+      <Stack className="px-[378px] ">
+        <AllProductHead />
+        <Stack direction="row" className="gap-[102px]">
+          <ShopSidebar />
+          <MainSingleCard />
+        </Stack>
       </Stack>
       <Footer />
     </Stack>
