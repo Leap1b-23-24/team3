@@ -6,7 +6,7 @@ import MainCard from "./RecentlySingleCard";
 export const RecentlyAddedProducts = () => {
   const { allProducts } = Client();
   return (
-    <Stack maxWidth="1240px" m="auto" mt="128px">
+    <Stack className="px-[378px]" m="auto" mt="128px">
       <Stack alignItems="center">
         <Typography color="#151875" fontSize={42} fontWeight={800} mb="53px">
           Шинээр нэмэгдсэн

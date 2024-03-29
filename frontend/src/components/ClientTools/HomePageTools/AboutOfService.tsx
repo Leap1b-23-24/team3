@@ -24,7 +24,7 @@ const services = [
 ];
 export const AboutOfService = () => {
   return (
-    <Stack maxWidth="1240px" m="auto" mt="120px">
+    <Stack className="px-[378px]" m="auto" mt="120px">
       <Stack alignItems="center" pt="56" pb="64px">
         <Typography color="#151875" fontSize={42} fontWeight={800} mb="65px">
           Үйлчилгээний тухай

@@ -93,7 +93,7 @@ export default function Login() {
           <Typography
             className="text-[17px] font-normal cursor-pointer"
             onClick={() => {
-              router.push("/signup");
+              router.push("/signupshop");
             }}
           >
             Шинээр бүртгүүлэх

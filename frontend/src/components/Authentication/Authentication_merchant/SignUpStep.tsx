@@ -30,7 +30,7 @@ const validationSchema = yup.object({
     .required("Нууц үгээ давтаж оруулна уу!"),
 });
 
-export default function SignUp() {
+export default function SignUpStep() {
   const { checkUser, setEmail, setName, setPassword } = Auth();
   const formik = useFormik({
     initialValues: {

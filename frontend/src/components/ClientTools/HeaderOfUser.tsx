@@ -35,7 +35,7 @@ export const Header = () => {
       >
         <Stack
           direction="row"
-          className="max-w-[1240px] justify-between items-center w-full m-auto"
+          className="px-[378px] justify-between items-center w-full m-auto"
         >
           <Stack direction="row" className=" w-full gap-16">
             <Stack direction="row" className="items-center gap-[10px]">
@@ -99,19 +99,37 @@ export const Header = () => {
                 </Stack>
               </Link>
             ) : (
-              <Stack
-                direction="row"
-                className="items-center cursor-pointer"
-                onClick={async () => {
-                  localStorage.removeItem("token");
-                  window.location.reload();
-                }}
-                gap={1}
-              >
-                <Typography fontSize="16px" fontWeight="600">
-                  Гарах
-                </Typography>
-                <LogoutOutlined />
+              <Stack direction="row" gap="20px">
+                <Stack
+                  direction="row"
+                  className="items-center gap-1"
+                  onClick={() => {
+                    router.push("/merchantSignUp");
+                  }}
+                >
+                  <Typography
+                    fontSize="16px"
+                    fontWeight="600"
+                    textAlign="center"
+                  >
+                    Дэлгүүр
+                  </Typography>
+                  <Person2OutlinedIcon />
+                </Stack>
+                <Stack
+                  direction="row"
+                  className="items-center cursor-pointer"
+                  onClick={async () => {
+                    localStorage.removeItem("token");
+                    window.location.reload();
+                  }}
+                  gap={1}
+                >
+                  <Typography fontSize="16px" fontWeight="600">
+                    Гарах
+                  </Typography>
+                  <LogoutOutlined />
+                </Stack>
               </Stack>
             )}
           </Stack>
@@ -120,7 +138,7 @@ export const Header = () => {
 
       <Stack
         direction="row"
-        className="max-w-[1240px] justify-between items-center w-full m-auto mb-5"
+        className="px-[378px] justify-between items-center w-full m-auto mb-5"
       >
         <Stack direction="row" className="items-center gap-14">
           <Typography fontSize="34px" fontWeight="700">
@@ -128,7 +146,12 @@ export const Header = () => {
           </Typography>
           <Stack direction="row" gap={2}>
             <Stack direction="row" sx={{ cursor: "pointer", gap: "25px" }}>
-              <Typography style={{ color: isPink ? "#FB2E86" : "black" }}>
+              <Typography
+                style={{ color: isPink ? "#FB2E86" : "black" }}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
                 Нүүр
               </Typography>
               <Typography
